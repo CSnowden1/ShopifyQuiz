@@ -125,6 +125,8 @@
   </div>
 </div>
 
+</div>
+
 
 <style>
 
@@ -180,7 +182,7 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() { 
+  document.addEventListener("DOMContentLoaded", function() {
     // Access the button and question elements
     let quizBtn = document.getElementsByClassName("quiz-btn")[0];
     let questions = document.querySelectorAll('.quiz-question');
@@ -225,14 +227,21 @@
       selectedInputs.forEach(input => {
         let productIds = input.getAttribute('data-products');
         if (productIds) {
-          recommendedProductIds.push(...productIds.split(',').map(id => parseInt(id, 10)));
+          productIds.split(',').forEach(id => {
+            let numId = parseInt(id, 10);
+            if (!isNaN(numId)) {
+              recommendedProductIds.push(numId);
+            } else {
+              console.error(`Invalid product ID: ${id}`);
+            }
+          });
         }
       });
   
       // Log each ID individually
       console.log('Recommended Product IDs:');
       recommendedProductIds.forEach(id => console.log(id));
-      
+  
       // Or log them as a joined string
       console.log('Recommended Product IDs:', recommendedProductIds.join(', '));
     }
@@ -253,6 +262,7 @@
       console.error("Quiz button not found");
     }
   });
+  
   
   
   
