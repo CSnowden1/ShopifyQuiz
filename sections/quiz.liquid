@@ -202,6 +202,31 @@
       }
     }
 
+    function submitQuiz() {
+      let productCount = {};
+      quizResults.forEach(product => {
+        if (productCount[product]) {
+          productCount[product]++;
+        } else {
+          productCount[product] = 1;
+        }
+      });
+
+      let maxCount = 0;
+      let mostFrequentProduct = null;
+
+      for (let product in productCount) {
+        if (productCount[product] > maxCount) {
+          maxCount = productCount[product];
+          mostFrequentProduct = product;
+        }
+      }
+
+      console.log('Most Recommended Product:', mostFrequentProduct);
+      // Display the most recommended product
+      container.innerHTML = '<div>Most Recommended Product ID: ' + mostFrequentProduct + '</div>';
+    }
+
     function addAnswerListeners() {
       let inputs = document.querySelectorAll('.questionInput');
       inputs.forEach(input => {
@@ -223,6 +248,13 @@
       addAnswerListeners();
     } else {
       console.error("Quiz button not found");
+    }
+
+    let submitBtn = document.getElementById('submit-quiz');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', submitQuiz);
+    } else {
+      console.error("Submit button not found");
     }
   });
 </script>
@@ -270,14 +302,5 @@
   .product {
     margin-right: 10px;
     margin-bottom: 10px;
-  }
-
-  .product img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .active {
-    display: block!important;
   }
 </style>
