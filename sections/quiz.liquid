@@ -101,7 +101,7 @@
             {% assign recommended_products_list = block.settings[recommended_products[i]] %}
             {% if answer %}
               <div class="quiz-answer">
-                <input type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}">
+                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}">
                 <label for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% for product in recommended_products_list %}
@@ -183,13 +183,10 @@
     // Access the button and question elements
     let quizBtn = document.getElementsByClassName("quiz-btn")[0];
     let questions = document.querySelectorAll('.quiz-question');
-  
-    // Log button to ensure it's correctly selected
-    console.log(quizBtn);
+    let currentQuestionIndex = 0;
   
     // Function to start the quiz
     function startQuiz() {
-      console.log("button clicked");
       if (questions.length > 0) {
         questions[0].classList.add('active');
       } else {
@@ -197,13 +194,26 @@
       }
     }
   
-    // Function to show a specific question
-    function showQuestion(index) {
-      questions.forEach(function(question, i) {
-        if (i === index) {
-          question.classList.add('active');
+    // Function to go to the next question
+    function nextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        questions[currentQuestionIndex].classList.remove('active');
+        currentQuestionIndex++;
+        questions[currentQuestionIndex].classList.add('active');
+      } else {
+        // If it's the last question, show the submit button
+        document.getElementById('submit-quiz').style.display = 'block';
+      }
+    }
+  
+    function addAnswerListeners() {
+      let inputs = document.querySelectorAll('.questionInput');
+      inputs.forEach(input => {
+        let label = input.closest('.quiz-answer').querySelector('label');
+        if (label && !label.textContent.trim()) {
+          input.closest('.quiz-answer').style.display = 'none';
         } else {
-          question.classList.remove('active');
+          input.addEventListener('change', nextQuestion);
         }
       });
     }
@@ -211,9 +221,11 @@
     // Check if quizBtn exists and attach event listener
     if (quizBtn) {
       quizBtn.addEventListener("click", startQuiz);
+      addAnswerListeners();
     } else {
       console.error("Quiz button not found");
     }
   });
+  
   </script>
 
