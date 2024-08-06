@@ -218,25 +218,37 @@
     }
   
     // Function to add listeners to the answer inputs
-    function addAnswerListeners() {
-      // Select all input elements with class 'questionInput'
-      let inputs = document.querySelectorAll('.questionInput');
-      
-      // Iterate over each input
-      inputs.forEach(input => {
-        // Get the associated label text
-        let labelText = input.closest('.quiz-answer').querySelector('label');
-        
-        // Hide the parent quiz block if label text is empty
-        if (labelText && !labelText.textContent.trim()) {
-          input.closest('.quiz-block').style.display = 'block';
-        } else {
-          // Add event listeners to the input
-          input.addEventListener('change', logProductIds);
-          input.addEventListener('change', nextQuestion);
-        }
-      });
+function addAnswerListeners() {
+  // Select all input elements with class 'questionInput'
+  let inputs = document.querySelectorAll('.questionInput');
+  
+  // Iterate over each input
+  inputs.forEach(input => {
+    // Get the associated label text
+    let labelText = input.closest('.quiz-answer').querySelector('label');
+    
+    // Hide the parent quiz block if label text is empty
+    if (labelText && !labelText.textContent.trim()) {
+      input.closest('.quiz-block').style.display = 'none';
+    } else {
+      // Add event listeners to the input
+      input.addEventListener('change', logProductIds);
+      input.addEventListener('change', nextQuestion);
     }
+  });
+}
+
+// Example functions for event handling (placeholders)
+function logProductIds(event) {
+  let input = event.target;
+  let productIds = input.getAttribute('data-products');
+  console.log("Selected Product IDs:", productIds);
+}
+
+function nextQuestion(event) {
+  // Implement your logic for proceeding to the next question here
+}
+
   
     // Access the button and question elements
     let quizBtn = document.getElementsByClassName("quiz-btn")[0];
