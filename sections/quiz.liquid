@@ -213,9 +213,7 @@
         let label = input.closest('.quiz-answer').querySelector('label');
         if (label && !label.textContent.trim()) {
           input.closest('.quiz-answer').style.display = 'none';
-        } else {
-          input.addEventListener('change', nextQuestion);
-        }
+        } 
       });
     }
   
