@@ -98,7 +98,7 @@
           {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
           {% for i in (0..4) %}
             {% assign answer = block.settings[answers[i]] %}
-            {% assign products_key = "recommended_products_" | append: i %}
+            {% assign products_key = "recommended_products_" | append: i | downcase %}
             {% assign recommended_products_list = block.settings[products_key] %}
             {% if answer %}
               <div class="quiz-block">
@@ -109,6 +109,12 @@
                     <input type="hidden" class="recommended-product-ids" value="{{ product }}">
                   {% endfor %}
                 </div>
+                <script>
+                  // This script will log the product data associated with each answer
+                  var answerIndex = "{{ forloop.index }}_{{ i }}";
+                  var recommendedProducts = {{ recommended_products_list | json }};
+                  console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
+                </script>
               </div>
             {% endif %}
           {% endfor %}
@@ -183,27 +189,19 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    let currentQuestionIndex = 0;
-    let questions = document.querySelectorAll('.quiz-question');
-    
     function startQuiz() {
       if (questions.length > 0) {
-        questions[currentQuestionIndex].classList.add('active');
+        questions[0].classList.add('active');
       } else {
         console.error("No questions found");
       }
     }
 
-    function showQuestion(index) {
-      questions.forEach((question, idx) => {
-        question.classList.toggle('active', idx === index);
-      });
-    }
-
     function nextQuestion() {
       if (currentQuestionIndex < questions.length - 1) {
+        questions[currentQuestionIndex].classList.remove('active');
         currentQuestionIndex++;
-        showQuestion(currentQuestionIndex);
+        questions[currentQuestionIndex].classList.add('active');
       } else {
         document.getElementById('submit-quiz').style.display = 'block';
       }
@@ -226,6 +224,8 @@
     }
 
     let quizBtn = document.querySelector(".quiz-btn");
+    let questions = document.querySelectorAll('.quiz-question');
+    let currentQuestionIndex = 0;
 
     if (quizBtn) {
       quizBtn.addEventListener("click", startQuiz);
