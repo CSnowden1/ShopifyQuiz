@@ -1,0 +1,182 @@
+{% schema %}
+{
+  "name": "Custom Quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "quiz_title",
+      "label": "Quiz Title",
+      "default": "Find Your Perfect Product"
+    },
+    {
+      "type": "text",
+      "id": "quiz_btn",
+      "label": "Quiz Title",
+      "default": "Start Quiz"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question_text",
+          "label": "Question Text"
+        },
+        {
+          "type": "text",
+          "id": "answer_1",
+          "label": "Answer 1"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_1",
+          "label": "Recommended Products for Answer 1"
+        },
+        {
+          "type": "text",
+          "id": "answer_2",
+          "label": "Answer 2"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_2",
+          "label": "Recommended Products for Answer 2"
+        },
+        {
+          "type": "text",
+          "id": "answer_3",
+          "label": "Answer 3"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_3",
+          "label": "Recommended Products for Answer 3"
+        },
+        {
+          "type": "text",
+          "id": "answer_4",
+          "label": "Answer 4"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_4",
+          "label": "Recommended Products for Answer 4"
+        },
+        {
+          "type": "text",
+          "id": "answer_5",
+          "label": "Answer 5"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_5",
+          "label": "Recommended Products for Answer 5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Quiz",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+<div class="quiz-container">
+  <h2>{{ section.settings.quiz_title }}</h2>
+    <button class="quiz-start-btn">{{ section.settings.quiz_btn }}</button>
+  {% for block in section.blocks %}
+    {% if block.type == 'question' %}
+      <div class="quiz-question" data-question-id="{{ forloop.index }}">
+        <h3>{{ block.settings.question_text }}</h3>
+        <div class="quiz-answers">
+          {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
+          {% assign recommended_products = "recommended_products_1,recommended_products_2,recommended_products_3,recommended_products_4,recommended_products_5" | split: ',' %}
+          {% for i in (0..4) %}
+            {% assign answer = block.settings[answers[i]] %}
+            {% assign recommended_products_list = block.settings[recommended_products[i]] %}
+            {% if answer %}
+              <div class="quiz-answer">
+                <input type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}">
+                <label for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
+                <div class="recommended-products" style="display:none;">
+                  {% for product in recommended_products_list %}
+                    <input type="hidden" class="recommended-product-ids" value="{{ product }}">
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <div class="quiz-navigation">
+    <button id="prev-question" style="display:none;">Back</button>
+    <button id="submit-quiz" style="display:none;">Submit Quiz</button>
+  </div>
+  <div id="quiz-results" style="display:none;">
+    <h3>Recommended Products</h3>
+    <div id="recommended-products-container"></div>
+  </div>
+</div>
+
+<style>
+
+  
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.quiz-start-btn {
+  border: solid black;
+  padding: .25rem;
+  cursor: pointer;
+  
+}
+
+
+.quiz-question {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.quiz-question.active {
+  display: block; /* Show when active */
+  opacity: 1;
+}
+.quiz-navigation {
+  margin-top: 20px;
+}
+.quiz-answer {
+  margin-bottom: 10px;
+}
+.recommended-products {
+  display: flex;
+  flex-wrap: wrap;
+}
+.product {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.product img {
+  width: 50px;
+  height: 50px;
+}
+</style>
+
+<script>
+document.addevent.listener
+
+  
+</script>
+
