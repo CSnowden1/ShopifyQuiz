@@ -99,10 +99,16 @@
           {% for i in (0..5) %}
             {% assign answer_key = answers[i] %}
             {% assign answer = block.settings[answer_key] %}
-            {% assign products_key = "recommended_products_" | append: i %}
-            {% assign recommended_products_list = block.settings[products_key] | parse_json %}
+            {% assign products = "recommended_products_" | append: i %}
+            {% assign recommended_products_list = block.settings[products] %}
 
             {% if answer and i != 0 %}
+              <script>
+                // This script will log the product data associated with each answer
+                var answerIndex = "{{ forloop.index }}_{{ i }}";
+                var recommendedProducts = {{ recommended_products_list | json }};
+                console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
+              </script>
               <div class="quiz-block">
                 <input 
                   class="questionInput" 
@@ -110,7 +116,7 @@
                   name="question_{{ forloop.index }}" 
                   value="{{ forloop.index }}_{{ i }}" 
                   id="answer_{{ forloop.index }}_{{ i }}" 
-                  data-products='{{ recommended_products_list | json }}'>
+                  data-products=`${recommendedProducts}`>
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% if recommended_products_list.size > 0 %}
@@ -121,12 +127,7 @@
                     <p>No products available for this answer.</p>
                   {% endif %}
                 </div>
-                <script>
-                  // This script will log the product data associated with each answer
-                  var answerIndex = "{{ forloop.index }}_{{ i }}";
-                  var recommendedProducts = {{ recommended_products_list | json }};
-                  console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
-                </script>
+                
               </div>
             {% endif %}
           {% endfor %}
