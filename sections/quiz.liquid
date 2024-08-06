@@ -229,7 +229,7 @@
         
         // Hide the parent quiz block if label text is empty
         if (labelText && !labelText.textContent.trim()) {
-          input.closest('.quiz-block').style.display = 'none';
+          input.closest('.quiz-block').style.display = 'block';
         } else {
           // Add event listeners to the input
           input.addEventListener('change', logProductIds);
