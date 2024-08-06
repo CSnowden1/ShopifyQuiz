@@ -232,7 +232,7 @@
       }
     }
 
-
+   
     // Function to add listeners to the answer inputs
     function addAnswerListeners() {
       let inputs = document.querySelectorAll('.questionInput');
@@ -241,7 +241,6 @@
         if (labelText && !labelText.textContent.trim()) {
           input.closest('.quiz-block').style.display = 'none';
         } else {
-          input.addEventListener('change', logProductIds);
           input.addEventListener('change', nextQuestion);
         }
       });
