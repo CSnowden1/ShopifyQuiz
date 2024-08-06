@@ -101,7 +101,7 @@
             {% assign recommended_products_list = block.settings[recommended_products[i]] %}
             {% if answer %}
               <div class="quiz-answer">
-                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ block.settings[recommended_products[i]] | join: ',' }}">
+                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ recommended_products_list | join: ',' }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% for product in recommended_products_list %}
@@ -124,6 +124,7 @@
     <div id="recommended-products-container"></div>
   </div>
 </div>
+
 
 <style>
 
@@ -224,25 +225,35 @@
       selectedInputs.forEach(input => {
         let productIds = input.getAttribute('data-products');
         if (productIds) {
-          recommendedProductIds.push(...productIds.split(','));
+          recommendedProductIds.push(...productIds.split(',').map(id => parseInt(id, 10)));
         }
       });
-      console.log('Recommended Product IDs:', recommendedProductIds);
+  
+      // Log each ID individually
+      console.log('Recommended Product IDs:');
+      recommendedProductIds.forEach(id => console.log(id));
+      
+      // Or log them as a joined string
+      console.log('Recommended Product IDs:', recommendedProductIds.join(', '));
+    }
+  
+    // Attach event listener to the submit button
+    let submitBtn = document.getElementById('submit-quiz');
+    if (submitBtn) {
+      submitBtn.addEventListener("click", collectRecommendedProductIds);
+    } else {
+      console.error("Submit button not found");
     }
   
     // Check if quizBtn exists and attach event listener
     if (quizBtn) {
       quizBtn.addEventListener("click", startQuiz);
       addAnswerListeners();
-      // Add event listener for submit button
-      document.getElementById('submit-quiz').addEventListener('click', function() {
-        collectRecommendedProductIds();
-        // Add any additional logic you want to execute on submit here
-      });
     } else {
       console.error("Quiz button not found");
     }
   });
+  
   
   
 
