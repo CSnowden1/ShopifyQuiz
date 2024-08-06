@@ -100,7 +100,7 @@
           {% for i in (0..4) %}
             <script>
               console.log({{ recommended_products | json }});
-              console.log({{ block.settings.recommended_products_1 }})
+              console.log({{ block.settings.recommended_products_1 | json }});
             </script>
             {% assign answer = block.settings[answers[i]] %}
             {% assign recommended_products_list = block.settings[recommended_products[i]] %}
