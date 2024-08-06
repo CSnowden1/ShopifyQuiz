@@ -101,7 +101,7 @@
             {% assign recommended_products_list = block.settings[recommended_products[i]] %}
             {% if answer %}
               <div class="quiz-answer">
-                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}">
+                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }} data-products={{ block.settings[recommended_products[i]] | join: ','}}>
                 <label for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% for product in recommended_products_list %}
@@ -226,6 +226,9 @@
       console.error("Quiz button not found");
     }
   });
+
+
+
   
   </script>
 
