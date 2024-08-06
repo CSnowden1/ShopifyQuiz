@@ -96,19 +96,13 @@
         <h3>{{ block.settings.question_text }}</h3>
         <div class="quiz-answers">
           {% assign answers = "troll,answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-          {% for i in (0..5) %}
+          {% for i in (1..5) %}
             {% assign answer_key = answers[i] %}
             {% assign answer = block.settings[answer_key] %}
             {% assign products_key = "recommended_products_" | append: i %}
             {% assign recommended_products_list = block.settings[products_key] | json %}
 
-            {% if answer and i != 0 %}
-              <script>
-                // Log the product data associated with each answer
-                var answerIndex = "{{ forloop.index }}_{{ i }}";
-                var recommendedProducts = {{ recommended_products_list }};
-                console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
-              </script>
+            {% if answer %}
               <div class="quiz-block">
                 <input 
                   class="questionInput" 
@@ -118,15 +112,6 @@
                   id="answer_{{ forloop.index }}_{{ i }}" 
                   data-products="{{ recommended_products_list | escape }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
-                <div class="recommended-products" style="display:none;">
-                  {% if recommended_products_list.size > 0 %}
-                    {% for product in recommended_products_list %}
-                      <input type="hidden" class="recommended-product-ids" value="{{ product }}">
-                    {% endfor %}
-                  {% else %}
-                    <p>No products available for this answer.</p>
-                  {% endif %}
-                </div>
               </div>
             {% endif %}
           {% endfor %}
@@ -146,12 +131,35 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    let selectedProducts = new Set();
+
     document.querySelectorAll('.questionInput').forEach(input => {
       input.addEventListener('change', function() {
         const products = JSON.parse(this.dataset.products || '[]');
-        console.log('Selected Products:', products);
+        if (this.checked) {
+          products.forEach(product => selectedProducts.add(product));
+        } else {
+          products.forEach(product => selectedProducts.delete(product));
+        }
+        console.log('Selected Products:', Array.from(selectedProducts));
+        updateRecommendedProducts();
       });
     });
+
+    function updateRecommendedProducts() {
+      const container = document.getElementById('recommended-products-container');
+      container.innerHTML = '';
+
+      if (selectedProducts.size > 0) {
+        Array.from(selectedProducts).forEach(productId => {
+          const productElement = document.createElement('div');
+          productElement.textContent = 'Product ID: ' + productId; // Replace with product details if available
+          container.appendChild(productElement);
+        });
+      } else {
+        container.textContent = 'No recommended products.';
+      }
+    }
   });
 </script>
 <style>
