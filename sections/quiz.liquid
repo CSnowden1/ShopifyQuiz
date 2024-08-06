@@ -11,7 +11,7 @@
     {
       "type": "text",
       "id": "quiz_btn",
-      "label": "Quiz Title",
+      "label": "Quiz Button",
       "default": "Start Quiz"
     }
   ],
@@ -100,7 +100,7 @@
             {% assign answer = block.settings[answers[i]] %}
             {% assign products_key = "recommended_products_" | append: i %}
             {% assign recommended_products_list = block.settings[products_key] %}
-            {% if recommended_products_list %}
+            {% if answer %}
               <div class="quiz-block">
                 <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ recommended_products_list | join: ',' }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
@@ -133,56 +133,58 @@
 </div>
 
 <style>
+  .quiz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
 
-  
-.quiz-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 20px;
-}
+  .quiz-btn {
+    border: solid black;
+    padding: .25rem;
+    cursor: pointer;
+  }
 
-.quiz-btn {
-  border: solid black;
-  padding: .25rem;
-  cursor: pointer;
-  
-}
+  .quiz-question {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
 
-.quiz-question {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-.quiz-question.active {
-  display: block; /* Show when active */
-  opacity: 1;
-}
-.quiz-navigation {
-  margin-top: 20px;
-}
-.quiz-answer {
-  margin-bottom: 10px;
-}
-.recommended-products {
-  display: flex;
-  flex-wrap: wrap;
-}
-.product {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-.product img {
-  width: 50px;
-  height: 50px;
-}
+  .quiz-question.active {
+    display: block; /* Show when active */
+    opacity: 1;
+  }
 
-.active {
-  display: block!important;
+  .quiz-navigation {
+    margin-top: 20px;
+  }
 
-}
+  .quiz-answer {
+    margin-bottom: 10px;
+  }
+
+  .recommended-products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .product {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .product img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .active {
+    display: block!important;
+  }
 </style>
 
 <script>
@@ -195,7 +197,7 @@
         console.error("No questions found");
       }
     }
-  
+
     // Function to go to the next question
     function nextQuestion() {
       if (currentQuestionIndex < questions.length - 1) {
@@ -207,7 +209,7 @@
         document.getElementById('submit-quiz').style.display = 'block';
       }
     }
-  
+
     // Function to log product IDs associated with a selected answer
     function logProductIds(event) {
       let input = event.target;
@@ -216,45 +218,26 @@
         console.log('Selected Answer Product IDs:', productIds.split(','));
       }
     }
-  
+
     // Function to add listeners to the answer inputs
-function addAnswerListeners() {
-  // Select all input elements with class 'questionInput'
-  let inputs = document.querySelectorAll('.questionInput');
-  
-  // Iterate over each input
-  inputs.forEach(input => {
-    // Get the associated label text
-    let labelText = input.closest('.quiz-answer').querySelector('label');
-    
-    // Hide the parent quiz block if label text is empty
-    if (labelText && !labelText.textContent.trim()) {
-      input.closest('.quiz-block').style.display = 'none';
-    } else {
-      // Add event listeners to the input
-      input.addEventListener('change', logProductIds);
-      input.addEventListener('change', nextQuestion);
+    function addAnswerListeners() {
+      let inputs = document.querySelectorAll('.questionInput');
+      inputs.forEach(input => {
+        let labelText = input.closest('.quiz-block').querySelector('label');
+        if (labelText && !labelText.textContent.trim()) {
+          input.closest('.quiz-block').style.display = 'none';
+        } else {
+          input.addEventListener('change', logProductIds);
+          input.addEventListener('change', nextQuestion);
+        }
+      });
     }
-  });
-}
 
-// Example functions for event handling (placeholders)
-function logProductIds(event) {
-  let input = event.target;
-  let productIds = input.getAttribute('data-products');
-  console.log("Selected Product IDs:", productIds);
-}
-
-function nextQuestion(event) {
-  // Implement your logic for proceeding to the next question here
-}
-
-  
     // Access the button and question elements
-    let quizBtn = document.getElementsByClassName("quiz-btn")[0];
+    let quizBtn = document.querySelector(".quiz-btn");
     let questions = document.querySelectorAll('.quiz-question');
     let currentQuestionIndex = 0;
-  
+
     // Check if quizBtn exists and attach event listener
     if (quizBtn) {
       quizBtn.addEventListener("click", startQuiz);
@@ -263,6 +246,4 @@ function nextQuestion(event) {
       console.error("Quiz button not found");
     }
   });
-  
-  </script>
-
+</script>
