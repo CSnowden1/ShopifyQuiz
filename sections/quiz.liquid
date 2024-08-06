@@ -96,13 +96,18 @@
         <h3>{{ block.settings.question_text }}</h3>
         <div class="quiz-answers">
           {% assign answers = "troll,answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-          {% for i in (1..5) %}
+          {% for i in (0..5) %}
             {% assign answer_key = answers[i] %}
             {% assign answer = block.settings[answer_key] %}
             {% assign products_key = "recommended_products_" | append: i %}
             {% assign recommended_products_list = block.settings[products_key] | json %}
 
-            {% if answer %}
+            {% if answer and i != 0 %}
+              <script>
+                var answerIndex = "{{ forloop.index }}_{{ i }}";
+                var recommendedProducts = {{ recommended_products_list }};
+                console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
+              </script>
               <div class="quiz-block">
                 <input 
                   class="questionInput" 
@@ -112,6 +117,15 @@
                   id="answer_{{ forloop.index }}_{{ i }}" 
                   data-products="{{ recommended_products_list | escape }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
+                <div class="recommended-products" style="display:none;">
+                  {% if recommended_products_list.size > 0 %}
+                    {% for product in recommended_products_list %}
+                      <input type="hidden" class="recommended-product-ids" value="{{ product }}">
+                    {% endfor %}
+                  {% else %}
+                    <p>No products available for this answer.</p>
+                  {% endif %}
+                </div>
               </div>
             {% endif %}
           {% endfor %}
@@ -131,7 +145,9 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    let quizResults = [];
     let selectedProducts = new Set();
+    let container = document.getElementById('recommended-products-container');
 
     document.querySelectorAll('.questionInput').forEach(input => {
       input.addEventListener('change', function() {
@@ -147,9 +163,7 @@
     });
 
     function updateRecommendedProducts() {
-      const container = document.getElementById('recommended-products-container');
-      container.innerHTML = '';
-
+      container.innerHTML = ''; // Clear previous recommendations
       if (selectedProducts.size > 0) {
         Array.from(selectedProducts).forEach(productId => {
           const productElement = document.createElement('div');
@@ -160,8 +174,50 @@
         container.textContent = 'No recommended products.';
       }
     }
+
+    function startQuiz() {
+      if (questions.length > 0) {
+        questions[0].classList.add('active');
+      } else {
+        console.error("No questions found");
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        questions[currentQuestionIndex].classList.remove('active');
+        currentQuestionIndex++;
+        questions[currentQuestionIndex].classList.add('active');
+      } else {
+        document.getElementById('submit-quiz').style.display = 'block';
+      }
+    }
+
+    function addAnswerListeners() {
+      let inputs = document.querySelectorAll('.questionInput');
+      inputs.forEach(input => {
+        let labelText = input.closest('.quiz-block').querySelector('label');
+        if (labelText && !labelText.textContent.trim()) {
+          input.closest('.quiz-block').style.display = 'none';
+        } else {
+          input.addEventListener('change', nextQuestion);
+        }
+      });
+    }
+
+    let quizBtn = document.querySelector(".quiz-btn");
+    let questions = document.querySelectorAll('.quiz-question');
+    let currentQuestionIndex = 0;
+
+    if (quizBtn) {
+      quizBtn.addEventListener("click", startQuiz);
+      addAnswerListeners();
+    } else {
+      console.error("Quiz button not found");
+    }
   });
 </script>
+
 <style>
   .quiz-container {
     display: flex;
@@ -185,7 +241,7 @@
   }
 
   .quiz-question.active {
-    display: block; /* Show when active */
+    display: block;
     opacity: 1;
   }
 
@@ -216,55 +272,3 @@
     display: block!important;
   }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Function to start the quiz
-    function startQuiz() {
-      if (questions.length > 0) {
-        questions[0].classList.add('active');
-      } else {
-        console.error("No questions found");
-      }
-    }
-
-    // Function to go to the next question
-    function nextQuestion() {
-      if (currentQuestionIndex < questions.length - 1) {
-        questions[currentQuestionIndex].classList.remove('active');
-        currentQuestionIndex++;
-        questions[currentQuestionIndex].classList.add('active');
-      } else {
-        // If it's the last question, show the submit button
-        document.getElementById('submit-quiz').style.display = 'block';
-      }
-    }
-
-   
-    // Function to add listeners to the answer inputs
-    function addAnswerListeners() {
-      let inputs = document.querySelectorAll('.questionInput');
-      inputs.forEach(input => {
-        let labelText = input.closest('.quiz-block').querySelector('label');
-        if (labelText && !labelText.textContent.trim()) {
-          input.closest('.quiz-block').style.display = 'none';
-        } else {
-          input.addEventListener('change', nextQuestion);
-        }
-      });
-    }
-
-    // Access the button and question elements
-    let quizBtn = document.querySelector(".quiz-btn");
-    let questions = document.querySelectorAll('.quiz-question');
-    let currentQuestionIndex = 0;
-
-    // Check if quizBtn exists and attach event listener
-    if (quizBtn) {
-      quizBtn.addEventListener("click", startQuiz);
-      addAnswerListeners();
-    } else {
-      console.error("Quiz button not found");
-    }
-  });
-</script>
