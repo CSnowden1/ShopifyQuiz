@@ -96,7 +96,7 @@
         <h3>{{ block.settings.question_text }}</h3>
         <div class="quiz-answers">
           {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-          {% assign recommended_products = "{{ block.settings.recommended_products_1 | json  }},{{ block.settings.recommended_products_2 | json  }}, {{ block.settings.recommended_products_3 | json }}, {{ block.settings.recommended_products_4 | json }},{{ block.settings.recommended_products_5 | json }}" | split: ',' %}
+          {% assign recommended_products = {{ block.settings.recommended_products_1 | json  }},{{ block.settings.recommended_products_2 | json  }}, {{ block.settings.recommended_products_3 | json }}, {{ block.settings.recommended_products_4 | json }},{{ block.settings.recommended_products_5 | json }} | split: ',' %}
           {% for i in (0..4) %}
             <script>
               console.log({{ recommended_products | json }});
