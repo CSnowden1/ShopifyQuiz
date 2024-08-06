@@ -111,7 +111,8 @@
                 </div>
                 <script>
                   // This script will log the product data associated with each answer
-                  var answerIndex = "{{ forloop.index }}_{{ i - 1 }}";
+                  console.log(answer)
+                  var answerIndex = "{{ forloop.index }}_{{ i }}";
                   var recommendedProducts = {{ recommended_products_list | json }};
                   console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
                 </script>
