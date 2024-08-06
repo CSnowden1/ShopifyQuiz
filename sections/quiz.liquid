@@ -104,7 +104,7 @@
 
             {% if answer and i != 0 %}
               <div class="quiz-block">
-                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ recommended_products_list | join: ',' }}">
+                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ recommended_products_list | json }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% if recommended_products_list.size > 0 %}
