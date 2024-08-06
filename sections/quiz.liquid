@@ -232,14 +232,6 @@
       }
     }
 
-    // Function to log product IDs associated with a selected answer
-    function logProductIds(event) {
-      let input = event.target;
-      let productIds = input.getAttribute('data-products');
-      if (productIds) {
-        console.log('Selected Answer Product IDs:', productIds.split(','));
-      }
-    }
 
     // Function to add listeners to the answer inputs
     function addAnswerListeners() {
