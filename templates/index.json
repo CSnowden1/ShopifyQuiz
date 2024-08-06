@@ -109,10 +109,41 @@
               "ninja-dz071-foodi-flexbasket-air-fryer"
             ]
           }
+        },
+        "question_tAyDyg": {
+          "type": "question",
+          "settings": {
+            "question_text": "Tetsing next question",
+            "answer_1": "cool stuff",
+            "recommended_products_1": [
+              "cosori-turboblaze-air-fryer",
+              "ninja-4-quart-air-fryer",
+              "ninja-dz071-foodi-flexbasket-air-fryer"
+            ],
+            "answer_2": "or this",
+            "recommended_products_2": [
+              "cosori-turboblaze-air-fryer",
+              "instant-omni-plus-air-fryer-toaster-oven",
+              "instant-pot-vortex-plus-10-quart-air-fryer"
+            ],
+            "answer_3": "",
+            "recommended_products_3": [
+
+            ],
+            "answer_4": "",
+            "recommended_products_4": [
+
+            ],
+            "answer_5": "",
+            "recommended_products_5": [
+
+            ]
+          }
         }
       },
       "block_order": [
-        "question_kPKMXQ"
+        "question_kPKMXQ",
+        "question_tAyDyg"
       ],
       "settings": {
         "quiz_title": "Find Your Perfect Product",
