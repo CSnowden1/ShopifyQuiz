@@ -183,11 +183,6 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Access the button and question elements
-    let quizBtn = document.getElementsByClassName("quiz-btn")[0];
-    let questions = document.querySelectorAll('.quiz-question');
-    let currentQuestionIndex = 0;
-  
     // Function to start the quiz
     function startQuiz() {
       if (questions.length > 0) {
@@ -209,6 +204,16 @@
       }
     }
   
+    // Function to log product IDs associated with a selected answer
+    function logProductIds(event) {
+      let input = event.target;
+      let productIds = input.getAttribute('data-products');
+      if (productIds) {
+        console.log('Selected Answer Product IDs:', productIds);
+      }
+    }
+  
+    // Function to add listeners to the answer inputs
     function addAnswerListeners() {
       let inputs = document.querySelectorAll('.questionInput');
       inputs.forEach(input => {
@@ -216,43 +221,16 @@
         if (label && !label.textContent.trim()) {
           input.closest('.quiz-answer').style.display = 'none';
         } else {
+          input.addEventListener('change', logProductIds);
           input.addEventListener('change', nextQuestion);
         }
       });
     }
   
-    function collectRecommendedProductIds() {
-      let selectedInputs = document.querySelectorAll('.questionInput:checked');
-      let recommendedProductIds = [];
-      selectedInputs.forEach(input => {
-        let productIds = input.getAttribute('data-products');
-        if (productIds) {
-          productIds.split(',').forEach(id => {
-            let numId = parseInt(id, 10);
-            if (!isNaN(numId)) {
-              recommendedProductIds.push(numId);
-            } else {
-              console.error(`Invalid product ID: ${id}`);
-            }
-          });
-        }
-      });
-  
-      // Log each ID individually
-      console.log('Recommended Product IDs:');
-      recommendedProductIds.forEach(id => console.log(id));
-  
-      // Or log them as a joined string
-      console.log('Recommended Product IDs:', recommendedProductIds.join(', '));
-    }
-  
-    // Attach event listener to the submit button
-    let submitBtn = document.getElementById('submit-quiz');
-    if (submitBtn) {
-      submitBtn.addEventListener("click", collectRecommendedProductIds);
-    } else {
-      console.error("Submit button not found");
-    }
+    // Access the button and question elements
+    let quizBtn = document.getElementsByClassName("quiz-btn")[0];
+    let questions = document.querySelectorAll('.quiz-question');
+    let currentQuestionIndex = 0;
   
     // Check if quizBtn exists and attach event listener
     if (quizBtn) {
@@ -262,11 +240,6 @@
       console.error("Quiz button not found");
     }
   });
-  
-  
-  
-  
 
-  
   </script>
 
