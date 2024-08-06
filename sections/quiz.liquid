@@ -146,44 +146,100 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     let quizResults = [];
-    let selectedProducts = new Set();
-    let container = document.getElementById('recommended-products-container');
+    let selectedProducts = [];
 
     document.querySelectorAll('.questionInput').forEach(input => {
       input.addEventListener('change', function() {
         const products = JSON.parse(this.dataset.products || '[]');
         if (this.checked) {
-          products.forEach(product => {
-            selectedProducts.add(product);
-            quizResults.push(product);
-          });
+          quizResults.push(...products);
         } else {
-          products.forEach(product => {
-            selectedProducts.delete(product);
-            const index = quizResults.indexOf(product);
-            if (index > -1) {
-              quizResults.splice(index, 1);
-            }
-          });
+          quizResults = quizResults.filter(p => !products.includes(p));
         }
-        console.log('Quiz Results:', quizResults);
-        updateRecommendedProducts();
+        console.log('Selected Products:', quizResults);
       });
     });
 
-    function updateRecommendedProducts() {
-      container.innerHTML = ''; // Clear previous recommendations
-      if (quizResults.length > 0) {
-        quizResults.forEach(productId => {
-          const productElement = document.createElement('div');
-          productElement.textContent = 'Product ID: ' + productId; // Replace with product details if available
-          container.appendChild(productElement);
-        });
-      } else {
-        container.textContent = 'No recommended products.';
-      }
-    }
+    document.getElementById('submit-quiz').addEventListener('click', function() {
+      const productFrequency = {};
+      let mostFrequentProduct = null;
+      let maxCount = 0;
 
+      quizResults.forEach(product => {
+        const productId = JSON.stringify(product);
+        if (!productFrequency[productId]) {
+          productFrequency[productId] = { count: 0, product };
+        }
+        productFrequency[productId].count++;
+
+        if (productFrequency[productId].count > maxCount) {
+          maxCount = productFrequency[productId].count;
+          mostFrequentProduct = productFrequency[productId].product;
+        }
+      });
+
+      console.log('Most Recommended Product:', mostFrequentProduct);
+      alert('Most Recommended Product: ' + JSON.stringify(mostFrequentProduct));
+    });
+  });
+</script>
+<style>
+  .quiz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .quiz-btn {
+    border: solid black;
+    padding: .25rem;
+    cursor: pointer;
+  }
+
+  .quiz-question {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .quiz-question.active {
+    display: block; /* Show when active */
+    opacity: 1;
+  }
+
+  .quiz-navigation {
+    margin-top: 20px;
+  }
+
+  .quiz-answer {
+    margin-bottom: 10px;
+  }
+
+  .recommended-products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .product {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .product img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .active {
+    display: block!important;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
     function startQuiz() {
       if (questions.length > 0) {
         questions[0].classList.add('active');
@@ -200,31 +256,6 @@
       } else {
         document.getElementById('submit-quiz').style.display = 'block';
       }
-    }
-
-    function submitQuiz() {
-      let productCount = {};
-      quizResults.forEach(product => {
-        if (productCount[product]) {
-          productCount[product]++;
-        } else {
-          productCount[product] = 1;
-        }
-      });
-
-      let maxCount = 0;
-      let mostFrequentProduct = null;
-
-      for (let product in productCount) {
-        if (productCount[product] > maxCount) {
-          maxCount = productCount[product];
-          mostFrequentProduct = product;
-        }
-      }
-
-      console.log('Most Recommended Product:', mostFrequentProduct);
-      // Display the most recommended product
-      container.innerHTML = '<div>Most Recommended Product ID: ' + mostFrequentProduct + '</div>';
     }
 
     function addAnswerListeners() {
@@ -249,58 +280,5 @@
     } else {
       console.error("Quiz button not found");
     }
-
-    let submitBtn = document.getElementById('submit-quiz');
-    if (submitBtn) {
-      submitBtn.addEventListener('click', submitQuiz);
-    } else {
-      console.error("Submit button not found");
-    }
   });
 </script>
-
-<style>
-  .quiz-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-
-  .quiz-btn {
-    border: solid black;
-    padding: .25rem;
-    cursor: pointer;
-  }
-
-  .quiz-question {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-
-  .quiz-question.active {
-    display: block;
-    opacity: 1;
-  }
-
-  .quiz-navigation {
-    margin-top: 20px;
-  }
-
-  .quiz-answer {
-    margin-bottom: 10px;
-  }
-
-  .recommended-products {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .product {
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-</style>
