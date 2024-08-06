@@ -86,6 +86,7 @@
   ]
 }
 {% endschema %}
+
 <div class="quiz-container">
   <h2>{{ section.settings.quiz_title }}</h2>
   <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
@@ -123,8 +124,6 @@
     <h3>Recommended Products</h3>
     <div id="recommended-products-container"></div>
   </div>
-</div>
-
 </div>
 
 
@@ -209,7 +208,7 @@
       let input = event.target;
       let productIds = input.getAttribute('data-products');
       if (productIds) {
-        console.log('Selected Answer Product IDs:', productIds);
+        console.log('Selected Answer Product IDs:', productIds.split(','));
       }
     }
   
@@ -240,6 +239,6 @@
       console.error("Quiz button not found");
     }
   });
-
+  
   </script>
 
