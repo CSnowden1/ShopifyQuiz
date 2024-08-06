@@ -101,7 +101,7 @@
             {% assign recommended_products_list = block.settings[recommended_products[i]] %}
             {% if answer %}
               <div class="quiz-answer">
-                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products={{ block.settings[recommended_products[i]] | join: ','}} >
+                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products={{ block.settings[recommended_products[i]] | join: ','}}>
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% for product in recommended_products_list %}
@@ -179,7 +179,7 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function() { 
     // Access the button and question elements
     let quizBtn = document.getElementsByClassName("quiz-btn")[0];
     let questions = document.querySelectorAll('.quiz-question');
@@ -206,14 +206,15 @@
       }
     }
   
-    // Function to add answer listeners and hide empty answers
     function addAnswerListeners() {
       let inputs = document.querySelectorAll('.questionInput');
       inputs.forEach(input => {
         let label = input.closest('.quiz-answer').querySelector('label');
         if (label && !label.textContent.trim()) {
           input.closest('.quiz-answer').style.display = 'none';
-        } 
+        } else {
+          input.addEventListener('change', nextQuestion);
+        }
       });
     }
   
@@ -225,6 +226,9 @@
       console.error("Quiz button not found");
     }
   });
+
+
+
   
   </script>
 
