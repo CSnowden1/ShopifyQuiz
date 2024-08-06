@@ -85,23 +85,28 @@
             "question_text": "Tesing is Stuff",
             "answer_1": "testing",
             "recommended_products_1": [
+              "cosori-turboblaze-air-fryer",
+              "breville-smart-oven-air-fryer",
+              "instant-omni-plus-air-fryer-toaster-oven"
+            ],
+            "answer_2": "or this",
+            "recommended_products_2": [
+              "instant-pot-vortex-plus-6-quart-air-fryer-6-in-1",
+              "instant-pot-vortex-plus-10-quart-air-fryer",
               "cosori-turboblaze-air-fryer"
             ],
-            "answer_2": "",
-            "recommended_products_2": [
-
-            ],
-            "answer_3": "",
+            "answer_3": "jjj",
             "recommended_products_3": [
-
+              "instant-pot-vortex-plus-10-quart-air-fryer",
+              "instant-pot-vortex-plus-6-quart-air-fryer-6-in-1"
             ],
-            "answer_4": "",
+            "answer_4": "terr",
             "recommended_products_4": [
-
+              "ninja-4-quart-air-fryer"
             ],
-            "answer_5": "",
+            "answer_5": "y4",
             "recommended_products_5": [
-
+              "ninja-dz071-foodi-flexbasket-air-fryer"
             ]
           }
         }
