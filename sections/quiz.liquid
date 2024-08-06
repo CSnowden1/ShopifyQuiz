@@ -99,14 +99,14 @@
           {% for i in (0..5) %}
             {% assign answer_key = answers[i] %}
             {% assign answer = block.settings[answer_key] %}
-            {% assign products = "recommended_products_" | append: i %}
-            {% assign recommended_products_list = block.settings[products] %}
+            {% assign products_key = "recommended_products_" | append: i %}
+            {% assign recommended_products_list = block.settings[products_key] | json %}
 
             {% if answer and i != 0 %}
               <script>
-                // This script will log the product data associated with each answer
+                // Log the product data associated with each answer
                 var answerIndex = "{{ forloop.index }}_{{ i }}";
-                var recommendedProducts = {{ recommended_products_list | json }};
+                var recommendedProducts = {{ recommended_products_list }};
                 console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
               </script>
               <div class="quiz-block">
@@ -116,7 +116,7 @@
                   name="question_{{ forloop.index }}" 
                   value="{{ forloop.index }}_{{ i }}" 
                   id="answer_{{ forloop.index }}_{{ i }}" 
-                  data-products=`${recommendedProducts}`>
+                  data-products="{{ recommended_products_list | escape }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% if recommended_products_list.size > 0 %}
@@ -127,7 +127,6 @@
                     <p>No products available for this answer.</p>
                   {% endif %}
                 </div>
-                
               </div>
             {% endif %}
           {% endfor %}
@@ -144,6 +143,17 @@
     <div id="recommended-products-container"></div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.questionInput').forEach(input => {
+      input.addEventListener('change', function() {
+        const products = JSON.parse(this.dataset.products || '[]');
+        console.log('Selected Products:', products);
+      });
+    });
+  });
+</script>
 <style>
   .quiz-container {
     display: flex;
