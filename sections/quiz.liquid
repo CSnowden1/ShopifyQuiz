@@ -101,7 +101,7 @@
             {% assign products_key = "recommended_products_" | append: i %}
             {% assign recommended_products_list = block.settings[products_key] %}
             {% if recommended_products_list %}
-              <div class="quiz-answer">
+              <div class="quiz-block">
                 <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ recommended_products_list | join: ',' }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
