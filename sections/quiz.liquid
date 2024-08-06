@@ -235,11 +235,15 @@
       quizBtn.addEventListener("click", startQuiz);
       addAnswerListeners();
       // Add event listener for submit button
-      document.getElementById('submit-quiz').addEventListener('click', collectRecommendedProductIds);
+      document.getElementById('submit-quiz').addEventListener('click', function() {
+        collectRecommendedProductIds();
+        // Add any additional logic you want to execute on submit here
+      });
     } else {
       console.error("Quiz button not found");
     }
   });
+  
   
 
   
