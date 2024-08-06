@@ -181,8 +181,12 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() { 
 
-let quizBtn = document.getElementByClassName("quiz-btn");
+let quizBtn = document.getElementsByClassName("quiz-btn")[0];
 var questions = document.querySelectorAll('.quiz-question');
+
+
+console.log(quizBtn);
+console.log(quizBtn[0]);
 
 function startQuiz() {
   console.log("button clicked");
