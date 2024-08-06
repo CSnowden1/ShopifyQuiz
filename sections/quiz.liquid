@@ -1,0 +1,306 @@
+{% schema %}
+{
+  "name": "Custom Quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "quiz_title",
+      "label": "Quiz Title",
+      "default": "Find Your Perfect Product"
+    },
+    {
+      "type": "text",
+      "id": "quiz_btn",
+      "label": "Quiz Button",
+      "default": "Start Quiz"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question_text",
+          "label": "Question Text"
+        },
+        {
+          "type": "text",
+          "id": "answer_1",
+          "label": "Answer 1"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_1",
+          "label": "Recommended Products for Answer 1"
+        },
+        {
+          "type": "text",
+          "id": "answer_2",
+          "label": "Answer 2"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_2",
+          "label": "Recommended Products for Answer 2"
+        },
+        {
+          "type": "text",
+          "id": "answer_3",
+          "label": "Answer 3"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_3",
+          "label": "Recommended Products for Answer 3"
+        },
+        {
+          "type": "text",
+          "id": "answer_4",
+          "label": "Answer 4"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_4",
+          "label": "Recommended Products for Answer 4"
+        },
+        {
+          "type": "text",
+          "id": "answer_5",
+          "label": "Answer 5"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_5",
+          "label": "Recommended Products for Answer 5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Quiz",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="quiz-container">
+  <h2>{{ section.settings.quiz_title }}</h2>
+  <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
+  {% for block in section.blocks %}
+    {% if block.type == 'question' %}
+      <div class="quiz-question" data-question-id="{{ forloop.index }}">
+        <h3>{{ block.settings.question_text }}</h3>
+        <div class="quiz-answers">
+          {% assign answers = "troll,answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
+          {% for i in (0..5) %}
+            {% assign answer_key = answers[i] %}
+            {% assign answer = block.settings[answer_key] %}
+            {% assign products_key = "recommended_products_" | append: i %}
+            {% assign recommended_products_list = block.settings[products_key] | json %}
+
+            {% if answer and i != 0 %}
+              <script>
+                var answerIndex = "{{ forloop.index }}_{{ i }}";
+                var recommendedProducts = {{ recommended_products_list }};
+                console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
+              </script>
+              <div class="quiz-block">
+                <input 
+                  class="questionInput" 
+                  type="checkbox" 
+                  name="question_{{ forloop.index }}" 
+                  value="{{ forloop.index }}_{{ i }}" 
+                  id="answer_{{ forloop.index }}_{{ i }}" 
+                  data-products="{{ recommended_products_list | escape }}">
+                <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
+                <div class="recommended-products" style="display:none;">
+                  {% if recommended_products_list.size > 0 %}
+                    {% for product in recommended_products_list %}
+                      <input type="hidden" class="recommended-product-ids" value="{{ product }}">
+                    {% endfor %}
+                  {% else %}
+                    <p>No products available for this answer.</p>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <div class="quiz-navigation">
+    <button id="prev-question" style="display:none;">Back</button>
+    <button id="submit-quiz" style="display:none;">Submit Quiz</button>
+  </div>
+  <div id="quiz-results" style="display:none;">
+    <h3>Recommended Products</h3>
+    <div id="recommended-products-container"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let quizResults = [];
+    let selectedProducts = new Set();
+    let container = document.getElementById('recommended-products-container');
+
+    document.querySelectorAll('.questionInput').forEach(input => {
+      input.addEventListener('change', function() {
+        const products = JSON.parse(this.dataset.products || '[]');
+        if (this.checked) {
+          products.forEach(product => {
+            selectedProducts.add(product);
+            quizResults.push(product);
+          });
+        } else {
+          products.forEach(product => {
+            selectedProducts.delete(product);
+            const index = quizResults.indexOf(product);
+            if (index > -1) {
+              quizResults.splice(index, 1);
+            }
+          });
+        }
+        console.log('Quiz Results:', quizResults);
+        updateRecommendedProducts();
+      });
+    });
+
+    function updateRecommendedProducts() {
+      container.innerHTML = ''; // Clear previous recommendations
+      if (quizResults.length > 0) {
+        quizResults.forEach(productId => {
+          const productElement = document.createElement('div');
+          productElement.textContent = 'Product ID: ' + productId; // Replace with product details if available
+          container.appendChild(productElement);
+        });
+      } else {
+        container.textContent = 'No recommended products.';
+      }
+    }
+
+    function startQuiz() {
+      if (questions.length > 0) {
+        questions[0].classList.add('active');
+      } else {
+        console.error("No questions found");
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        questions[currentQuestionIndex].classList.remove('active');
+        currentQuestionIndex++;
+        questions[currentQuestionIndex].classList.add('active');
+      } else {
+        document.getElementById('submit-quiz').style.display = 'block';
+      }
+    }
+
+    function submitQuiz() {
+      let productCount = {};
+      quizResults.forEach(product => {
+        if (productCount[product]) {
+          productCount[product]++;
+        } else {
+          productCount[product] = 1;
+        }
+      });
+
+      let maxCount = 0;
+      let mostFrequentProduct = null;
+
+      for (let product in productCount) {
+        if (productCount[product] > maxCount) {
+          maxCount = productCount[product];
+          mostFrequentProduct = product;
+        }
+      }
+
+      console.log('Most Recommended Product:', mostFrequentProduct);
+      // Display the most recommended product
+      container.innerHTML = '<div>Most Recommended Product ID: ' + mostFrequentProduct + '</div>';
+    }
+
+    function addAnswerListeners() {
+      let inputs = document.querySelectorAll('.questionInput');
+      inputs.forEach(input => {
+        let labelText = input.closest('.quiz-block').querySelector('label');
+        if (labelText && !labelText.textContent.trim()) {
+          input.closest('.quiz-block').style.display = 'none';
+        } else {
+          input.addEventListener('change', nextQuestion);
+        }
+      });
+    }
+
+    let quizBtn = document.querySelector(".quiz-btn");
+    let questions = document.querySelectorAll('.quiz-question');
+    let currentQuestionIndex = 0;
+
+    if (quizBtn) {
+      quizBtn.addEventListener("click", startQuiz);
+      addAnswerListeners();
+    } else {
+      console.error("Quiz button not found");
+    }
+
+    let submitBtn = document.getElementById('submit-quiz');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', submitQuiz);
+    } else {
+      console.error("Submit button not found");
+    }
+  });
+</script>
+
+<style>
+  .quiz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .quiz-btn {
+    border: solid black;
+    padding: .25rem;
+    cursor: pointer;
+  }
+
+  .quiz-question {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .quiz-question.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .quiz-navigation {
+    margin-top: 20px;
+  }
+
+  .quiz-answer {
+    margin-bottom: 10px;
+  }
+
+  .recommended-products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .product {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+</style>
