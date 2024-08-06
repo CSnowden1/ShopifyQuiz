@@ -219,12 +219,19 @@
   
     // Function to add listeners to the answer inputs
     function addAnswerListeners() {
-      let labels = document.querySelectorAll('.quiz-answer');
-      inputs.forEach(labels => {
+      // Select all input elements with class 'questionInput'
+      let inputs = document.querySelectorAll('.questionInput');
+      
+      // Iterate over each input
+      inputs.forEach(input => {
+        // Get the associated label text
         let labelText = input.closest('.quiz-answer').querySelector('label');
-        if (labels && !labelText.textContent.trim()) {
+        
+        // Hide the parent quiz block if label text is empty
+        if (labelText && !labelText.textContent.trim()) {
           input.closest('.quiz-block').style.display = 'none';
         } else {
+          // Add event listeners to the input
           input.addEventListener('change', logProductIds);
           input.addEventListener('change', nextQuestion);
         }
