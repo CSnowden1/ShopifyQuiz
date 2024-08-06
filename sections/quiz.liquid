@@ -179,35 +179,41 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() { 
-
-let quizBtn = document.getElementsByClassName("quiz-btn")[0];
-var questions = document.querySelectorAll('.quiz-question');
-
-
-console.log(quizBtn);
-console.log(quizBtn[0]);
-
-function startQuiz() {
-  console.log("button clicked");
-  questions[0].classList.add('active');
-}
-});
-
-function showQuestion(index) {
-  questions.forEach(function(question, i) {
-    if (i === index) {
-      question.classList.add('active');
+  document.addEventListener("DOMContentLoaded", function() { 
+    // Access the button and question elements
+    let quizBtn = document.getElementsByClassName("quiz-btn")[0];
+    let questions = document.querySelectorAll('.quiz-question');
+  
+    // Log button to ensure it's correctly selected
+    console.log(quizBtn);
+  
+    // Function to start the quiz
+    function startQuiz() {
+      console.log("button clicked");
+      if (questions.length > 0) {
+        questions[0].classList.add('active');
+      } else {
+        console.error("No questions found");
+      }
+    }
+  
+    // Function to show a specific question
+    function showQuestion(index) {
+      questions.forEach(function(question, i) {
+        if (i === index) {
+          question.classList.add('active');
+        } else {
+          question.classList.remove('active');
+        }
+      });
+    }
+  
+    // Check if quizBtn exists and attach event listener
+    if (quizBtn) {
+      quizBtn.addEventListener("click", startQuiz);
     } else {
-      question.classList.remove('active');
+      console.error("Quiz button not found");
     }
   });
-}
-
-
-quizBtn.addEventListener("click", startQuiz);
-
-
-  
-</script>
+  </script>
 
