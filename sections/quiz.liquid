@@ -153,19 +153,28 @@
       input.addEventListener('change', function() {
         const products = JSON.parse(this.dataset.products || '[]');
         if (this.checked) {
-          products.forEach(product => selectedProducts.add(product));
+          products.forEach(product => {
+            selectedProducts.add(product);
+            quizResults.push(product);
+          });
         } else {
-          products.forEach(product => selectedProducts.delete(product));
+          products.forEach(product => {
+            selectedProducts.delete(product);
+            const index = quizResults.indexOf(product);
+            if (index > -1) {
+              quizResults.splice(index, 1);
+            }
+          });
         }
-        console.log('Selected Products:', Array.from(selectedProducts));
+        console.log('Quiz Results:', quizResults);
         updateRecommendedProducts();
       });
     });
 
     function updateRecommendedProducts() {
       container.innerHTML = ''; // Clear previous recommendations
-      if (selectedProducts.size > 0) {
-        Array.from(selectedProducts).forEach(productId => {
+      if (quizResults.length > 0) {
+        quizResults.forEach(productId => {
           const productElement = document.createElement('div');
           productElement.textContent = 'Product ID: ' + productId; // Replace with product details if available
           container.appendChild(productElement);
