@@ -179,7 +179,7 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() { 
+  document.addEventListener("DOMContentLoaded", function() {
     // Access the button and question elements
     let quizBtn = document.getElementsByClassName("quiz-btn")[0];
     let questions = document.querySelectorAll('.quiz-question');
@@ -206,6 +206,7 @@
       }
     }
   
+    // Function to add answer listeners and hide empty answers
     function addAnswerListeners() {
       let inputs = document.querySelectorAll('.questionInput');
       inputs.forEach(input => {
@@ -226,9 +227,6 @@
       console.error("Quiz button not found");
     }
   });
-
-
-
   
   </script>
 
