@@ -88,7 +88,7 @@
 {% endschema %}
 <div class="quiz-container">
   <h2>{{ section.settings.quiz_title }}</h2>
-    <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
+  <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
   {% for block in section.blocks %}
     {% if block.type == 'question' %}
       <div class="quiz-question" data-question-id="{{ forloop.index }}">
@@ -101,7 +101,7 @@
             {% assign recommended_products_list = block.settings[recommended_products[i]] %}
             {% if answer %}
               <div class="quiz-answer">
-                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products={{ block.settings[recommended_products[i]] | join: ','}}>
+                <input class="questionInput" type="checkbox" name="question_{{ forloop.index }}" value="{{ forloop.index }}_{{ i }}" id="answer_{{ forloop.index }}_{{ i }}" data-products="{{ block.settings[recommended_products[i]] | join: ',' }}">
                 <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
                 <div class="recommended-products" style="display:none;">
                   {% for product in recommended_products_list %}
@@ -218,16 +218,29 @@
       });
     }
   
+    function collectRecommendedProductIds() {
+      let selectedInputs = document.querySelectorAll('.questionInput:checked');
+      let recommendedProductIds = [];
+      selectedInputs.forEach(input => {
+        let productIds = input.getAttribute('data-products');
+        if (productIds) {
+          recommendedProductIds.push(...productIds.split(','));
+        }
+      });
+      console.log('Recommended Product IDs:', recommendedProductIds);
+    }
+  
     // Check if quizBtn exists and attach event listener
     if (quizBtn) {
       quizBtn.addEventListener("click", startQuiz);
       addAnswerListeners();
+      // Add event listener for submit button
+      document.getElementById('submit-quiz').addEventListener('click', collectRecommendedProductIds);
     } else {
       console.error("Quiz button not found");
     }
   });
-
-
+  
 
   
   </script>
