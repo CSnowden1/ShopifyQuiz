@@ -88,7 +88,7 @@
 {% endschema %}
 <div class="quiz-container">
   <h2>{{ section.settings.quiz_title }}</h2>
-    <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
+    <button id="quiz-btn">{{ section.settings.quiz_btn }}</button>
   {% for block in section.blocks %}
     {% if block.type == 'question' %}
       <div class="quiz-question" data-question-id="{{ forloop.index }}">
@@ -137,7 +137,7 @@
   padding: 20px;
 }
 
-.quiz-btn {
+#quiz-btn {
   border: solid black;
   padding: .25rem;
   cursor: pointer;
