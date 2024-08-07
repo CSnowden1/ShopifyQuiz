@@ -320,6 +320,7 @@
     });
 
     function displayRecommendedProduct(product) {
+      document.querySelector('#submit-quiz').style.display = 'none';
       quizSlider.style.display = 'none';
       const container = document.getElementById('recommended-products-container');
       container.innerHTML = ''; // Clear previous results
@@ -344,7 +345,6 @@
       });
       quizResults = [];
       selectedProducts = [];
-      document.querySelector('#submit-quiz').style.display = 'none';
       resetToFirstQuestion()
     }
     
