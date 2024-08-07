@@ -111,7 +111,7 @@
               <div class="quiz-block">
                 <input 
                   class="questionInput" 
-                  type="checkbox" 
+                  type="radio" 
                   name="question_{{ forloop.index }}" 
                   value="{{ forloop.index }}_{{ i }}" 
                   id="answer_{{ forloop.index }}_{{ i }}" 
@@ -156,6 +156,7 @@
           quizResults = quizResults.filter(p => !products.includes(p));
         }
         console.log('Selected Products:', quizResults);
+        nextQuestion();
       });
     });
 
@@ -204,6 +205,43 @@
       document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
       document.querySelector('.quiz-btn').style.display = 'block';
     }
+
+    function nextQuestion() {
+      let currentQuestion = document.querySelector('.quiz-question.active');
+      if (currentQuestion) {
+        currentQuestion.classList.remove('active');
+        let nextQuestion = currentQuestion.nextElementSibling;
+        while (nextQuestion && !nextQuestion.classList.contains('quiz-question')) {
+          nextQuestion = nextQuestion.nextElementSibling;
+        }
+        if (nextQuestion) {
+          nextQuestion.classList.add('active');
+        } else {
+          document.getElementById('submit-quiz').style.display = 'block';
+        }
+      }
+    }
+
+    document.querySelector('.quiz-btn').addEventListener('click', function() {
+      this.style.display = 'none';
+      document.querySelector('.quiz-question').classList.add('active');
+      document.getElementById('prev-question').style.display = 'block';
+    });
+
+    document.getElementById('prev-question').addEventListener('click', function() {
+      let currentQuestion = document.querySelector('.quiz-question.active');
+      if (currentQuestion) {
+        currentQuestion.classList.remove('active');
+        let prevQuestion = currentQuestion.previousElementSibling;
+        while (prevQuestion && !prevQuestion.classList.contains('quiz-question')) {
+          prevQuestion = prevQuestion.previousElementSibling;
+        }
+        if (prevQuestion) {
+          prevQuestion.classList.add('active');
+          document.getElementById('submit-quiz').style.display = 'none';
+        }
+      }
+    });
   });
 </script>
 
@@ -249,60 +287,5 @@
 
   .product {
     margin-right: 10px;
-    margin-bottom: 10px;
-  }
-
-  .product img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .active {
-    display: block !important;
   }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    function startQuiz() {
-      if (questions.length > 0) {
-        questions[0].classList.add('active');
-      } else {
-        console.error("No questions found");
-      }
-    }
-
-    function nextQuestion() {
-      if (currentQuestionIndex < questions.length - 1) {
-        questions[currentQuestionIndex].classList.remove('active');
-        currentQuestionIndex++;
-        questions[currentQuestionIndex].classList.add('active');
-      } else {
-        document.getElementById('submit-quiz').style.display = 'block';
-      }
-    }
-
-    function addAnswerListeners() {
-      let inputs = document.querySelectorAll('.questionInput');
-      inputs.forEach(input => {
-        let labelText = input.closest('.quiz-block').querySelector('label');
-        if (labelText && !labelText.textContent.trim()) {
-          input.closest('.quiz-block').style.display = 'none';
-        } else {
-          input.addEventListener('change', nextQuestion);
-        }
-      });
-    }
-
-    let quizBtn = document.querySelector(".quiz-btn");
-    let questions = document.querySelectorAll('.quiz-question');
-    let currentQuestionIndex = 0;
-
-    if (quizBtn) {
-      quizBtn.addEventListener("click", startQuiz);
-      addAnswerListeners();
-    } else {
-      console.error("Quiz button not found");
-    }
-  });
-</script>
