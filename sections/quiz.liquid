@@ -341,7 +341,6 @@
       quizResults = [];
       selectedProducts = [];
       document.getElementById('submit-quiz').style.display = 'none';
-      document.querySelector('.quiz-btn').style.display = 'block';
       resetToFirstQuestion()
     }
     
@@ -352,7 +351,7 @@
     function startQuiz() {
       console.log("Tetsing");
       quizSlider.style.display = 'flex'
-      quizBtn.style.display = 'none!important';
+      quizBtn.style.display = 'none';
 
     }
 
