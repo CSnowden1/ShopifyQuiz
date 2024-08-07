@@ -264,11 +264,11 @@
         input.checked = false;
       });
       quizResults = [];
+      resetToFirstQuestion()
       selectedProducts = [];
       document.getElementById('submit-quiz').style.display = 'none';
       document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
       document.querySelector('.quiz-btn').style.display = 'block';
-      resetToFirstQuestion()
     }
   });
 </script>
@@ -377,7 +377,7 @@
   }
 
   function resetToFirstQuestion() {
-    container.scrollTo({
+    quizSlider.scrollTo({
         left: 0,
         behavior: 'smooth' // Adds smooth scrolling animation
     });
