@@ -157,7 +157,6 @@
           quizResults = quizResults.filter(p => !products.includes(p));
         }
         console.log('Selected Products:', quizResults);
-        console.log('Quiz Results:', quizResults.title);
       });
     });
 
@@ -180,6 +179,8 @@
       });
 
       console.log('Most Recommended Product:', mostFrequentProduct);
+      console.log('Quiz Results:', mostFrequentProduct.title);
+
     });
   });
 </script>
