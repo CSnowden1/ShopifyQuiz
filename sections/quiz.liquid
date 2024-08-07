@@ -266,11 +266,9 @@
       quizResults = [];
       selectedProducts = [];
       document.getElementById('submit-quiz').style.display = 'none';
-      document.querySelectorAll('.quiz-question').forEach(question => {
-        question.classList.remove('active');
-      });
       document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
       document.querySelector('.quiz-btn').style.display = 'block';
+      resetToFirstQuestion()
     }
   });
 </script>
@@ -279,7 +277,7 @@
 
 <style>
   .quiz-slider {
-    display: flex;
+    display: none;
     flex-wrap: nowrap;
     overflow: hidden;
   }
@@ -300,8 +298,9 @@
   }
 
   .quiz-question {
-    display: none;
-    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     transition: opacity 0.5s ease-in-out;
   }
 
@@ -340,27 +339,39 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    let quizSlider = document.getElementByClassName("quiz-slider");
     function startQuiz() {
       localStorage.removeItem('quizresults');
-
-
+      quizSlider.style.display = 'flex'
 
     }
-
-
-
 
     function nextQuestion() {
-      if (currentQuestionIndex < questions.length - 1) {
-        questions[currentQuestionIndex].classList.remove('active');
-        currentQuestionIndex++;
-        questions[currentQuestionIndex].classList.add('active');
-      } else {
-        document.getElementById('submit-quiz').style.display = 'block';
-      }
-    }
+      // Get the flex container element
+  
+      // Get the width of each item (assuming they are all the same width)
+      const quizQuestion = document.querySelector('.quiz-question').offsetWidth;
+  
+      // Calculate the next scroll position
+      const currentQuestion = quizSlider.scrollLeft;
+      const nextQuest = currentQuestion + quizQuestion;
+  
+      // Scroll to the next item
+      quizSlider.scrollTo({
+          left: nextQuest,
+          behavior: 'smooth' // Adds smooth scrolling animation
+      });
+  }
 
-    function addAnswerListeners() {
+
+  function resetToFirstQuestion() {
+    container.scrollTo({
+        left: 0,
+        behavior: 'smooth' // Adds smooth scrolling animation
+    });
+}
+
+      function addAnswerListeners() {
       let inputs = document.querySelectorAll('.questionInput');
       inputs.forEach(input => {
         let labelText = input.closest('.quiz-block').querySelector('label');
