@@ -142,7 +142,6 @@
     <div id="recommended-products-container"></div>
   </div>
 </div>
-
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     let quizResults = [];
@@ -179,11 +178,35 @@
       });
 
       console.log('Most Recommended Product:', mostFrequentProduct);
-      console.log('Quiz Results:', mostFrequentProduct.title);
-
+      displayRecommendedProduct(mostFrequentProduct);
+      resetQuiz();
     });
+
+    function displayRecommendedProduct(product) {
+      const container = document.getElementById('recommended-products-container');
+      container.innerHTML = ''; // Clear previous results
+      const productElement = document.createElement('div');
+      productElement.textContent = 'Most Recommended Product: ' + product.title; // Replace with product details if available
+      container.appendChild(productElement);
+      document.getElementById('quiz-results').style.display = 'block';
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('.questionInput').forEach(input => {
+        input.checked = false;
+      });
+      quizResults = [];
+      selectedProducts = [];
+      document.getElementById('submit-quiz').style.display = 'none';
+      document.querySelectorAll('.quiz-question').forEach(question => {
+        question.classList.remove('active');
+      });
+      document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
+      document.querySelector('.quiz-btn').style.display = 'block';
+    }
   });
 </script>
+
 <style>
   .quiz-container {
     display: flex;
@@ -207,7 +230,7 @@
   }
 
   .quiz-question.active {
-    display: block; /* Show when active */
+    display: block;
     opacity: 1;
   }
 
@@ -235,7 +258,7 @@
   }
 
   .active {
-    display: block!important;
+    display: block !important;
   }
 </style>
 
