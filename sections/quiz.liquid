@@ -13,6 +13,72 @@
       "id": "quiz_btn",
       "label": "Quiz Button",
       "default": "Start Quiz"
+    },
+    {
+      "type": "color",
+      "id": "btn_background_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "btn_padding",
+      "label": "Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "btn_border_radius",
+      "label": "Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "font_family",
+      "label": "Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Font Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "font_size",
+      "label": "Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "color",
+      "id": "radio_background_color",
+      "label": "Radio Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "radio_border_color",
+      "label": "Radio Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "radio_size",
+      "label": "Radio Size",
+      "default": "20px"
+    },
+    {
+      "type": "text",
+      "id": "quiz_container_padding",
+      "label": "Quiz Container Padding",
+      "default": "20px"
     }
   ],
   "blocks": [
@@ -87,9 +153,80 @@
 }
 {% endschema %}
 
-<div class="quiz-container">
+<style>
+  .quiz-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: {{ section.settings.quiz_container_padding }};
+    font-family: {{ section.settings.font_family }};
+    color: {{ section.settings.font_color }};
+    font-size: {{ section.settings.font_size }};
+  }
+
+  .quiz-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .quiz-btn {
+    background-color: {{ section.settings.btn_background_color }};
+    color: {{ section.settings.btn_text_color }};
+    padding: {{ section.settings.btn_padding }};
+    border-radius: {{ section.settings.btn_border_radius }};
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .quiz-question {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .quiz-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .quiz-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .questionInput {
+    width: {{ section.settings.radio_size }};
+    height: {{ section.settings.radio_size }};
+    background-color: {{ section.settings.radio_background_color }};
+    border: 2px solid {{ section.settings.radio_border_color }};
+  }
+
+  .quiz-answer {
+    cursor: pointer;
+  }
+
+  .quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  #quiz-results {
+    margin-top: 20px;
+    width: 100%;
+  }
+</style>
+
+<div class="quiz-container" style="padding: {{ section.settings.quiz_container_padding }}; font-family: {{ section.settings.font_family }}; color: {{ section.settings.font_color }}; font-size: {{ section.settings.font_size }};">
   <h2>{{ section.settings.quiz_title }}</h2>
-  <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
+  <button class="quiz-btn" style="background-color: {{ section.settings.btn_background_color }}; color: {{ section.settings.btn_text_color }}; padding: {{ section.settings.btn_padding }}; border-radius: {{ section.settings.btn_border_radius }};">{{ section.settings.quiz_btn }}</button>
   {% for block in section.blocks %}
     {% if block.type == 'question' %}
       <div class="quiz-question" data-question-id="{{ forloop.index }}">
@@ -115,17 +252,10 @@
                   name="question_{{ forloop.index }}" 
                   value="{{ forloop.index }}_{{ i }}" 
                   id="answer_{{ forloop.index }}_{{ i }}" 
-                  data-products="{{ recommended_products_list | escape }}">
-                <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
-                <div class="recommended-products" style="display:none;">
-                  {% if recommended_products_list.size > 0 %}
-                    {% for product in recommended_products_list %}
-                      <input type="hidden" class="recommended-product-ids" value="{{ product }}">
-                    {% endfor %}
-                  {% else %}
-                    <p>No products available for this answer.</p>
-                  {% endif %}
-                </div>
+                  data-products="{{ recommended_products_list | escape }}"
+                  style="background-color: {{ section.settings.radio_background_color }}; border-color: {{ section.settings.radio_border_color }};"
+                />
+                <label for="answer_{{ forloop.index }}_{{ i }}" class="quiz-answer">{{ answer }}</label>
               </div>
             {% endif %}
           {% endfor %}
@@ -134,175 +264,49 @@
     {% endif %}
   {% endfor %}
   <div class="quiz-navigation">
-    <button id="prev-question" style="display:none;">Back</button>
-    <button id="submit-quiz" style="display:none;">Submit Quiz</button>
+    <button id="prev-question" style="display: none;">Previous</button>
+    <button id="next-question">Next</button>
+    <button id="submit-quiz" style="display: none;">Submit</button>
   </div>
-  <div id="quiz-results" style="display:none;">
-    <h3>Recommended Products</h3>
-    <div id="recommended-products-container"></div>
+  <div id="quiz-results" style="display: none;">
+    <!-- Results will be displayed here -->
   </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    let quizResults = [];
-    let selectedProducts = [];
 
-    document.querySelectorAll('.questionInput').forEach(input => {
-      input.addEventListener('change', function() {
-        const products = JSON.parse(this.dataset.products || '[]');
-        if (this.checked) {
-          quizResults.push(...products);
-        } else {
-          quizResults = quizResults.filter(p => !products.includes(p));
-        }
-        console.log('Selected Products:', quizResults);
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const quizQuestions = document.querySelectorAll('.quiz-question');
+    let currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      quizQuestions.forEach((question, i) => {
+        question.style.display = (i === index) ? 'block' : 'none';
       });
+
+      document.getElementById('prev-question').style.display = (index === 0) ? 'none' : 'inline-block';
+      document.getElementById('next-question').style.display = (index === quizQuestions.length - 1) ? 'none' : 'inline-block';
+      document.getElementById('submit-quiz').style.display = (index === quizQuestions.length - 1) ? 'inline-block' : 'none';
+    }
+
+    document.getElementById('next-question').addEventListener('click', function() {
+      if (currentQuestionIndex < quizQuestions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+      }
+    });
+
+    document.getElementById('prev-question').addEventListener('click', function() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion(currentQuestionIndex);
+      }
     });
 
     document.getElementById('submit-quiz').addEventListener('click', function() {
-      const productFrequency = {};
-      let mostFrequentProduct = null;
-      let maxCount = 0;
-
-      quizResults.forEach(product => {
-        const productId = JSON.stringify(product);
-        if (!productFrequency[productId]) {
-          productFrequency[productId] = { count: 0, product };
-        }
-        productFrequency[productId].count++;
-
-        if (productFrequency[productId].count > maxCount) {
-          maxCount = productFrequency[productId].count;
-          mostFrequentProduct = productFrequency[productId].product;
-        }
-      });
-
-      console.log('Most Recommended Product:', mostFrequentProduct);
-      displayRecommendedProduct(mostFrequentProduct);
-      resetQuiz();
+      document.getElementById('quiz-results').style.display = 'block';
     });
 
-    function displayRecommendedProduct(product) {
-      const container = document.getElementById('recommended-products-container');
-      container.innerHTML = ''; // Clear previous results
-      const productElement = document.createElement('div');
-      productElement.textContent = 'Most Recommended Product: ' + product.title; // Replace with product details if available
-      container.appendChild(productElement);
-      document.getElementById('quiz-results').style.display = 'block';
-    }
-
-    function resetQuiz() {
-      document.querySelectorAll('.questionInput').forEach(input => {
-        input.checked = false;
-      });
-      quizResults = [];
-      selectedProducts = [];
-      document.getElementById('submit-quiz').style.display = 'none';
-      document.querySelectorAll('.quiz-question').forEach(question => {
-        question.classList.remove('active');
-      });
-      document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
-      document.querySelector('.quiz-btn').style.display = 'block';
-    }
-  });
-</script>
-
-<style>
-  .quiz-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-
-  .quiz-btn {
-    border: solid black;
-    padding: .25rem;
-    cursor: pointer;
-  }
-
-  .quiz-question {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-
-  .quiz-question.active {
-    display: block;
-    opacity: 1;
-  }
-
-  .quiz-navigation {
-    margin-top: 20px;
-  }
-
-  .quiz-answer {
-    margin-bottom: 10px;
-  }
-
-  .recommended-products {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .product {
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-
-  .product img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .active {
-    display: block !important;
-  }
-</style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    function startQuiz() {
-      if (questions.length > 0) {
-        questions[0].classList.add('active');
-      } else {
-        console.error("No questions found");
-      }
-    }
-
-    function nextQuestion() {
-      if (currentQuestionIndex < questions.length - 1) {
-        questions[currentQuestionIndex].classList.remove('active');
-        currentQuestionIndex++;
-        questions[currentQuestionIndex].classList.add('active');
-      } else {
-        document.getElementById('submit-quiz').style.display = 'block';
-      }
-    }
-
-    function addAnswerListeners() {
-      let inputs = document.querySelectorAll('.questionInput');
-      inputs.forEach(input => {
-        let labelText = input.closest('.quiz-block').querySelector('label');
-        if (labelText && !labelText.textContent.trim()) {
-          input.closest('.quiz-block').style.display = 'none';
-        } else {
-          input.addEventListener('change', nextQuestion);
-        }
-      });
-    }
-
-    let quizBtn = document.querySelector(".quiz-btn");
-    let questions = document.querySelectorAll('.quiz-question');
-    let currentQuestionIndex = 0;
-
-    if (quizBtn) {
-      quizBtn.addEventListener("click", startQuiz);
-      addAnswerListeners();
-    } else {
-      console.error("Quiz button not found");
-    }
+    // Initialize
+    showQuestion(currentQuestionIndex);
   });
 </script>
