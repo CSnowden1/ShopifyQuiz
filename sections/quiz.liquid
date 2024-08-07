@@ -258,17 +258,16 @@
     }
 
     function resetQuiz() {
-      document.querySelectorAll('.questionInput').forEach(input => {
-        input.checked = false;
+      let questions = document.querySelectorAll('.quiz-question');
+      questions.forEach(q => {
+        q.style.display = 'none'; // Hide all questions
       });
-      quizResults = [];
-      selectedProducts = [];
-      document.getElementById('submit-quiz').style.display = 'none';
-      document.querySelectorAll('.quiz-question').forEach(question => {
-        question.classList.remove('active');
-      });
-      document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
+      document.querySelector('.quiz-btn').textContent = 'Start Quiz';
       document.querySelector('.quiz-btn').style.display = 'block';
+      document.getElementById('submit-quiz').style.display = 'none'; // Hide submit button
+    
+      currentQuestionIndex = 0;
+      startQuiz(); // Show the first question again
     }
   });
 </script>
@@ -358,20 +357,25 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     function startQuiz() {
+      let questions = document.querySelectorAll('.quiz-question');
       if (questions.length > 0) {
-        questions[0].classList.add('active');
+        questions.forEach((q, index) => {
+          q.style.display = 'none'; // Hide all questions initially
+        });
+        questions[0].style.display = 'block'; // Show the first question
       } else {
         console.error("No questions found");
       }
     }
 
     function nextQuestion() {
+      let questions = document.querySelectorAll('.quiz-question');
       if (currentQuestionIndex < questions.length - 1) {
-        questions[currentQuestionIndex].classList.remove('active');
+        questions[currentQuestionIndex].style.display = 'none'; // Hide current question
         currentQuestionIndex++;
-        questions[currentQuestionIndex].classList.add('active');
+        questions[currentQuestionIndex].style.display = 'block'; // Show next question
       } else {
-        document.getElementById('submit-quiz').style.display = 'block';
+        document.getElementById('submit-quiz').style.display = 'block'; // Show submit button
       }
     }
 
