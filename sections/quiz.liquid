@@ -320,6 +320,7 @@
     });
 
     function displayRecommendedProduct(product) {
+      quizSlider.style.display = 'none';
       const container = document.getElementById('recommended-products-container');
       container.innerHTML = ''; // Clear previous results
       const productElement = document.createElement('div');
@@ -335,6 +336,9 @@
     }
 
     function resetQuiz() {
+      quizSlider.style.display = 'flex';
+      const container = document.getElementById('recommended-products-container');
+      container.style.display = 'none';
       document.querySelectorAll('.questionInput').forEach(input => {
         input.checked = false;
       });
