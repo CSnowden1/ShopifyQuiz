@@ -300,9 +300,11 @@
   .quiz-question {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    min-width: 100%;
     transition: opacity 0.5s ease-in-out;
-  }
+    justify-content: center;
+    align-items: center;
+}
 
   .quiz-question.active {
     display: block;
