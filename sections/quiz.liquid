@@ -283,6 +283,7 @@
     let quizSlider = document.querySelector(".quiz-slider");
     let quizResults = [];
     let selectedProducts = [];
+    let quizBtn = document.querySelector(".quiz-btn");
 
     document.querySelectorAll('.questionInput').forEach(input => {
       input.addEventListener('change', function() {
@@ -316,16 +317,21 @@
 
       console.log('Most Recommended Product:', mostFrequentProduct);
       displayRecommendedProduct(mostFrequentProduct);
-      resetQuiz();
     });
 
     function displayRecommendedProduct(product) {
       const container = document.getElementById('recommended-products-container');
       container.innerHTML = ''; // Clear previous results
       const productElement = document.createElement('div');
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = 'Take the Quiz Again'; 
+      resetBtn.classList.add('reset-button');
       productElement.textContent = 'Most Recommended Product: ' + product.title; // Replace with product details if available
       container.appendChild(productElement);
+      productElement.appendChild(resetBtn);
       document.getElementById('quiz-results').style.display = 'block';
+      resetBtn.addEventListener("click", resetQuiz);
+      
     }
 
     function resetQuiz() {
@@ -335,7 +341,6 @@
       quizResults = [];
       selectedProducts = [];
       document.getElementById('submit-quiz').style.display = 'none';
-      document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
       document.querySelector('.quiz-btn').style.display = 'block';
       resetToFirstQuestion()
     }
@@ -347,6 +352,7 @@
     function startQuiz() {
       console.log("Tetsing");
       quizSlider.style.display = 'flex'
+      quizBtn.style.display = 'none';
 
     }
 
@@ -398,7 +404,7 @@
       });
     }
 
-    let quizBtn = document.querySelector(".quiz-btn");
+    
     let questions = document.querySelectorAll('.quiz-question');
     let currentQuestionIndex = 0;
 
