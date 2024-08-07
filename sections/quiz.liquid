@@ -273,8 +273,9 @@
     height: 50px;
   }
 
-  .active {
-    display: block !important;
+  .result-stack {
+  display: flex;
+  flex-direction: column;
   }
 </style>
 
@@ -325,6 +326,7 @@
       const container = document.getElementById('recommended-products-container');
       container.innerHTML = ''; // Clear previous results
       const productElement = document.createElement('div');
+      productElement.classList.add('result-stack');
       const resetBtn = document.createElement('button');
       resetBtn.textContent = 'Take the Quiz Again'; 
       resetBtn.classList.add('reset-button');
