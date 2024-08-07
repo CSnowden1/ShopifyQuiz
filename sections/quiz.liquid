@@ -258,41 +258,24 @@
     }
 
     function resetQuiz() {
-      let questions = document.querySelectorAll('.quiz-question');
-      questions.forEach(q => {
-        q.style.display = 'none'; // Hide all questions
+      document.querySelectorAll('.questionInput').forEach(input => {
+        input.checked = false;
       });
-      document.querySelector('.quiz-btn').textContent = 'Start Quiz';
+      quizResults = [];
+      selectedProducts = [];
+      document.getElementById('submit-quiz').style.display = 'none';
+      document.querySelectorAll('.quiz-question').forEach(question => {
+        question.classList.remove('active');
+      });
+      document.querySelector('.quiz-btn').textContent = 'Take the Quiz Again';
       document.querySelector('.quiz-btn').style.display = 'block';
-      document.getElementById('submit-quiz').style.display = 'none'; // Hide submit button
-    
-      currentQuestionIndex = 0;
-      startQuiz(); // Show the first question again
     }
   });
 </script>
 
+
+
 <style>
-
-  .quiz-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: {{ section.settings.quiz_container_padding }};
-    font-family: {{ section.settings.font_family }};
-    color: {{ section.settings.font_color }};
-    font-size: {{ section.settings.font_size }};
-  }
-
-  .questionInput {
-    width: {{ section.settings.radio_size }};
-    height: {{ section.settings.radio_size }};
-    background-color: {{ section.settings.radio_background_color }};
-    border: 2px solid {{ section.settings.radio_border_color }};
-  }
-
-
   .quiz-container {
     display: flex;
     flex-direction: column;
@@ -302,18 +285,11 @@
     padding: 20px;
   }
 
-
-
   .quiz-btn {
-    background-color: {{ section.settings.btn_background_color }};
-    color: {{ section.settings.btn_text_color }};
-    padding: {{ section.settings.btn_padding }};
-    border-radius: {{ section.settings.btn_border_radius }};
-    border: none;
+    border: solid black;
+    padding: .25rem;
     cursor: pointer;
-    margin-bottom: 20px;
   }
-
 
   .quiz-question {
     display: none;
@@ -357,25 +333,20 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     function startQuiz() {
-      let questions = document.querySelectorAll('.quiz-question');
       if (questions.length > 0) {
-        questions.forEach((q, index) => {
-          q.style.display = 'none'; // Hide all questions initially
-        });
-        questions[0].style.display = 'block'; // Show the first question
+        questions[0].classList.add('active');
       } else {
         console.error("No questions found");
       }
     }
 
     function nextQuestion() {
-      let questions = document.querySelectorAll('.quiz-question');
       if (currentQuestionIndex < questions.length - 1) {
-        questions[currentQuestionIndex].style.display = 'none'; // Hide current question
+        questions[currentQuestionIndex].classList.remove('active');
         currentQuestionIndex++;
-        questions[currentQuestionIndex].style.display = 'block'; // Show next question
+        questions[currentQuestionIndex].classList.add('active');
       } else {
-        document.getElementById('submit-quiz').style.display = 'block'; // Show submit button
+        document.getElementById('submit-quiz').style.display = 'block';
       }
     }
 
