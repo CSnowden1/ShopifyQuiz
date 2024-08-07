@@ -348,23 +348,33 @@
 
     }
 
+
     function nextQuestion() {
-      // Get the flex container element
-  
       // Get the width of each item (assuming they are all the same width)
       const quizQuestion = document.querySelector('.quiz-question').offsetWidth;
-  
+      
       // Calculate the next scroll position
       const currentQuestion = quizSlider.scrollLeft;
       const nextQuest = currentQuestion + quizQuestion;
+  
+      // Hide the submit button initially
+      document.getElementById('submit-quiz').style.display = 'none';
   
       // Scroll to the next item
       quizSlider.scrollTo({
           left: nextQuest,
           behavior: 'smooth' // Adds smooth scrolling animation
       });
+  
+      // Check if it is the last item
+      const totalItems = document.querySelectorAll('.quiz-question').length;
+      const currentIndex = Math.round(nextQuest / quizQuestion);
+  
+      if (currentIndex >= totalItems - 1) {
+          // Show the submit button if it is the last item
+          document.getElementById('submit-quiz').style.display = 'block';
+      }
   }
-
 
   function resetToFirstQuestion() {
     container.scrollTo({
