@@ -16,25 +16,25 @@
     },
     {
       "type": "color",
-      "id": "btn_background_color",
+      "id": "start_btn_background_color",
       "label": "Button Background Color",
       "default": "#000000"
     },
     {
       "type": "color",
-      "id": "btn_text_color",
+      "id": "start_btn_text_color",
       "label": "Button Text Color",
       "default": "#ffffff"
     },
     {
       "type": "text",
-      "id": "btn_padding",
+      "id": "start_btn_padding",
       "label": "Button Padding",
       "default": "10px 20px"
     },
     {
       "type": "text",
-      "id": "btn_border_radius",
+      "id": "start_btn_border_radius",
       "label": "Button Border Radius",
       "default": "5px"
     },
@@ -234,6 +234,7 @@
     border: solid black;
     padding: .25rem;
     cursor: pointer;
+    background-color: {{ settings.start_btn_background_color }}
   }
 
   .quiz-question {
