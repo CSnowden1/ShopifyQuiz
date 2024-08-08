@@ -455,7 +455,6 @@
     const quizBtn = document.querySelector(".quiz-btn");
     const prevButton = document.getElementById('prev-question');
     const submitButton = document.getElementById('submit-quiz');
-    const quizQuestions = document.querySelectorAll('.quiz-question');
     const recommendedProductsContainer = document.getElementById('recommended-products-container');
     let currentQuestionIndex = 0;
     let selectedProducts = [];
@@ -510,12 +509,17 @@
         selectedProducts = selectedProducts.filter(product => !products.includes(product));
       }
       console.log('Selected Products:', selectedProducts);
+  
+      // Move to the next question when an answer is selected
+      nextQuestion();
     }
   
     // Display the recommended product based on selected answers
     function displayRecommendedProduct(product) {
       quizSlider.style.display = 'none';
       submitButton.style.display = 'none';
+      recommendedProductsContainer.innerHTML = ''; // Clear previous results
+  
       const productElement = document.createElement('div');
       productElement.classList.add('result-stack');
       productElement.textContent = 'Most Recommended Product: ' + (product.title || 'No product available');
@@ -526,7 +530,6 @@
       resetBtn.addEventListener('click', resetQuiz);
   
       productElement.appendChild(resetBtn);
-      recommendedProductsContainer.innerHTML = '';
       recommendedProductsContainer.appendChild(productElement);
       recommendedProductsContainer.style.display = 'block';
     }
@@ -574,11 +577,8 @@
     function init() {
       if (quizBtn) {
         quizBtn.addEventListener('click', startQuiz);
-        addAnswerListeners();
-      } else {
-        console.error("Quiz button not found");
       }
-  
+      
       if (submitButton) {
         submitButton.addEventListener('click', handleSubmit);
       }
@@ -586,8 +586,11 @@
       if (prevButton) {
         prevButton.addEventListener('click', prevQuestion);
       }
+  
+      addAnswerListeners();
     }
   
     init();
   });
+  
 </script>
