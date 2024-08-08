@@ -17,7 +17,6 @@
     border: solid black;
     padding: .25rem;
     cursor: pointer;
-    background-color: {{ settings.quiz_btn_background_color }};
   }
   
   .quiz-question {
