@@ -65,7 +65,7 @@
     {
       "type": "text",
       "id": "start_btn_border_radius",
-      "label": "Start Button Button Border Radius",
+      "label": "Start Button Border Radius",
       "default": "5px"
     },
     {
@@ -85,6 +85,12 @@
       "id": "font_size",
       "label": "Start Button Font Size",
       "default": "16px"
+    },
+    {
+      "type": "text",
+      "id": "question_border_radius",
+      "label": "Radios Border Radius",
+      "default": "1rem"
     },
     {
       "type": "color",
@@ -109,6 +115,138 @@
       "id": "quiz_container_padding",
       "label": "Quiz Container Padding",
       "default": "20px"
+    },
+    {
+      "type": "color",
+      "id": "quiz_answer_background_color",
+      "label": "Quiz Answer Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "quiz_answer_text_color",
+      "label": "Quiz Answer Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "quiz_answer_padding",
+      "label": "Quiz Answer Padding",
+      "default": "10px 15px"
+    },
+    {
+      "type": "text",
+      "id": "quiz_answer_border_radius",
+      "label": "Quiz Answer Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "color",
+      "id": "prev_btn_background_color",
+      "label": "Previous Button Background Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "prev_btn_text_color",
+      "label": "Previous Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_padding",
+      "label": "Previous Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_border_radius",
+      "label": "Previous Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_font_family",
+      "label": "Previous Button Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_font_size",
+      "label": "Previous Button Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "color",
+      "id": "submit_btn_background_color",
+      "label": "Submit Button Background Color",
+      "default": "#00ff00"
+    },
+    {
+      "type": "color",
+      "id": "submit_btn_text_color",
+      "label": "Submit Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_padding",
+      "label": "Submit Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_border_radius",
+      "label": "Submit Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_font_family",
+      "label": "Submit Button Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_font_size",
+      "label": "Submit Button Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "color",
+      "id": "reset_btn_background_color",
+      "label": "Reset Button Background Color",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "reset_btn_text_color",
+      "label": "Reset Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_padding",
+      "label": "Reset Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_border_radius",
+      "label": "Reset Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_font_family",
+      "label": "Reset Button Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_font_size",
+      "label": "Reset Button Font Size",
+      "default": "16px"
     }
   ],
   "blocks": [
@@ -184,15 +322,17 @@
 {% endschema %}
 
 
-<style>
 
+
+<style>
   .quiz-heading {
     font-size: {{ section.settings.h2_font_size }};
     color: {{ section.settings.h2_font_color }};
     margin-top: {{ section.settings.h2_marg_top }};
-    margin-bottom: {{ section.settings.h2_marg_bot }}
+    margin-bottom: {{ section.settings.h2_marg_bot }};
     font-family: {{ section.settings.h2_font_family }};
   }
+  
   .quiz-btn {
     background-color: {{ section.settings.quiz_btn_background_color }};
     color: {{ section.settings.start_btn_text_color }};
@@ -201,9 +341,48 @@
     font-family: {{ section.settings.font_family }};
     font-size: {{ section.settings.font_size }};
   }
+  
+  .question-input {
+    border-radius: {{ section.settings.question_border_radius }};
+    background-color: {{ section.settings.radio_background_color }};
+    border: 1px solid {{ section.settings.radio_border_color }};
+    width: {{ section.settings.radio_size }};
+    height: {{ section.settings.radio_size }};
+  }
+  
+  .quiz-answer {
+    background-color: {{ section.settings.quiz_answer_background_color }};
+    color: {{ section.settings.quiz_answer_text_color }};
+    padding: {{ section.settings.quiz_answer_padding }};
+    border-radius: {{ section.settings.quiz_answer_border_radius }};
+  }
 
+  #prev-question {
+    background-color: {{ section.settings.prev_btn_background_color | default: "#cccccc" }};
+    color: {{ section.settings.prev_btn_text_color | default: "#000000" }};
+    padding: {{ section.settings.prev_btn_padding | default: "10px 20px" }};
+    border-radius: {{ section.settings.prev_btn_border_radius | default: "5px" }};
+    font-family: {{ section.settings.prev_btn_font_family | default: "Arial, sans-serif" }};
+    font-size: {{ section.settings.prev_btn_font_size | default: "16px" }};
+  }
 
+  #submit-quiz {
+    background-color: {{ section.settings.submit_btn_background_color | default: "#00ff00" }};
+    color: {{ section.settings.submit_btn_text_color | default: "#ffffff" }};
+    padding: {{ section.settings.submit_btn_padding | default: "10px 20px" }};
+    border-radius: {{ section.settings.submit_btn_border_radius | default: "5px" }};
+    font-family: {{ section.settings.submit_btn_font_family | default: "Arial, sans-serif" }};
+    font-size: {{ section.settings.submit_btn_font_size | default: "16px" }};
+  }
 
+  .reset-button {
+    background-color: {{ section.settings.reset_btn_background_color | default: "#ff0000" }};
+    color: {{ section.settings.reset_btn_text_color | default: "#ffffff" }};
+    padding: {{ section.settings.reset_btn_padding | default: "10px 20px" }};
+    border-radius: {{ section.settings.reset_btn_border_radius | default: "5px" }};
+    font-family: {{ section.settings.reset_btn_font_family | default: "Arial, sans-serif" }};
+    font-size: {{ section.settings.reset_btn_font_size | default: "16px" }};
+  }
 </style>
 
 
@@ -233,7 +412,7 @@
                 </script>
                 <div class="quiz-block">
                   <input 
-                    class="questionInput" 
+                    class="question-input" 
                     type="checkbox" 
                     name="question_{{ forloop.index }}" 
                     value="{{ forloop.index }}_{{ i }}" 
