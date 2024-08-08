@@ -456,6 +456,7 @@
     const prevButton = document.getElementById('prev-question');
     const submitButton = document.getElementById('submit-quiz');
     const recommendedProductsContainer = document.getElementById('recommended-products-container');
+    const quizQuestions = document.querySelectorAll('.quiz-question');
     let currentQuestionIndex = 0;
     let selectedProducts = [];
   
@@ -503,14 +504,16 @@
     function handleAnswerChange(event) {
       const input = event.target;
       const products = JSON.parse(input.dataset.products || '[]');
+      
       if (input.checked) {
         selectedProducts.push(...products);
       } else {
         selectedProducts = selectedProducts.filter(product => !products.includes(product));
       }
+      
       console.log('Selected Products:', selectedProducts);
   
-      // Move to the next question when an answer is selected
+      // Move to the next question
       nextQuestion();
     }
   
@@ -569,6 +572,7 @@
     // Add event listeners to answers
     function addAnswerListeners() {
       document.querySelectorAll('.question-input').forEach(input => {
+        console.log("Answer");
         input.addEventListener('change', handleAnswerChange);
       });
     }
