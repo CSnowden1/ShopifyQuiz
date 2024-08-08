@@ -451,150 +451,141 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const quizSlider = document.querySelector(".quiz-slider");
-    const quizBtn = document.querySelector(".quiz-btn");
-    const prevButton = document.getElementById('prev-question');
-    const submitButton = document.getElementById('submit-quiz');
-    const recommendedProductsContainer = document.getElementById('recommended-products-container');
-    const quizQuestions = document.querySelectorAll('.quiz-question');
-    let currentQuestionIndex = 0;
+    let quizSlider = document.querySelector(".quiz-slider");
+    let quizResults = [];
     let selectedProducts = [];
-  
-    // Initialize the quiz
-    function startQuiz() {
-      quizSlider.style.display = 'flex';
-      quizBtn.style.display = 'none';
-      updateButtons();
-    }
-  
-    // Move to the next question
-    function nextQuestion() {
-      if (currentQuestionIndex < quizQuestions.length - 1) {
-        currentQuestionIndex++;
-        updateSlider();
-        updateButtons();
-      }
-    }
-  
-    // Move to the previous question
-    function prevQuestion() {
-      if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        updateSlider();
-        updateButtons();
-      }
-    }
-  
-    // Update the quiz slider position
-    function updateSlider() {
-      const questionWidth = quizQuestions[0].offsetWidth;
-      quizSlider.scrollTo({
-        left: currentQuestionIndex * questionWidth,
-        behavior: 'smooth'
+    let quizBtn = document.querySelector(".quiz-btn");
+
+    document.querySelectorAll('.question-input').forEach(input => {
+      input.addEventListener('change', function() {
+        const products = JSON.parse(this.dataset.products || '[]');
+        if (this.checked) {
+          quizResults.push(...products);
+        } else {
+          quizResults = quizResults.filter(p => !products.includes(p));
+        }
+        console.log('Selected Products:', quizResults);
       });
-    }
-  
-    // Update the visibility of navigation buttons
-    function updateButtons() {
-      prevButton.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
-      submitButton.style.display = currentQuestionIndex === quizQuestions.length - 1 ? 'block' : 'none';
-    }
-  
-    // Handle answer selection
-    function handleAnswerChange(event) {
-      const input = event.target;
-      const products = JSON.parse(input.dataset.products || '[]');
-      
-      if (input.checked) {
-        selectedProducts.push(...products);
-      } else {
-        selectedProducts = selectedProducts.filter(product => !products.includes(product));
-      }
-      
-      console.log('Selected Products:', selectedProducts);
-  
-      // Move to the next question
-      nextQuestion();
-    }
-  
-    // Display the recommended product based on selected answers
-    function displayRecommendedProduct(product) {
-      quizSlider.style.display = 'none';
-      submitButton.style.display = 'none';
-      recommendedProductsContainer.innerHTML = ''; // Clear previous results
-  
-      const productElement = document.createElement('div');
-      productElement.classList.add('result-stack');
-      productElement.textContent = 'Most Recommended Product: ' + (product.title || 'No product available');
-      
-      const resetBtn = document.createElement('button');
-      resetBtn.textContent = 'Take the Quiz Again';
-      resetBtn.classList.add('reset-button');
-      resetBtn.addEventListener('click', resetQuiz);
-  
-      productElement.appendChild(resetBtn);
-      recommendedProductsContainer.appendChild(productElement);
-      recommendedProductsContainer.style.display = 'block';
-    }
-  
-    // Handle quiz submission
-    function handleSubmit() {
+    });
+
+    document.getElementById('submit-quiz').addEventListener('click', function() {
       const productFrequency = {};
       let mostFrequentProduct = null;
       let maxCount = 0;
-  
-      selectedProducts.forEach(product => {
+
+      quizResults.forEach(product => {
         const productId = JSON.stringify(product);
-        productFrequency[productId] = (productFrequency[productId] || 0) + 1;
-        if (productFrequency[productId] > maxCount) {
-          maxCount = productFrequency[productId];
-          mostFrequentProduct = product;
+        if (!productFrequency[productId]) {
+          productFrequency[productId] = { count: 0, product };
+        }
+        productFrequency[productId].count++;
+
+        if (productFrequency[productId].count > maxCount) {
+          maxCount = productFrequency[productId].count;
+          mostFrequentProduct = productFrequency[productId].product;
         }
       });
-  
+
       console.log('Most Recommended Product:', mostFrequentProduct);
       displayRecommendedProduct(mostFrequentProduct);
+    });
+
+    function displayRecommendedProduct(product) {
+      document.querySelector('#submit-quiz').style.display = 'none';
+      quizSlider.style.display = 'none';
+      const container = document.getElementById('recommended-products-container');
+      container.innerHTML = ''; // Clear previous results
+      const productElement = document.createElement('div');
+      productElement.classList.add('result-stack');
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = 'Take the Quiz Again'; 
+      resetBtn.classList.add('reset-button');
+      productElement.textContent = 'Most Recommended Product: ' + product.title; // Replace with product details if available
+      container.appendChild(productElement);
+      productElement.appendChild(resetBtn);
+      document.getElementById('quiz-results').style.display = 'block';
+      resetBtn.addEventListener("click", resetQuiz);
+      document.querySelector('.result-stack').style.display = 'flex';
+      container.style.display = "block";
+
     }
-  
-    // Reset the quiz to the initial state
+
     function resetQuiz() {
       quizSlider.style.display = 'flex';
-      recommendedProductsContainer.style.display = 'none';
+      const container = document.getElementById('recommended-products-container');
+      container.style.display = 'none';
       document.querySelectorAll('.question-input').forEach(input => {
         input.checked = false;
       });
+      quizResults = [];
       selectedProducts = [];
-      currentQuestionIndex = 0;
-      updateSlider();
-      updateButtons();
+      resetToFirstQuestion()
     }
+    
+    
+    function startQuiz() {
+      console.log("Tetsing");
+      quizSlider.style.display = 'flex'
+      quizBtn.style.display = 'none';
+
+    }
+
+
+    function nextQuestion() {
+      const quizQuestion = document.querySelector('.quiz-question').offsetWidth;
+      
+      // Calculate the next scroll position
+      const currentQuestion = quizSlider.scrollLeft;
+      const nextQuest = currentQuestion + quizQuestion;
   
-    // Add event listeners to answers
-    function addAnswerListeners() {
-      document.querySelectorAll('.question-input').forEach(input => {
-        console.log("Answer");
-        input.addEventListener('change', handleAnswerChange);
+      // Hide the submit button initially
+      document.getElementById('submit-quiz').style.display = 'none';
+  
+      // Scroll to the next item
+      quizSlider.scrollTo({
+          left: nextQuest,
+          behavior: 'smooth' // Adds smooth scrolling animation
+      });
+  
+      // Check if it is the last item
+      const totalItems = document.querySelectorAll('.quiz-question').length;
+      const currentIndex = Math.round(nextQuest / quizQuestion);
+  
+      if (currentIndex >= totalItems - 1) {
+          // Show the submit button if it is the last item
+          document.getElementById('submit-quiz').style.display = 'block';
+      }
+  }
+
+  function resetToFirstQuestion() {
+    console.log('resetToFirstQuestion');
+    quizSlider.scrollTo({
+        left: 0,
+        behavior: 'smooth' // Adds smooth scrolling animation
+    });
+}
+
+      function addAnswerListeners() {
+      let inputs = document.querySelectorAll('.question-input');
+      inputs.forEach(input => {
+        let labelText = input.closest('.quiz-block').querySelector('label');
+        if (labelText && !labelText.textContent.trim()) {
+          input.closest('.quiz-block').style.display = 'none';
+        } else {
+          input.addEventListener('change', nextQuestion);
+        }
       });
     }
-  
-    // Initialize quiz functionality
-    function init() {
-      if (quizBtn) {
-        quizBtn.addEventListener('click', startQuiz);
-      }
-      
-      if (submitButton) {
-        submitButton.addEventListener('click', handleSubmit);
-      }
-  
-      if (prevButton) {
-        prevButton.addEventListener('click', prevQuestion);
-      }
-  
+
+    
+    let questions = document.querySelectorAll('.quiz-question');
+    let currentQuestionIndex = 0;
+
+    if (quizBtn) {
+      quizBtn.addEventListener("click", startQuiz);
       addAnswerListeners();
+    } else {
+      console.error("Quiz button not found");
     }
-  
-    init();
   });
-  
 </script>
