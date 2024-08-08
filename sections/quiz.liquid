@@ -10,50 +10,80 @@
     },
     {
       "type": "text",
+      "id": "h2_font_family",
+      "label": "Heading Font",
+      "default": "black"
+    },
+    {
+      "type": "text",
+      "id": "h2_font_size",
+      "label": "Heading Font Size",
+      "default": "2rem"
+    },
+    {
+      "type": "text",
+      "id": "h2_font_color",
+      "label": "Heading Font Color",
+      "default": "black"
+    },
+    {
+      "type": "text",
+      "id": "h2_marg_top",
+      "label": "Heading Margin Top",
+      "default": "2rem"
+    },
+    {
+      "type": "text",
+      "id": "h2_marg_bot",
+      "label": "Heading Margin Bottom",
+      "default": "2rem"
+    },
+    {
+      "type": "text",
       "id": "quiz_btn",
-      "label": "Quiz Button",
+      "label": "Start Button",
       "default": "Start Quiz"
     },
     {
       "type": "color",
       "id": "quiz_btn_background_color",
-      "label": "Quiz Button Background Color",
+      "label": "Start Button Background Color",
       "default": "#0000ff"
     },
     {
       "type": "color",
       "id": "start_btn_text_color",
-      "label": "Button Text Color",
+      "label": "Start Button Text Color",
       "default": "#ffffff"
     },
     {
       "type": "text",
       "id": "start_btn_padding",
-      "label": "Button Padding",
+      "label": "Start Button Padding",
       "default": "10px 20px"
     },
     {
       "type": "text",
       "id": "start_btn_border_radius",
-      "label": "Button Border Radius",
+      "label": "Start Button Button Border Radius",
       "default": "5px"
     },
     {
       "type": "text",
       "id": "font_family",
-      "label": "Font Family",
+      "label": "Start Button Font Family",
       "default": "Arial, sans-serif"
     },
     {
       "type": "color",
       "id": "font_color",
-      "label": "Font Color",
+      "label": "Start Button Font Color",
       "default": "#000000"
     },
     {
       "type": "text",
       "id": "font_size",
-      "label": "Font Size",
+      "label": "Start Button Font Size",
       "default": "16px"
     },
     {
@@ -155,6 +185,14 @@
 
 
 <style>
+
+  .quiz-heading {
+    font-size: {{ section.settings.h2_font_size }};
+    color: {{ section.settings.h2_font_color }};
+    margin-top: {{ section.settings.h2_marg_top }};
+    margin-bottom: {{ section.settings.h2_marg_bot }}
+    font-family: {{ section.settings.h2_font_family }};
+  }
   .quiz-btn {
     background-color: {{ section.settings.quiz_btn_background_color }};
     color: {{ section.settings.start_btn_text_color }};
@@ -163,13 +201,16 @@
     font-family: {{ section.settings.font_family }};
     font-size: {{ section.settings.font_size }};
   }
+
+
+
 </style>
 
 
 
 
 <div class="quiz-container">
-  <h2>{{ section.settings.quiz_title }}</h2>
+  <h2 class="quiz-heading">{{ section.settings.quiz_title }}</h2>
   <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
   <div class="quiz-slider">
     {% for block in section.blocks %}
