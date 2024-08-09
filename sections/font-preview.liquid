@@ -1,0 +1,55 @@
+{% schema %}
+{
+  "name": "Font Preview",
+  "settings": [
+    {
+      "type": "text",
+      "id": "font_name",
+      "label": "Font Name",
+      "default": "Arial"
+    },
+    {
+      "type": "text",
+      "id": "sample_text",
+      "label": "Sample Text",
+      "default": "The quick brown fox jumps over the lazy dog."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="font-preview">
+  <p style="font-family: {{ settings.font_name }};">
+    {{ settings.sample_text }}
+  </p>
+</div>
+
+<style>
+
+    .font-preview p {
+        font-size: 18px; /* Adjust as needed */
+        line-height: 1.5;
+      }
+
+</style>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var fontName = '{{ settings.font_name }}';
+        var link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fontName) + '&display=swap';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+      });
+      
+
+
+</script>
