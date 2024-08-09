@@ -25,10 +25,12 @@
 {% endschema %}
 
 <div class="font-preview">
-  <p style="font-family: {{ settings.font_name }};">
-    {{ settings.sample_text }}
-  </p>
+  <p style="font-family: {{ settings.font_name }};"> </p>
+
 </div>
+<input type="text" id="fontInput" placeholder="Type your text here..." value="{{ settings.default_text }}" />
+
+
 
 <style>
 
@@ -42,6 +44,7 @@
     .font-preview p {
         font-size: 18px; /* Adjust as needed */
         line-height: 1.5;
+        color: black;
       }
 
 </style>
@@ -51,12 +54,19 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         var fontName = '{{ settings.font_name }}';
+        var input = document.getElementById('fontInput');
+        var previewText = document.getElementById('previewText');
+      
+        // Load the selected font dynamically
         var link = document.createElement('link');
         link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fontName) + '&display=swap';
         link.rel = 'stylesheet';
         document.head.appendChild(link);
-      });
       
-
+        // Update the preview text as the user types
+        input.addEventListener('input', function() {
+          previewText.textContent = input.value || '{{ settings.default_text }}';
+        });
+      });
 
 </script>
