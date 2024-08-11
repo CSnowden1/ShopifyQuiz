@@ -11,6 +11,7 @@
     align-items: center;
     width: 100%;
     padding: 20px;
+    height: 100vh;
   }
 
   .quiz-btn {
