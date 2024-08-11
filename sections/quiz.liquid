@@ -511,7 +511,7 @@
       // Add images to carousel track
       product.images.forEach((image, index) => {
         const img = document.createElement('img');
-        img.src = image.src; // URL of the image
+        img.src = image; // URL of the image
         img.alt = product.title;
         img.classList.add('carousel-image');
         carouselTrack.appendChild(img);
