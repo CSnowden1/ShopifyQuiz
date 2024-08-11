@@ -492,22 +492,124 @@
     function displayRecommendedProduct(product) {
       document.querySelector('#submit-quiz').style.display = 'none';
       quizSlider.style.display = 'none';
+    
       const container = document.getElementById('recommended-products-container');
       container.innerHTML = ''; // Clear previous results
+    
       const productElement = document.createElement('div');
       productElement.classList.add('result-stack');
+    
+      // Product title
+      const productTitle = document.createElement('h3');
+      productTitle.textContent = 'Most Recommended Product: ' + product.title;
+      productElement.appendChild(productTitle);
+    
+      // Carousel container
+      const carouselContainer = document.createElement('div');
+      carouselContainer.classList.add('carousel-container');
+      
+      // Carousel track
+      const carouselTrack = document.createElement('div');
+      carouselTrack.classList.add('carousel-track');
+    
+      // Create carousel images
+      product.images.forEach((imageSrc, index) => {
+        const imageElement = document.createElement('img');
+        imageElement.src = imageSrc;
+        imageElement.alt = `${product.title} - Image ${index + 1}`;
+        imageElement.classList.add('carousel-image');
+        carouselTrack.appendChild(imageElement);
+      });
+    
+      carouselContainer.appendChild(carouselTrack);
+      productElement.appendChild(carouselContainer);
+    
+      // Carousel controls
+      const prevButton = document.createElement('button');
+      prevButton.textContent = '‹';
+      prevButton.classList.add('carousel-button', 'carousel-button-prev');
+      prevButton.addEventListener('click', () => slideCarousel('prev'));
+    
+      const nextButton = document.createElement('button');
+      nextButton.textContent = '›';
+      nextButton.classList.add('carousel-button', 'carousel-button-next');
+      nextButton.addEventListener('click', () => slideCarousel('next'));
+    
+      productElement.appendChild(prevButton);
+      productElement.appendChild(nextButton);
+    
+      // Go to product page button
+      const viewProductBtn = document.createElement('a');
+      viewProductBtn.href = product.url; // Assuming product.url is the link to the product page
+      viewProductBtn.textContent = 'View Product';
+      viewProductBtn.classList.add('view-product-button');
+      viewProductBtn.style.marginRight = '10px';
+      productElement.appendChild(viewProductBtn);
+    
+      // Add to cart button
+      const addToCartBtn = document.createElement('button');
+      addToCartBtn.textContent = 'Add to Cart';
+      addToCartBtn.classList.add('add-to-cart-button');
+      addToCartBtn.addEventListener('click', function() {
+        addToCart(product.id); // Assuming addToCart is a function that handles adding the product to the cart
+      });
+      productElement.appendChild(addToCartBtn);
+    
+      // Reset quiz button
       const resetBtn = document.createElement('button');
       resetBtn.textContent = 'Take the Quiz Again'; 
       resetBtn.classList.add('reset-button');
-      console.log(product);
-      productElement.textContent = 'Most Recommended Product: ' + product.title; // Replace with product details if available
-      container.appendChild(productElement);
-      productElement.appendChild(resetBtn);
-      document.getElementById('quiz-results').style.display = 'block';
       resetBtn.addEventListener("click", resetQuiz);
+      productElement.appendChild(resetBtn);
+    
+      container.appendChild(productElement);
+    
+      document.getElementById('quiz-results').style.display = 'block';
       document.querySelector('.result-stack').style.display = 'flex';
-      container.style.display = "block";
-
+      container.style.display = 'block';
+    
+      // Carousel slide function
+      function slideCarousel(direction) {
+        const carouselImages = document.querySelectorAll('.carousel-image');
+        const trackWidth = carouselImages[0].offsetWidth;
+        const currentOffset = parseInt(carouselTrack.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    
+        if (direction === 'next') {
+          if (currentOffset > -(trackWidth * (carouselImages.length - 1))) {
+            carouselTrack.style.transform = `translateX(${currentOffset - trackWidth}px)`;
+          }
+        } else {
+          if (currentOffset < 0) {
+            carouselTrack.style.transform = `translateX(${currentOffset + trackWidth}px)`;
+          }
+        }
+      }
+    }
+    
+    function addToCart(productId) {
+      // Implement the logic to add the product to the cart
+      console.log('Adding product to cart:', productId);
+      // Example: Add product to Shopify cart
+      fetch(`/cart/add.js`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: [{
+            id: productId,
+            quantity: 1
+          }]
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Product added to cart:', data);
+        // Optionally, redirect to cart or show a confirmation message
+      })
+      .catch(error => {
+        console.error('Error adding product to cart:', error);
+      });
     }
 
     function resetQuiz() {
