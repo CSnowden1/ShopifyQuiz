@@ -495,95 +495,81 @@
     
       const container = document.getElementById('recommended-products-container');
       container.innerHTML = ''; // Clear previous results
-    
+      
+      // Create product element
       const productElement = document.createElement('div');
       productElement.classList.add('result-stack');
-    
-      // Product title
-      const productTitle = document.createElement('h3');
-      productTitle.textContent = 'Most Recommended Product: ' + product.title;
-      productElement.appendChild(productTitle);
-    
-      // Carousel container
+      
+      // Create carousel container
       const carouselContainer = document.createElement('div');
       carouselContainer.classList.add('carousel-container');
-      
-      // Carousel track
+    
+      // Create carousel track
       const carouselTrack = document.createElement('div');
       carouselTrack.classList.add('carousel-track');
     
-      // Create carousel images
-      product.images.forEach((imageSrc, index) => {
-        const imageElement = document.createElement('img');
-        imageElement.src = imageSrc;
-        imageElement.alt = `${product.title} - Image ${index + 1}`;
-        imageElement.classList.add('carousel-image');
-        carouselTrack.appendChild(imageElement);
+      // Add images to carousel track
+      product.images.forEach((image, index) => {
+        const img = document.createElement('img');
+        img.src = image.src; // URL of the image
+        img.alt = product.title;
+        img.classList.add('carousel-image');
+        carouselTrack.appendChild(img);
       });
     
       carouselContainer.appendChild(carouselTrack);
-      productElement.appendChild(carouselContainer);
     
-      // Carousel controls
+      // Create navigation buttons
       const prevButton = document.createElement('button');
-      prevButton.textContent = '‹';
       prevButton.classList.add('carousel-button', 'carousel-button-prev');
-      prevButton.addEventListener('click', () => slideCarousel('prev'));
+      prevButton.textContent = '‹';
+      prevButton.addEventListener('click', () => slideCarousel(-1));
     
       const nextButton = document.createElement('button');
-      nextButton.textContent = '›';
       nextButton.classList.add('carousel-button', 'carousel-button-next');
-      nextButton.addEventListener('click', () => slideCarousel('next'));
+      nextButton.textContent = '›';
+      nextButton.addEventListener('click', () => slideCarousel(1));
     
-      productElement.appendChild(prevButton);
-      productElement.appendChild(nextButton);
+      carouselContainer.appendChild(prevButton);
+      carouselContainer.appendChild(nextButton);
     
-      // Go to product page button
+      // Create "View Product" button
       const viewProductBtn = document.createElement('a');
-      viewProductBtn.href = product.`${products/handle}`; // Assuming product.url is the link to the product page
       viewProductBtn.textContent = 'View Product';
       viewProductBtn.classList.add('view-product-button');
-      viewProductBtn.style.marginRight = '10px';
-      productElement.appendChild(viewProductBtn);
+      viewProductBtn.href = `/products/${product.handle}`; // Assuming the URL format is /products/{handle}
     
-      // Add to cart button
+      // Create "Add to Cart" button
       const addToCartBtn = document.createElement('button');
       addToCartBtn.textContent = 'Add to Cart';
       addToCartBtn.classList.add('add-to-cart-button');
-      addToCartBtn.addEventListener('click', function() {
-        addToCart(product.id); // Assuming addToCart is a function that handles adding the product to the cart
-      });
-      productElement.appendChild(addToCartBtn);
+      addToCartBtn.addEventListener('click', () => addToCart(product.id));
     
-      // Reset quiz button
+      // Create reset button
       const resetBtn = document.createElement('button');
       resetBtn.textContent = 'Take the Quiz Again'; 
       resetBtn.classList.add('reset-button');
       resetBtn.addEventListener("click", resetQuiz);
-      productElement.appendChild(resetBtn);
     
+      // Append elements to the container
+      productElement.appendChild(carouselContainer);
+      productElement.appendChild(viewProductBtn);
+      productElement.appendChild(addToCartBtn);
+      productElement.appendChild(resetBtn);
+      
       container.appendChild(productElement);
     
       document.getElementById('quiz-results').style.display = 'block';
-      document.querySelector('.result-stack').style.display = 'flex';
-      container.style.display = 'block';
+    }
     
-      // Carousel slide function
-      function slideCarousel(direction) {
-        const carouselImages = document.querySelectorAll('.carousel-image');
-        const trackWidth = carouselImages[0].offsetWidth;
-        const currentOffset = parseInt(carouselTrack.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    function slideCarousel(direction) {
+      const track = document.querySelector('.carousel-track');
+      const currentTransform = getComputedStyle(track).transform;
+      const matrix = new DOMMatrix(currentTransform);
+      const slideWidth = track.firstElementChild.clientWidth;
+      const newTransformX = matrix.m41 - direction * slideWidth;
     
-        if (direction === 'next') {
-          if (currentOffset > -(trackWidth * (carouselImages.length - 1))) {
-            carouselTrack.style.transform = `translateX(${currentOffset - trackWidth}px)`;
-          }
-        } else {
-          if (currentOffset < 0) {
-            carouselTrack.style.transform = `translateX(${currentOffset + trackWidth}px)`;
-          }
-        }
-      }
+      track.style.transform = `translateX(${newTransformX}px)`;
     }
     
     function addToCart(productId) {
