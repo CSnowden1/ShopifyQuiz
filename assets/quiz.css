@@ -38,7 +38,11 @@
     margin-top: 20px;
   }
 
- 
+ .quiz-block { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
 
   .recommended-products {
     display: flex;
