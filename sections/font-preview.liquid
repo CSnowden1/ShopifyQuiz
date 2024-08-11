@@ -33,6 +33,7 @@
 
 <div class="font-preview">
   <input type="text" id="fontInput" placeholder="Type your text here..." value="{{ settings.default_text }}" />
+  <input type="text" id="fontSearch" placeholder="Search fonts..." />
   <select id="fontSelect">
     <option value="Arial">Arial</option>
     <option value="Courier New">Courier New</option>
@@ -45,85 +46,88 @@
   </p>
 </div>
 
-
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var fontInput = document.getElementById('fontInput');
+    var fontSelect = document.getElementById('fontSelect');
+    var previewText = document.getElementById('previewText');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var fontInput = document.getElementById('fontInput');
-        var fontSelect = document.getElementById('fontSelect');
-        var previewText = document.getElementById('previewText');
-      
-        // Load the default font
-        loadFont(fontSelect.value);
-      
-        // Update preview text on input
-        fontInput.addEventListener('input', function() {
-          previewText.textContent = fontInput.value || '{{ settings.default_text }}';
-        });
-      
-        // Update font on dropdown change
-        fontSelect.addEventListener('change', function() {
-          loadFont(fontSelect.value);
-          previewText.style.fontFamily = fontSelect.value;
-        });
-      
-        function loadFont(fontName) {
-          var link = document.createElement('link');
-          link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fontName) + '&display=swap';
-          link.rel = 'stylesheet';
-          document.head.appendChild(link);
-        }
-      
-        // Implement font search/filter (optional, for large font lists)
-        var searchInput = document.createElement('input');
-        searchInput.setAttribute('placeholder', 'Search fonts...');
-        searchInput.setAttribute('id', 'fontSearch');
-        document.querySelector('.font-preview').insertBefore(searchInput, fontSelect);
-      
-        searchInput.addEventListener('input', function() {
-          var filter = searchInput.value.toLowerCase();
-          var options = fontSelect.getElementsByTagName('option');
-          for (var i = 0; i < options.length; i++) {
-            var option = options[i];
-            var text = option.textContent || option.innerText;
-            option.style.display = text.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
-          }
-        });
-      });
-      
+    // Load the default font
+    loadFont(fontSelect.value);
 
+    // Update preview text on input
+    fontInput.addEventListener('input', function() {
+      previewText.textContent = fontInput.value || '{{ settings.default_text }}';
+    });
+
+    // Update font on dropdown change
+    fontSelect.addEventListener('change', function() {
+      loadFont(fontSelect.value);
+      previewText.style.fontFamily = fontSelect.value;
+    });
+
+    function loadFont(fontName) {
+      var link = document.createElement('link');
+      link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fontName) + '&display=swap';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+
+    // Implement font search/filter
+    var searchInput = document.getElementById('fontSearch');
+
+    searchInput.addEventListener('input', function() {
+      var filter = searchInput.value.toLowerCase();
+      var options = fontSelect.getElementsByTagName('option');
+      for (var i = 0; i < options.length; i++) {
+        var option = options[i];
+        var text = option.textContent || option.innerText;
+        option.style.display = text.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
+      }
+    });
+  });
 </script>
 
-
-
 <style>
+  .font-preview {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
 
-    .font-preview input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 16px;
-      }
-      
-      .font-preview select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 16px;
-      }
-      
-      .font-preview p {
-        font-size: 18px;
-        line-height: 1.5;
-        margin-top: 10px;
-      }
-      
-      #fontSearch {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 16px;
-      }
-      
+  .font-preview input[type="text"],
+  .font-preview select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out;
+  }
 
+  .font-preview input[type="text"]:focus,
+  .font-preview select:focus {
+    border-color: #0073e6;
+    outline: none;
+  }
+
+  .font-preview p {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-top: 12px;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+
+  #fontSearch {
+    margin-bottom: 10px;
+  }
 </style>
