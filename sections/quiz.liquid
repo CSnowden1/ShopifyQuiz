@@ -540,7 +540,7 @@
     
       // Go to product page button
       const viewProductBtn = document.createElement('a');
-      viewProductBtn.href = product.handle; // Assuming product.url is the link to the product page
+      viewProductBtn.href = product.`${products/handle}`; // Assuming product.url is the link to the product page
       viewProductBtn.textContent = 'View Product';
       viewProductBtn.classList.add('view-product-button');
       viewProductBtn.style.marginRight = '10px';
