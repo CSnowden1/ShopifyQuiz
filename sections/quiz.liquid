@@ -351,7 +351,6 @@
   }
   
   .quiz-answer {
-    background-color: {{ section.settings.quiz_answer_background_color }};
     color: {{ section.settings.quiz_answer_text_color }};
     padding: {{ section.settings.quiz_answer_padding }};
     border-radius: {{ section.settings.quiz_answer_border_radius }};
@@ -500,6 +499,7 @@
       const resetBtn = document.createElement('button');
       resetBtn.textContent = 'Take the Quiz Again'; 
       resetBtn.classList.add('reset-button');
+      console.log(product);
       productElement.textContent = 'Most Recommended Product: ' + product.title; // Replace with product details if available
       container.appendChild(productElement);
       productElement.appendChild(resetBtn);
