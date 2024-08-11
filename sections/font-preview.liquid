@@ -41,9 +41,12 @@
     <option value="Times New Roman">Times New Roman</option>
     <option value="Verdana">Verdana</option>
   </select>
-  <p id="previewText" style="font-family: {{ settings.default_font }};">
-    {{ settings.default_text }}
-  </p>
+  <div id="font-preview-box">
+    <p id="previewText" style="font-family: {{ settings.default_font }};">
+      {{ settings.default_text }}
+    </p>
+  </div>
+
 </div>
 
 <script>
@@ -117,14 +120,13 @@
     outline: none;
   }
 
-  .font-preview p {
-    font-size: 20px;
-    line-height: 1.6;
+  .font-preview-box {
     margin-top: 12px;
     background-color: #fff;
     padding: 10px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
+    min-height: 100px;
   }
 
   #fontSearch {
@@ -132,6 +134,7 @@
   }
 
   #previewText {
-  min-height: 100px;
+    font-size: 20px;
+    line-height: 1.6;
   }
 </style>
