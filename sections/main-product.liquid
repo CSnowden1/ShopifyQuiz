@@ -667,6 +667,11 @@
         </section>
       </div>
     </div>
+    {% for block in section.blocks %}
+      {% if block.type == 'bonus-product' %}
+        {% render 'bonus-product', settings: block.settings %}
+      {% endif %}
+    {% endfor %}
 
     {% render 'product-media-modal', variant_images: variant_images %}
     
