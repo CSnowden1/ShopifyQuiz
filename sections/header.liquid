@@ -96,6 +96,8 @@
   }
 {%- endstyle -%}
 
+
+
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
 <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
@@ -292,6 +294,26 @@
           </div>
         {%- endif -%}
       </a>
+
+
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+        {%- liquid
+          if cart == empty
+            render 'icon-cart-empty'
+          else
+            render 'icon-cart'
+          endif
+        -%}
+        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+        {%- if cart != empty -%}
+          <div class="cart-count-bubble">
+            {%- if cart.item_count < 100 -%}
+              <span aria-hidden="true">{{ cart.item_count }}</span>
+            {%- endif -%}
+            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+          </div>
+        {%- endif -%}
+      </a>
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
@@ -451,6 +473,8 @@
     }
   </script>
 {%- endif -%}
+
+
 
 {% schema %}
 {
