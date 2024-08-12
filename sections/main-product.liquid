@@ -667,29 +667,34 @@
         </section>
       </div>
     </div>
+    
     {% assign selected_products = section.blocks | where: "type", "bonus-product" | first %}
     {% assign promo_products = selected_products.settings.promo_products %}
-    {% assign bonus_products = selected_products.settings.bonus_product %}
-
+    {% assign bonus_product = selected_products.settings.bonus_product %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     console.log('Bonus Product Section Working');
-    
+
+    // Convert Liquid variables to JavaScript variables
     var triggerProducts = [];
-    var bonusProductId = '{{ selected_products.settings.bonus_product }}';
+    var bonusProductId = '{{ bonus_product | json }}'; // JSON-encode the bonus product ID
 
-    {% for product in bonus_products %}
-      bonusProductId === ('{{ product }}');
-    {% endfor %}
-    
-    // Iterate over the promotional products
+    // Extract and push promotional product IDs into the triggerProducts array
     {% for product in promo_products %}
-      triggerProducts.push('{{ product }}');
+      triggerProducts.push('{{ product.id | json }}'); // Assuming product.id is the product ID
     {% endfor %}
 
+    // Log the results
     console.log('Trigger Products:', triggerProducts);
     console.log('Bonus Product ID:', bonusProductId);
+
+    // Check if bonusProductId is in triggerProducts
+    if (triggerProducts.includes(bonusProductId)) {
+      console.log('Bonus product is among the trigger products.');
+    } else {
+      console.log('Bonus product is not among the trigger products.');
+    }
   });
 </script>
 
