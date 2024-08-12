@@ -667,31 +667,25 @@
         </section>
       </div>
     </div>
-    {% for block in section.blocks %}
-      {% if block.type == 'bonus-product' %}
-        {% render 'bonus-product', settings: block.settings %}
-      {% endif %}
-    {% endfor %}   
+    {% assign selected_products = section.blocks | where: "type", "bonus-product" | first %}
+    {% assign promo_products = selected_products.settings.promo_products %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Bonus Product Section Working');
     
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('Bonus Product Section Wokring')
-      var triggerProducts = [];
-      var bonusProductId = '{{ section.blocks}}';
+    var triggerProducts = [];
+    var bonusProductId = '{{ selected_products.settings.bonus_product }}';
     
-      {% for block in section.blocks %}
-        {% if block.type == 'bonus-product' %}
-          {% assign triggers = block.settings.trigger_products %}
-          {% for product in triggers %}
-            triggerProducts.push('{{ product.id }}');
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
-    
-      console.log('Trigger Products:', triggerProducts);
-      console.log('Bonus Product ID:', bonusProductId);
-    });
-    </script>
+    // Iterate over the promotional products
+    {% for product in promo_products %}
+      triggerProducts.push('{{ product.id }}');
+    {% endfor %}
+
+    console.log('Trigger Products:', triggerProducts);
+    console.log('Bonus Product ID:', bonusProductId);
+  });
+</script>
 
     {% render 'product-media-modal', variant_images: variant_images %}
     
