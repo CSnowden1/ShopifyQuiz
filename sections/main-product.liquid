@@ -461,6 +461,9 @@
                   render 'share-button', block: block, share_link: share_url
                 %}
 
+                {%- when 'bonus-product' -%}
+                {% render 'bonus-product' %}
+
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
@@ -667,7 +670,7 @@
     </div>
 
     {% render 'product-media-modal', variant_images: variant_images %}
-    {% render 'bonus-product' %}
+    
 
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}
