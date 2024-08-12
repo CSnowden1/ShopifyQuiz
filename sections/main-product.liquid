@@ -672,31 +672,36 @@
     {% assign promo_products = selected_products.settings.promo_products %}
     {% assign bonus_product = selected_products.settings.bonus_product %}
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('Bonus Product Section Working');
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Bonus Product Section Working');
 
-    // Convert Liquid variables to JavaScript variables
-    var triggerProducts = [];
-    var bonusProductId =  {{ bonus_product | json }}; // JSON-encode the bonus product ID
+        // Convert Liquid variables to JavaScript variables
+        var triggerProducts = [];
+        var bonusProductId = {{ bonus_product | json }}; // JSON-encode the bonus product object
 
-    // Extract and push promotional product IDs into the triggerProducts array
-    {% for product in promo_products %}
-      triggerProducts.push('{{ product | json }}'); // Assuming product.id is the product ID
-    {% endfor %}
+        // Extract and push promotional products into the triggerProducts array
+        {% for product in promo_products %}
+          triggerProducts.push({{ product | json }}); // JSON-encode each product object
+        {% endfor %}
 
-    // Log the results
-    console.log('Trigger Products:', triggerProducts);
-    console.log('Bonus Product ID:', bonusProductId);
+        // Log the results
+        console.log('Trigger Products:', triggerProducts);
+        console.log('Bonus Product:', bonusProductId);
 
-    // Check if bonusProductId is in triggerProducts
-    if (triggerProducts.includes(bonusProductId)) {
-      console.log('Bonus product is among the trigger products.');
-    } else {
-      console.log('Bonus product is not among the trigger products.');
-    }
-  });
-</script>
+        // Check if bonusProductId is in triggerProducts
+        var bonusProductInTrigger = triggerProducts.some(function(product) {
+          return product.id === bonusProductId.id; // Adjust according to your product object structure
+        });
+
+        if (bonusProductInTrigger) {
+          console.log('Bonus product is among the trigger products.');
+        } else {
+          console.log('Bonus product is not among the trigger products.');
+        }
+      });
+    </script>
+
 
     {% render 'product-media-modal', variant_images: variant_images %}
     
