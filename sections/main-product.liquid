@@ -670,24 +670,31 @@
     
     {% assign selected_products = section.blocks | where: "type", "bonus-product" | first %}
     {% assign promo_products = selected_products.settings.promo_products %}
-    {% assign bonus_product = selected_products.settings.bonus_product %}
-    
+    {% assign bonus_product_name = selected_products.settings.bonus_product %}
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         console.log('Bonus Product Section Working');
-    
-        // Convert Liquid variables to JavaScript variables
+
         var triggerProducts = [];
-        var bonusProduct = {{ bonus_product | json }}; // JSON-encode the single product object
-    
+        var bonusProduct = null; // Initialize to null
+
         // Extract and push promotional products into the triggerProducts array
         {% for product in promo_products %}
           triggerProducts.push({{ product | json }}); // JSON-encode each product object
         {% endfor %}
-    
-        // Log the results
+
+        // Log the trigger products
         console.log('Trigger Products:', triggerProducts);
-        console.log('Bonus Product:', bonusProduct);
+
+        // Fetch the full bonus product details using Shopify AJAX API
+        fetch(`/products/${encodeURIComponent('{{ bonus_product_name }}')}.js`)
+          .then(response => response.json())
+          .then(product => {
+            bonusProduct = product;
+            console.log('Bonus Product:', bonusProduct);
+          })
+          .catch(error => console.error('Error fetching product:', error));
       });
     </script>
 
