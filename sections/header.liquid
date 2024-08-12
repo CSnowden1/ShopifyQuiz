@@ -326,6 +326,27 @@
       </div>
     </div>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const cartContainer = document.querySelector('.cart-container');
+        const cartPopup = document.querySelector('.cart-popup');
+      
+        document.addEventListener('click', function(event) {
+          if (!cartContainer.contains(event.target)) {
+            cartPopup.style.display = 'none';
+          }
+        });
+      
+        cartContainer.addEventListener('mouseover', function() {
+          cartPopup.style.display = 'block';
+        });
+      
+        cartContainer.addEventListener('mouseleave', function() {
+          cartPopup.style.display = 'none';
+        });
+      });
+    </script>
+
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
