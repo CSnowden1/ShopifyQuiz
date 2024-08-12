@@ -1,21 +1,22 @@
 {% schema %}
 {
-  "name": "Bonus Item",
+  "name": "Bonus Product",
   "settings": [],
   "blocks": [
     {
-      "type": "relationship",
-      "name": "Product Relationship",
+      "type": "product_list",
+      "name": "Trigger Products",
       "settings": [
         {
-          "type": "product",
-          "id": "trigger_product",
-          "label": "Trigger Product"
+          "type": "product_list",
+          "id": "trigger_products",
+          "label": "Trigger Products",
+          "default": []
         },
         {
           "type": "product",
-          "id": "product_to_add",
-          "label": "Product to Add"
+          "id": "bonus_product",
+          "label": "Bonus Product"
         }
       ]
     }
@@ -29,10 +30,22 @@
 }
 {% endschema %}
 
-<div style="display: none;">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var triggerProducts = [];
+  var bonusProductId = '{{ block.settings.bonus_product.id }}';
+
   {% for block in section.blocks %}
-    {% assign trigger_product = block.settings.trigger_product %}
-    {% assign product_to_add = block.settings.product_to_add %}
-    <div class="product-relationship" data-trigger-product="{{ trigger_product.id }}" data-product-to-add="{{ product_to_add.id }}"></div>
+    {% if block.type == 'bonus-product' %}
+      {% assign triggers = block.settings.trigger_products %}
+      {% for product in triggers %}
+        triggerProducts.push('{{ product.id }}');
+      {% endfor %}
+    {% endif %}
   {% endfor %}
-</div>
+
+  console.log('Trigger Products:', triggerProducts);
+  console.log('Bonus Product ID:', bonusProductId);
+
+});
+</script>
