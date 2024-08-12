@@ -276,24 +276,6 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-        {%- liquid
-          if cart == empty
-            render 'icon-cart-empty'
-          else
-            render 'icon-cart'
-          endif
-        -%}
-        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-        {%- if cart != empty -%}
-          <div class="cart-count-bubble">
-            {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true">{{ cart.item_count }}</span>
-            {%- endif -%}
-            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-          </div>
-        {%- endif -%}
-      </a>
 
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
@@ -314,6 +296,36 @@
           </div>
         {%- endif -%}
       </a>
+
+        <!-- Cart Popup -->
+      <div class="cart-popup">
+        {%- if cart != empty -%}
+          <ul class="cart-popup-items">
+            {%- for item in cart.items -%}
+              <li class="cart-popup-item">
+                <a href="{{ item.url }}" class="cart-popup-link">
+                  <img src="{{ item.image | img_url: '100x100' }}" alt="{{ item.title }}" class="cart-popup-image">
+                  <div class="cart-popup-details">
+                    <span class="cart-popup-title">{{ item.title }}</span>
+                    <span class="cart-popup-quantity">{{ item.quantity }} × {{ item.price | money }}</span>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+          <div class="cart-popup-total">
+            {{ 'cart.general.total' | t }}: {{ cart.total_price | money }}
+          </div>
+          <div class="cart-popup-actions">
+            <a href="{{ routes.cart_url }}" class="cart-popup-view-cart">{{ 'cart.general.view_cart' | t }}</a>
+            <a href="{{ routes.checkout_url }}" class="cart-popup-checkout">{{ 'cart.general.checkout' | t }}</a>
+          </div>
+        {%- else -%}
+          <p class="cart-popup-empty">{{ 'cart.general.empty' | t }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
