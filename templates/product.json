@@ -45,6 +45,10 @@
             "settings": {
               "share_label": "Share"
             }
+          },
+          "bonus-product": {
+            "type": "bonus_product",
+            "settings": {}
           }
         },
         "block_order": [
@@ -55,7 +59,8 @@
           "quantity_selector",
           "buy_buttons",
           "description",
-          "share"
+          "share",
+          "bonus_product"
         ],
         "settings": {
           "enable_sticky_info": true,
