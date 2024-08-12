@@ -16,7 +16,7 @@
     z-index: 1000;
   }
   
-  .cart-container:hover .cart-popup {
+  .header__icon--cart:hover .cart-popup {
     display: block; /* Show on hover */
   }
   
