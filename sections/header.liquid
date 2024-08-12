@@ -267,6 +267,27 @@
             -%}
           </span>
         </a>
+
+        <div class="account-popup">
+          <div class="account-popup-header">
+            <a href="{{ routes.login_url }}" class="account-popup-signin">{{ 'customer.login.title' | t }}</a>
+            <a href="{{ routes.account_register_url }}" class="account-popup-signup">{{ 'customer.register.title' | t }}</a>
+          </div>
+      
+          <ul class="account-popup-menu">
+            <li><a href="{{ routes.account_url }}" class="account-popup-link">{{ 'account.general.dashboard' | t }}</a></li>
+            <li><a href="{{ routes.orders_url }}" class="account-popup-link">{{ 'account.orders.title' | t }}</a></li>
+            <li><a href="{{ routes.account_details_url }}" class="account-popup-link">{{ 'account.general.account_info' | t }}</a></li>
+            <li><a href="{{ routes.notifications_url }}" class="account-popup-link">{{ 'account.general.notifications' | t }}</a></li>
+            <li><a href="{{ routes.wishlist_url }}" class="account-popup-link">{{ 'account.general.wishlist' | t }}</a></li>
+            <li><a href="{{ routes.giftcards_url }}" class="account-popup-link">{{ 'account.general.giftcards' | t }}</a></li>
+          </ul>
+        </div>
+      </div>
+  
+
+
+
       {%- endif -%}
 
       {%- for block in section.blocks -%}
@@ -326,6 +347,10 @@
       </div>
     </div>
 
+
+
+
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const cartContainer = document.querySelector('.header__icon--cart');
@@ -343,6 +368,26 @@
       
         cartContainer.addEventListener('mouseleave', function() {
           cartPopup.style.display = 'none';
+        });
+      });
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const accountContainer = document.querySelector('.account-container');
+        const accountPopup = document.querySelector('.account-popup');
+      
+        document.addEventListener('click', function(event) {
+          if (!accountContainer.contains(event.target)) {
+            accountPopup.style.display = 'none';
+          }
+        });
+      
+        accountContainer.addEventListener('mouseover', function() {
+          accountPopup.style.display = 'block';
+        });
+      
+        accountContainer.addEventListener('mouseleave', function() {
+          accountPopup.style.display = 'none';
         });
       });
     </script>

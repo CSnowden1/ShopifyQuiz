@@ -100,4 +100,65 @@
     font-size: 14px;
     color: #777;
   }
+
+
+  .account-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none; /* Hidden by default */
+    z-index: 1000;
+  }
   
+  .account-container:hover .account-popup {
+    display: block; /* Show on hover */
+  }
+  
+  .account-popup-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .account-popup-signin,
+  .account-popup-signup {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .account-popup-signin:hover,
+  .account-popup-signup:hover {
+    color: #555;
+  }
+  
+  .account-popup-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .account-popup-link {
+    display: block;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .account-popup-link:hover {
+    color: #555;
+    background-color: #f9f9f9;
+  }
+  
+  .account-popup-link:last-child {
+    border-bottom: none;
+  }
