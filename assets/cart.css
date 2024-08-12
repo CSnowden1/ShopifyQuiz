@@ -17,7 +17,7 @@
   }
   
   .header__icon--cart:hover .cart-popup {
-    display: block; /* Show on hover */
+    display: block;
   }
   
   .cart-popup-items {
