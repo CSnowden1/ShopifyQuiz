@@ -461,8 +461,7 @@
                   render 'share-button', block: block, share_link: share_url
                 %}
 
-                {%- when 'bonus-product' -%}
-                {% render 'bonus-product' %}
+                {% render 'buy_buttons', settings: section.settings.buy_buttons %}
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
@@ -777,6 +776,17 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "bonus-product",
+      "name": "Bonus Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "related_product",
+          "label": "Related Product"
+        }
+      ]
     },
     {
       "type": "text",

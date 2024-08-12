@@ -1,6 +1,6 @@
 {
     "sections": {
-      "main": {
+      "main-product": {
         "type": "main-product",
         "blocks": {
           "vendor": {
@@ -103,6 +103,6 @@
         }
       }
     },
-    "order": ["main", "related-products"]
+    "order": ["main-product", "related-products"]
   }
   
