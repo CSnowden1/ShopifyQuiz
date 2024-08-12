@@ -830,151 +830,162 @@
         "name": "Featured collection"
       }
     },
-    "featured-product": {
-      "name": "Featured product",
-      "blocks": {
-        "text": {
-          "name": "Text",
-          "settings": {
-            "text": {
-              "default": "Text block",
-              "label": "Text"
-            },
-            "text_style": {
-              "label": "Text style",
-              "options__1": {
-                "label": "Body"
+      "featured-product": {
+        "name": "Featured product",
+        "blocks": {
+          "text": {
+            "name": "Text",
+            "settings": {
+              "text": {
+                "default": "Text block",
+                "label": "Text"
               },
-              "options__2": {
-                "label": "Subtitle"
-              },
-              "options__3": {
-                "label": "Uppercase"
+              "text_style": {
+                "label": "Text style",
+                "options__1": {
+                  "label": "Body"
+                },
+                "options__2": {
+                  "label": "Subtitle"
+                },
+                "options__3": {
+                  "label": "Uppercase"
+                }
               }
             }
-          }
-        },
-        "title": {
-          "name": "Title"
-        },
-        "price": {
-          "name": "Price"
-        },
-        "quantity_selector": {
-          "name": "Quantity selector"
-        },
-        "variant_picker": {
-          "name": "Variant picker",
-          "settings": {
-            "picker_type": {
-              "label": "Style",
-              "options__1": {
-                "label": "Dropdown"
-              },
-              "options__2": {
-                "label": "Pills"
-              }
-            },
-            "swatch_shape": {
-              "label": "Swatch",
-              "info": "Enable [swatches](https://help.shopify.com/en/manual/online-store/themes/theme-structure/theme-settings#options-with-swatches) on product options.",
-              "options__1": {
-                "label": "Circle"
-              },
-              "options__2": {
-                "label": "Square"
-              },
-              "options__3": {
-                "label": "None"
-              }
-            }
-          }
-        },
-        "buy_buttons": {
-          "name": "Buy buttons",
-          "settings": {
-            "show_dynamic_checkout": {
-              "label": "Show dynamic checkout buttons",
-              "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
-            }
-          }
-        },
-        "sku": {
-          "name": "SKU",
-          "settings": {
-            "text_style": {
-              "label": "Text style",
-              "options__1": {
-                "label": "Body"
-              },
-              "options__2": {
-                "label": "Subtitle"
-              },
-              "options__3": {
-                "label": "Uppercase"
-              }
-            }
-          }
-        },
-        "description": {
-          "name": "Description"
-        },
-        "share": {
-          "name": "Share",
-          "settings": {
-            "text": {
-              "label": "Text",
-              "default": "Share"
-            },
-            "featured_image_info": {
-              "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
-            },
-            "title_info": {
-              "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)"
-            }
-          }
-        },
-        "rating": {
-          "name": "Product rating",
-          "settings": {
-            "paragraph": {
-              "content": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/manual/online-store/themes/theme-structure/theme-features#featured-product-rating)"
-            }
-          }
-        }
-      },
-      "settings": {
-        "product": {
-          "label": "Product"
-        },
-        "secondary_background": {
-          "label": "Show secondary background"
-        },
-        "header": {
-          "content": "Media",
-          "info": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)"
-        },
-        "media_position": {
-          "label": "Desktop media position",
-          "info": "Position is automatically optimized for mobile.",
-          "options__1": {
-            "label": "Left"
           },
-          "options__2": {
-            "label": "Right"
+          "title": {
+            "name": "Title"
+          },
+          "price": {
+            "name": "Price"
+          },
+          "quantity_selector": {
+            "name": "Quantity selector"
+          },
+          "variant_picker": {
+            "name": "Variant picker",
+            "settings": {
+              "picker_type": {
+                "label": "Style",
+                "options__1": {
+                  "label": "Dropdown"
+                },
+                "options__2": {
+                  "label": "Pills"
+                }
+              },
+              "swatch_shape": {
+                "label": "Swatch",
+                "info": "Enable [swatches](https://help.shopify.com/en/manual/online-store/themes/theme-structure/theme-settings#options-with-swatches) on product options.",
+                "options__1": {
+                  "label": "Circle"
+                },
+                "options__2": {
+                  "label": "Square"
+                },
+                "options__3": {
+                  "label": "None"
+                }
+              }
+            }
+          },
+          "buy_buttons": {
+            "name": "Buy buttons",
+            "settings": {
+              "show_dynamic_checkout": {
+                "label": "Show dynamic checkout buttons",
+                "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+              }
+            }
+          },
+          "sku": {
+            "name": "SKU",
+            "settings": {
+              "text_style": {
+                "label": "Text style",
+                "options__1": {
+                  "label": "Body"
+                },
+                "options__2": {
+                  "label": "Subtitle"
+                },
+                "options__3": {
+                  "label": "Uppercase"
+                }
+              }
+            }
+          },
+          "description": {
+            "name": "Description"
+          },
+          "share": {
+            "name": "Share",
+            "settings": {
+              "text": {
+                "label": "Text",
+                "default": "Share"
+              },
+              "featured_image_info": {
+                "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
+              },
+              "title_info": {
+                "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)"
+              }
+            }
+          },
+          "rating": {
+            "name": "Product rating",
+            "settings": {
+              "paragraph": {
+                "content": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/manual/online-store/themes/theme-structure/theme-features#featured-product-rating)"
+              }
+            }
+          },
+          "bonus-product": {
+            "name": "Bonus Product",
+            "settings": {
+              "related_product": {
+                "label": "Bonus Product",
+                "type": "product",
+                "default": ""
+              }
+            }
           }
         },
-        "hide_variants": {
-          "label": "Hide unselected variants’ media on desktop"
+        "settings": {
+          "product": {
+            "label": "Product"
+          },
+          "secondary_background": {
+            "label": "Show secondary background"
+          },
+          "header": {
+            "content": "Media",
+            "info": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)"
+          },
+          "media_position": {
+            "label": "Desktop media position",
+            "info": "Position is automatically optimized for mobile.",
+            "options__1": {
+              "label": "Left"
+            },
+            "options__2": {
+              "label": "Right"
+            }
+          },
+          "hide_variants": {
+            "label": "Hide unselected variants’ media on desktop"
+          },
+          "enable_video_looping": {
+            "label": "Enable video looping"
+          }
         },
-        "enable_video_looping": {
-          "label": "Enable video looping"
+        "presets": {
+          "name": "Featured product"
         }
-      },
-      "presets": {
-        "name": "Featured product"
       }
-    },
+    },    
     "footer": {
       "name": "Footer",
       "blocks": {

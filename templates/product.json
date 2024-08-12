@@ -47,8 +47,14 @@
             }
           },
           "bonus-product": {
-            "type": "bonus_product",
-            "settings": {}
+            "type": "bonus-product",
+            "settings": {
+              "related_product": {
+                "label": "Bonus Product",
+                "type": "product",
+                "default": ""
+              }
+            }
           }
         },
         "block_order": [
@@ -60,7 +66,7 @@
           "buy_buttons",
           "description",
           "share",
-          "bonus_product"
+          "bonus-product"
         ],
         "settings": {
           "enable_sticky_info": true,
