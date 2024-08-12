@@ -672,31 +672,83 @@
     {% assign promo_products = selected_products.settings.promo_products %}
     {% assign bonus_product_name = selected_products.settings.bonus_product %}
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('Bonus Product Section Working');
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Bonus Product Section Working');
+    
+    var triggerProducts = [];
+    var bonusProduct = null;
 
-        var triggerProducts = [];
-        var bonusProduct = null; // Initialize to null
+    // Extract and push promotional products into the triggerProducts array
+    {% for product in promo_products %}
+      triggerProducts.push({{ product | json }}); // JSON-encode each product object
+    {% endfor %}
 
-        // Extract and push promotional products into the triggerProducts array
-        {% for product in promo_products %}
-          triggerProducts.push({{ product | json }}); // JSON-encode each product object
-        {% endfor %}
+    // Log the trigger products
+    console.log('Trigger Products:', triggerProducts);
 
-        // Log the trigger products
-        console.log('Trigger Products:', triggerProducts);
+    // Fetch the full bonus product details using Shopify AJAX API
+    fetch(`/products/${encodeURIComponent('{{ bonus_product_name }}')}.js`)
+      .then(response => response.json())
+      .then(product => {
+        bonusProduct = product;
+        console.log('Bonus Product:', bonusProduct);
 
-        // Fetch the full bonus product details using Shopify AJAX API
-        fetch(`/products/${encodeURIComponent('{{ bonus_product_name }}')}.js`)
-          .then(response => response.json())
-          .then(product => {
-            bonusProduct = product;
-            console.log('Bonus Product:', bonusProduct);
-          })
-          .catch(error => console.error('Error fetching product:', error));
+        // Call the function to handle form submissions
+        handleCart();
+      })
+      .catch(error => console.error('Error fetching product:', error));
+
+    function handleCart() {
+      console.log('Cart Script Found');
+      
+      document.querySelectorAll('form[action="/cart/add"]').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          console.log('Add to cart form activated');
+          var formData = new FormData(form);
+          var variantId = formData.get('id');
+          
+          // Check if the added product matches any trigger product
+          if (triggerProducts.some(product => product.variants.some(variant => variant.id == variantId))) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Add the trigger product first
+            addProductToCart(variantId)
+              .then(() => {
+                // After the trigger product is added, add the bonus product
+                if (bonusProduct) {
+                  return addProductToCart(bonusProduct.variants[0].id); // Assuming the bonus product has at least one variant
+                }
+              })
+              .then(() => {
+                // Optionally update the cart UI or redirect
+                window.location.reload();
+              })
+              .catch(error => console.error('Error adding products to cart:', error));
+          }
+        });
       });
-    </script>
+    }
+
+    function addProductToCart(variantId) {
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 1
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Product added:', data);
+      });
+    }
+  });
+</script>
 
 
     {% render 'product-media-modal', variant_images: variant_images %}
@@ -753,48 +805,7 @@
       {{ product | structured_data }}
     </script>
 
-    <script>
-      // Replace with your product IDs
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('Cart Script Found');
-        document.querySelectorAll('form[action="/cart/add"]').forEach(function(form) {
-          form.addEventListener('submit', function(event) {
-            console.log('add to cart form activated');
-            var formData = new FormData(form);
-            var variantId = formData.get('id');
-            
-            // Check if the added product matches the trigger product
-            if (variantId == triggerProductId) {
-              // Wait for the initial product to be added before adding the second product
-              setTimeout(function() {
-                addProductToCart(productToAddId);
-              }, 500);
-            }
-          });
-        });
-    
-        function addProductToCart(variantId) {
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-              id: variantId,
-              quantity: 1
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Product added:', data);
-            // Optionally update the cart UI
-            window.location.reload();
-          })
-          .catch(error => console.error('Error:', error));
-        }
-      });
-    </script>
+
     
   </div>
 </product-info>
