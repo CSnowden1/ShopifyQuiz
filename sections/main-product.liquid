@@ -724,7 +724,7 @@
       var productToAddId = {{ product_to_add_id }};
     
       document.addEventListener('DOMContentLoaded', function() {
-        // Intercept the Add to Cart form submission
+        console.log('Cart Script Found');
         document.querySelectorAll('form[action="/cart/add"]').forEach(function(form) {
           console.log('add to cart form activated');
           form.addEventListener('submit', function(event) {
