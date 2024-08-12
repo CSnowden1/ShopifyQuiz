@@ -1,0 +1,38 @@
+{% schema %}
+{
+  "name": "Bonus Item",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "relationship",
+      "name": "Product Relationship",
+      "settings": [
+        {
+          "type": "product",
+          "id": "trigger_product",
+          "label": "Trigger Product"
+        },
+        {
+          "type": "product",
+          "id": "product_to_add",
+          "label": "Product to Add"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
+<div style="display: none;">
+  {% for block in section.blocks %}
+    {% assign trigger_product = block.settings.trigger_product %}
+    {% assign product_to_add = block.settings.product_to_add %}
+    <div class="product-relationship" data-trigger-product="{{ trigger_product.id }}" data-product-to-add="{{ product_to_add.id }}"></div>
+  {% endfor %}
+</div>
