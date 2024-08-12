@@ -678,7 +678,11 @@
 
         // Convert Liquid variables to JavaScript variables
         var triggerProducts = [];
-        var bonusProduct = {{ bonus_product | json }}; // JSON-encode the bonus product object
+        var bonusProduct = [];
+
+        {% for product in bonus_product %}
+          bonusProduct.push({{ product | json }}); // JSON-encode each product object
+        {% endfor %}
 
         // Extract and push promotional products into the triggerProducts array
         {% for product in promo_products %}
