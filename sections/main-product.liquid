@@ -717,6 +717,53 @@
     <script type="application/ld+json">
       {{ product | structured_data }}
     </script>
+
+    <script>
+      // Replace with your product IDs
+      var triggerProductId = {{ trigger_product_id }};
+      var productToAddId = {{ product_to_add_id }};
+    
+      document.addEventListener('DOMContentLoaded', function() {
+        // Intercept the Add to Cart form submission
+        document.querySelectorAll('form[action="/cart/add"]').forEach(function(form) {
+          console.log('add to cart form activated');
+          form.addEventListener('submit', function(event) {
+            var formData = new FormData(form);
+            var variantId = formData.get('id');
+            
+            // Check if the added product matches the trigger product
+            if (variantId == triggerProductId) {
+              // Wait for the initial product to be added before adding the second product
+              setTimeout(function() {
+                addProductToCart(productToAddId);
+              }, 500);
+            }
+          });
+        });
+    
+        function addProductToCart(variantId) {
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              id: variantId,
+              quantity: 1
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Product added:', data);
+            // Optionally update the cart UI
+            window.location.reload();
+          })
+          .catch(error => console.error('Error:', error));
+        }
+      });
+    </script>
+    
   </div>
 </product-info>
 
