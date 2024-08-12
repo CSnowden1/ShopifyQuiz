@@ -672,6 +672,26 @@
         {% render 'bonus-product', settings: block.settings %}
       {% endif %}
     {% endfor %}   
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Bonus Product Section Wokring')
+      var triggerProducts = [];
+      var bonusProductId = '{{ section.blocks.bonus_product }}';
+    
+      {% for block in section.blocks %}
+        {% if block.type == 'bonus-product' %}
+          {% assign triggers = block.settings.trigger_products %}
+          {% for product in triggers %}
+            triggerProducts.push('{{ product.id }}');
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    
+      console.log('Trigger Products:', triggerProducts);
+      console.log('Bonus Product ID:', bonusProductId);
+    });
+    </script>
 
     {% render 'product-media-modal', variant_images: variant_images %}
     
