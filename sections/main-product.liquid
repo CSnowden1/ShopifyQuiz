@@ -669,6 +669,8 @@
     </div>
     {% assign selected_products = section.blocks | where: "type", "bonus-product" | first %}
     {% assign promo_products = selected_products.settings.promo_products %}
+    {% assign bonus_products = selected_products.settings.bonus_product %}
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -676,10 +678,14 @@
     
     var triggerProducts = [];
     var bonusProductId = '{{ selected_products.settings.bonus_product }}';
+
+    {% for product in bonus_products %}
+      bonusProductId === ('{{ product }}');
+    {% endfor %}
     
     // Iterate over the promotional products
     {% for product in promo_products %}
-      triggerProducts.push('{{ product.id }}');
+      triggerProducts.push('{{ product }}');
     {% endfor %}
 
     console.log('Trigger Products:', triggerProducts);
@@ -807,7 +813,7 @@
         },
         {
           "type": "product",
-          "id": "bonus_products",
+          "id": "bonus_product",
           "label": "Bonus Product"
         }
       ]
