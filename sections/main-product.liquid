@@ -677,7 +677,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         console.log('Bonus Product Section Wokring')
       var triggerProducts = [];
-      var bonusProductId = '{{ section.blocks.settings.bonus_products }}';
+      var bonusProductId = '{{ section.settings.bonus_products }}';
     
       {% for block in section.blocks %}
         {% if block.type == 'bonus-product' %}
