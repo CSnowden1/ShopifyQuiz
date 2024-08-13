@@ -360,22 +360,18 @@
       </div>
     </div>
     <div>
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'link_list' %}
-            <nav class="site-nav">
-                <ul>
-                  {% for link in linklists[block.settings.sub_menu].links %}
-                    <li>
-                      <a href="{{ link.url }}" {{ link.target ? 'target="_blank"' : '' }}>
-                        {{ link.title }}
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-            </nav>
-        {% endcase %}
-      {% endfor %}
+      {% when 'link_list' %}
+        <nav class="site-nav">
+            <ul>
+              {% for link in linklists[block.settings.sub_menu].links %}
+                <li>
+                  <a href="{{ link.url }}" {{ link.target ? 'target="_blank"' : '' }}>
+                    {{ link.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+        </nav>
     </div>
 
 
