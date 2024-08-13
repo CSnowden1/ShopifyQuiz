@@ -2805,6 +2805,7 @@ details[open] > .header__menu-item .icon-caret {
   color: rgb(var(--color-foreground));
   text-decoration: underline;
   text-underline-offset: 0.3rem;
+  font: 900 16px/16px proxima-nova,Arial,sans-serif;
 }
 
 .header__menu-item:hover .header__active-menu-item {
