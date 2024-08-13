@@ -2575,7 +2575,7 @@ input[type='checkbox'] {
 .header__sub_menu-item {
   font: 600 14px / 17px proxima-nova, Arial, sans-serif;
   text-decoration: none;
-  padding-right: 1rem;
+  padding-right: 2rem;
 }
 
 .header__icon--account shop-user-avatar {
