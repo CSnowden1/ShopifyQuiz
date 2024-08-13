@@ -95,7 +95,6 @@
         {% endif %}
 
         {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
-          <div class="under-unless">
           
           <div
             id="Slide-{{ section.id }}-{{ media.id }}"
@@ -123,7 +122,6 @@
               constrain_to_viewport: section.settings.constrain_to_viewport,
               lazy_load: lazy_load
             %}
-          </div>
           </div>
         {%- endunless -%}
       {%- endfor -%}
