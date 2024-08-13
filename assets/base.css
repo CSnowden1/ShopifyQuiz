@@ -108,7 +108,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 .thumbnail-grid {
   display: grid;
   grid-template-columns: repeat(3, auto);
-
 }
 
 
