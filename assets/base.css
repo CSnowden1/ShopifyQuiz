@@ -109,6 +109,11 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   display: none;
 }
 
+.media-gallery {
+  display: flex;
+  justify-content: space-between;
+}
+
 .gal-viewer {
   display: flex;
   flex-direction: column;
