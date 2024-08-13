@@ -110,6 +110,21 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   grid-template-columns: repeat(3, auto);
 }
 
+.gal-viewer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+
+.product__media-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  width: 29rem;
+}
+
+
 
 @media screen and (min-width: 750px) {
   .page-width {
