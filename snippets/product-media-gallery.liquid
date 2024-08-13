@@ -86,7 +86,7 @@
         </div>
       {%- endif -%}  
 
-      <div style="min-width: 100%">
+      <div class="product-page-container" style="min-width: 100%">
       {%- for media in product.media -%}
         {% if media_position >= limit
           or media_position >= 1
@@ -320,3 +320,24 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Step 1: Select the parent container
+      const parentDiv = document.querySelector('product-page-container');
+
+      if (!parentDiv) return; // Ensure parentDiv exists
+
+      // Step 2: Create a new container for the remaining divs
+      const newContainer = document.createElement('div');
+
+      // Step 3: Move all div elements after the first child into the new container
+      const childDivs = Array.from(parentDiv.children);
+      childDivs.slice(1).forEach(child => {
+          newContainer.appendChild(child);
+      });
+
+      // Step 4: Append the new container to the parent container
+      parentDiv.appendChild(newContainer);
+  });
+</script>
