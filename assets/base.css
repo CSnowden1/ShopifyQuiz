@@ -127,7 +127,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   grid-template-columns: repeat(3, auto);
   width: 13rem;
 }
-
+  
 .main-preview {
   width: 100%;
   border: solid black 1px;
