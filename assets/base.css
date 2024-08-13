@@ -2336,6 +2336,10 @@ input[type='checkbox'] {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
+.header-row {
+  display: flex;
+}
+
 .header {
   display: flex;
   flex-direction: column;
