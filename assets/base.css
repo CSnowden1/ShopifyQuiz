@@ -129,7 +129,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 }
 
 .main-preview {
-  min-width: 100%;
+  width: 100%;
   border: solid black 1px;
   height: 50rem
 }
