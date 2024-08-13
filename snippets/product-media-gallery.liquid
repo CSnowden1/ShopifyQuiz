@@ -66,7 +66,7 @@
           {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
             <div
               id="Slide-{{ section.id }}-{{ media.id }}"
-              class="product__media-item thumbnail-item{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+              class="thumb-parent product__media-item thumbnail-item{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
               data-media-id="{{ section.id }}-{{ media.id }}"
             >
               {% render 'product-thumbnail',
