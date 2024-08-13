@@ -105,6 +105,13 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   display: contents
 }
 
+.thumbnail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+
+}
+
+
 @media screen and (min-width: 750px) {
   .page-width {
     padding: 0 5rem;
