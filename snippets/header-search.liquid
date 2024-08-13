@@ -31,6 +31,11 @@
                 spellcheck="false"
               {%- endif -%}
             >
+              <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+                <svg class="icon icon-search" aria-hidden="true" focusable="false">
+                  <use href="#icon-search">
+                </svg>
+              </button>
             <label class="field__label" for="{{ input_id }}">{{ 'general.search.search' | t }}</label>
             <input type="hidden" name="options[prefix]" value="last">
             <button
@@ -40,11 +45,6 @@
             >
               <svg class="icon icon-close" aria-hidden="true" focusable="false">
                 <use xlink:href="#icon-reset">
-              </svg>
-            </button>
-            <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-              <svg class="icon icon-search" aria-hidden="true" focusable="false">
-                <use href="#icon-search">
               </svg>
             </button>
           </div>
