@@ -2338,6 +2338,7 @@ input[type='checkbox'] {
 
 .header-row {
   display: flex;
+  align-self: flex-start;
 }
 
 .header {
@@ -2346,6 +2347,10 @@ input[type='checkbox'] {
   min-width: 100%;
   align-items: center;
   margin: 0;
+}
+
+.sub-menu {
+  align-self: flex-start;
 }
 
 @media screen and (max-width: 749px) {
