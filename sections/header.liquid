@@ -361,7 +361,7 @@
     </div>
     <div>
       {%- liquid
-        if section.settings.menu != blank
+        if section.settings.sub_menu != blank
           if section.settings.menu_type_desktop == 'dropdown'
             render 'header-dropdown-menu'
           elsif section.settings.menu_type_desktop != 'drawer'
@@ -591,7 +591,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 4,
   "settings": [
     {
       "type": "select",
@@ -623,6 +623,12 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "link_list",
+      "id": "sub_menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.sub_menu.label"
     },
     {
       "type": "select",
