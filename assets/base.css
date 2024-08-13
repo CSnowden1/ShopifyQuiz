@@ -128,7 +128,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   width: 13rem;
 }
 
-.maim-preview {
+.main-preview {
   min-width: 100%;
   border: solid black;
   height: 50rem
