@@ -360,17 +360,9 @@
       </div>
     </div>
     <div>
-        <nav class="site-nav">
-            <ul>
-              {% for link in linklists[block.settings.sub_menu].links %}
-                <li>
-                  <a href="{{ link.url }}">
-                    {{ link.title }}
-                  </a>  
-                </li>
-              {% endfor %}
-            </ul>
-        </nav>
+      {% render 'header-sub-menu' %}
+
+
     </div>
 
 
