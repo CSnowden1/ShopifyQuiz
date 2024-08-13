@@ -125,7 +125,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 }
 
 
-.product__media-thumbnails:nth-child(2) {
+.product__media-thumbnails:nth-child(3) {
   display: none;   
 }
 
