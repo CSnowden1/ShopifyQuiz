@@ -123,6 +123,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 }
 
 
+
 .product__media-thumbnails {
   display: grid;
   grid-template-columns: repeat(3, auto);
