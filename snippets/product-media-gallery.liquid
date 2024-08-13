@@ -86,7 +86,6 @@
         </div>
       {%- endif -%}  
 
-      <div class="product-page-container" style="min-width: 100%">
       {%- for media in product.media -%}
         {% if media_position >= limit
           or media_position >= 1
@@ -128,7 +127,6 @@
         {%- endunless -%}
       {%- endfor -%} 
       </div>
-    </div>
     <div class="slider-buttons quick-add-hidden{% if hide_mobile_slider %} small-hide{% endif %}">
       <button
         type="button"
