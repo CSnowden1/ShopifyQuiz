@@ -2339,6 +2339,7 @@ input[type='checkbox'] {
 .header-row {
   display: flex;
   align-self: flex-start;
+  min-width: 100%;
 }
 
 .header {
@@ -2503,6 +2504,7 @@ input[type='checkbox'] {
   grid-area: icons;
   justify-self: end;
   padding-right: 0.8rem;
+  margin-left: auto;
 }
 
 .header__icons .shopify-app-block {
