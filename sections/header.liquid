@@ -625,12 +625,6 @@
       "label": "t:sections.header.settings.menu.label"
     },
     {
-      "type": "link_list",
-      "id": "sub_menu",
-      "default": "sub-menu",
-      "label": "t:sections.header.settings.sub_menu.label"
-    },
-    {
       "type": "select",
       "id": "menu_type_desktop",
       "options": [
@@ -793,6 +787,18 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "link_list",
+      "name": "Sub Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "sub_menu",
+          "label": "t:sections.header.settings.sub_menu.label",
+          "default": "sub-menu"
+        }
+      ]
     }
   ]
 }
