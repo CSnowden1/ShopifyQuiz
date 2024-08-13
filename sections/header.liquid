@@ -360,15 +360,24 @@
       </div>
     </div>
     <div>
-      {%- liquid
-        if section.settings.sub_menu != blank
-          if section.settings.menu_type_desktop == 'dropdown'
-            render 'header-dropdown-menu'
-          elsif section.settings.menu_type_desktop != 'drawer'
-            render 'header-sub-menu'
-          endif
-        endif
-      %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'link_list' %}
+            <nav class="site-nav">
+              {% if block.settings.sub_menu %}
+                <ul>
+                  {% for link in linklists[block.settings.sub_menu].links %}
+                    <li>
+                      <a href="{{ link.url }}" {{ link.target ? 'target="_blank"' : '' }}>
+                        {{ link.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </nav>
+        {% endcase %}
+      {% endfor %}
     
     
     </div>
