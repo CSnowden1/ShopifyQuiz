@@ -376,6 +376,11 @@ a.product__text {
   text-align: center;
 }
 
+.product__media-list {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 /* Product media */
 .product__media-list video {
   border-radius: calc(var(--media-radius) - var(--media-border-width));
