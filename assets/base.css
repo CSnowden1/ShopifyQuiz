@@ -124,6 +124,10 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   width: 29rem;
 }
 
+.product__modal-opener {
+  display: none;
+}
+
 
 
 @media screen and (min-width: 750px) {
