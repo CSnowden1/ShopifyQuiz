@@ -364,7 +364,6 @@
         {% case block.type %}
           {% when 'link_list' %}
             <nav class="site-nav">
-              {% if block.settings.sub_menu %}
                 <ul>
                   {% for link in linklists[block.settings.sub_menu].links %}
                     <li>
@@ -374,12 +373,9 @@
                     </li>
                   {% endfor %}
                 </ul>
-              {% endif %}
             </nav>
         {% endcase %}
       {% endfor %}
-    
-    
     </div>
 
 
