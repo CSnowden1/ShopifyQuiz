@@ -126,7 +126,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 
 
 .product-media-container {
-  display: none;   
+  display: none!important;
 }
 
 @media screen and (min-width: 750px) {
