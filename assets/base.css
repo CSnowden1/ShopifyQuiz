@@ -116,6 +116,8 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+
 .product__media-thumbnails:first-child {
 }
 
@@ -126,9 +128,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   width: 29rem;
 }
 
-.product__modal-opener {
-  display: none;
-}
+
 
 
 
