@@ -117,7 +117,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   align-items: flex-start;
 }
 .product__media-thumbnails:first-child {
-  display: none;
 }
 
 
