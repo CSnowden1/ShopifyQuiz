@@ -360,7 +360,12 @@
       </div>
     </div>
     <div>
-      {% render 'header-sub-menu' %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'link_list' %}
+            {% render 'sub-menu' with block.settings.sub_menu %}
+        {% endcase %}
+      {% endfor %}
 
 
     </div>
