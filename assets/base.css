@@ -105,7 +105,9 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   display: contents
 }
 
-
+.thumb-parent:first-child {
+  display: none;
+}
 
 .gal-viewer {
   display: flex;
