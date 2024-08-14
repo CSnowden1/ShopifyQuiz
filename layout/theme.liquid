@@ -375,4 +375,76 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
   </body>
+
+  <script>
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+    
+    function showPosition(position) {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+    
+        console.log("Latitude: " + latitude + " Longitude: " + longitude);
+    
+        calculateShippingTime(latitude, longitude);
+    }
+    
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                console.log("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.log("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                console.log("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                console.log("An unknown error occurred.");
+                break;
+        }
+        // Show default shipping time if geolocation fails
+        calculateShippingTime(); // Call with no parameters for default
+    }
+    
+    function calculateShippingTime(lat, lon) {
+        getCountryCodeFromCoordinates(lat, lon).then(userCountryCode => {
+            let shippingTimes = {
+                'US': {min: 3, max: 5},
+                'CA': {min: 5, max: 7},
+                'default': {min: 7, max: 10}
+            };
+    
+            let shippingTime = shippingTimes[userCountryCode] || shippingTimes['default'];
+            let minDeliveryDate = new Date();
+            minDeliveryDate.setDate(minDeliveryDate.getDate() + shippingTime.min);
+            let maxDeliveryDate = new Date();
+            maxDeliveryDate.setDate(maxDeliveryDate.getDate() + shippingTime.max);
+    
+            let options = { month: 'short', day: 'numeric' };
+            let minDateStr = minDeliveryDate.toLocaleDateString('en-US', options);
+            let maxDateStr = maxDeliveryDate.toLocaleDateString('en-US', options);
+    
+            document.getElementById('estimated-delivery').innerText = 
+                `Estimated Delivery: ${minDateStr} - ${maxDateStr}`;
+        });
+    }
+    
+    function getCountryCodeFromCoordinates(lat, lon) {
+        // Replace 'YOUR_API_KEY' with your actual API key
+        return fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=YOUR_API_KEY`)
+            .then(response => response.json())
+            .then(data => {
+                return data.results[0].components.country_code.toUpperCase();
+            })
+            .catch(error => {
+                console.log("Error fetching country code:", error);
+                return 'default'; // Fallback to default if API fails
+            });
+    }
+    </script>
 </html>
