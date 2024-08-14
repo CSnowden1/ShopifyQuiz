@@ -128,9 +128,10 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 }
   
 .main-preview {  
-  width: 100%;
+  width: auto;
   border: solid black 1px;
-  height: 50rem
+  height: 50rem;
+  margin-right: auto;
 }
 
 .product-media-container {
