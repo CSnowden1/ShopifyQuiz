@@ -243,19 +243,23 @@ product-info {
   border-bottom: solid 1px;
   margin-top: 4rem;
   font: 600 16px / 16px proxima-nova, Arial, sans-serif;
+  transition: border-bottom 0.3s ease; /* Smooth transition for border-bottom */
 }
 
 .collapsible-button:after {
-  content: '\25BC'; /* Right-pointing chevron */
+  content: '\25BC'; /* Down-pointing chevron (line version) */
   float: right;
+  font-size: 1.2em; /* Adjust size if needed */
   transition: transform 0.3s ease; /* Smooth rotation */
 }
 
 .collapsible-container.active .collapsible-button:after {
-  transform: rotate(90deg); /* Rotate the chevron to point downwards */
+  content: '\25B6'; /* Right-pointing chevron (line version) */
+  transform: rotate(90deg); /* Rotate to point right */
 }
+
 .collapsible-container.active .collapsible-button {
-  border-bottom: none; /* Thicker bottom border when active */
+  border-bottom: solid 2px; /* Thicker border when content is visible */
 }
 
 
