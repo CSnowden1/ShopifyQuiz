@@ -17,6 +17,10 @@ product-recommendations:not(.is-accordion) .complementary-products__container {
   gap: 0;
 }
 
+.comp-text {
+  font: 900 19px/19px proxima-nova,Arial,sans-serif;
+}
+
 .complementary-slide {
   --shadow-padding-sides: calc((var(--shadow-horizontal-offset) + var(--shadow-blur-radius)) * var(--shadow-visible));
   --shadow-padding-sides-negative: calc(
