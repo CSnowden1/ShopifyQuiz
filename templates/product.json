@@ -47,7 +47,7 @@
           "type": "complementary",
           "settings": {
             "block_heading": "You Might Also Like",
-            "make_collapsible_row": true,
+            "make_collapsible_row": false,
             "icon": "none",
             "product_list_limit": 3,
             "products_per_page": 3,
