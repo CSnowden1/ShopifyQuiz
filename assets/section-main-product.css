@@ -365,6 +365,14 @@ a.product__text {
   max-width: 44rem;
 }
 
+.cart-btn-text {
+  color: white;
+  z-index: 10;
+  font: 600 15px/21px proxima-nova,Arial,sans-serif;
+}
+
+
+
 .product--no-media .product__info-container > modal-opener {
   display: block;
   text-align: center;
