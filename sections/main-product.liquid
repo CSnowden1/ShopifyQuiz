@@ -659,6 +659,15 @@
           </a>
         </section>
       </div>
+      <div>
+        {%- when 'description' -%}
+          {%- if product.description != blank -%}
+            <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+              {{ product.description }}
+            </div>
+          {%- endif -%}
+        {%- when 'sku' -%}
+      </div>
     </div>
     
     {% assign selected_products = section.blocks | where: "type", "bonus-product" | first %}
