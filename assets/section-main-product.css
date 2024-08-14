@@ -186,6 +186,9 @@ product-info {
   max-width: 100%;
 }
 
+.product-form__submit {
+  padding: 18px 32px;
+}
 
 .product-form__submit[aria-disabled='true'] + .shopify-payment-button .shopify-payment-button__button[disabled],
 .product-form__submit[disabled] + .shopify-payment-button .shopify-payment-button__button[disabled] {
