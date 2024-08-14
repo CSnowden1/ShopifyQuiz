@@ -372,6 +372,11 @@ a.product__text {
 }
 
 
+.buy-flex {
+  display: flex;
+}
+
+
 
 .product--no-media .product__info-container > modal-opener {
   display: block;
