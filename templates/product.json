@@ -43,11 +43,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {
-          }
-        },
         "complementary_x7Cmtj": {
           "type": "complementary",
           "settings": {
@@ -59,6 +54,11 @@
             "pagination_style": "dots",
             "image_ratio": "square",
             "enable_quick_add": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
           }
         },
         "share": {
@@ -90,8 +90,8 @@
         "price",
         "variant_picker",
         "buy_buttons",
-        "description",
         "complementary_x7Cmtj",
+        "description",
         "share",
         "bonus_product_QtCcRK"
       ],
