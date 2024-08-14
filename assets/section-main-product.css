@@ -246,7 +246,7 @@ product-info {
 }
 
 .collapsible-button:after {
-  content: '\25B6'; /* Right-pointing chevron */
+  content: '\25BC'; /* Right-pointing chevron */
   float: right;
   transition: transform 0.3s ease; /* Smooth rotation */
 }
