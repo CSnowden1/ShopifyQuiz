@@ -121,7 +121,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   align-items: flex-start;
 }
 
-
 .product__media-thumbnails {
   display: grid;
   grid-template-columns: repeat(3, auto);

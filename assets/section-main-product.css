@@ -244,7 +244,10 @@ a.product__text {
 .product__title {
   word-break: break-word;
   margin-bottom: 1.5rem;
+  font: 600 12px/17px proxima-nova,Arial,sans-serif;
 }
+
+
 
 .product__title > * {
   margin: 0;
