@@ -1,6 +1,6 @@
 .complementary-products__container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 1.3rem;
 }
 
