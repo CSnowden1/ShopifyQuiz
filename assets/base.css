@@ -233,8 +233,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 
 
 .list-unstyled li {
-  min-width: 100%;
-
+  width: 100%;
 }
 
 
