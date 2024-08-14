@@ -21,6 +21,7 @@
 .price .price-item {
   display: inline-block;
   margin: 0 1rem 0 0;
+  font: 600 21px/25px proxima-nova,Arial,sans-serif;
 }
 
 .price__regular .price-item--regular {
