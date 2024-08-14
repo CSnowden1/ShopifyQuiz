@@ -659,13 +659,17 @@
           </a>
         </section>
       </div>
-      <div>
-        {%- if product.description != blank -%}
-          <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-            {{ product.description }}
-          </div>
-        {%- endif -%}
+      <div class="collapsible-container">
+        <button class="collapsible-button">Product Description</button>
+        <div class="collapsible-content">
+          {%- if product.description != blank -%}
+            <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+              {{ product.description }}
+            </div>
+          {%- endif -%}
+        </div>
       </div>
+      
     </div>
     
     {% assign selected_products = section.blocks | where: "type", "bonus-product" | first %}
@@ -673,6 +677,15 @@
     {% assign bonus_product_name = selected_products.settings.bonus_product %}
 
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var collapsibleButton = document.querySelector('.collapsible-button');
+    var collapsibleContainer = document.querySelector('.collapsible-container');
+  
+    collapsibleButton.addEventListener('click', function() {
+      collapsibleContainer.classList.toggle('active');
+    });
+  });
+  
   document.addEventListener('DOMContentLoaded', function() {
     console.log('Bonus Product Section Working');
     

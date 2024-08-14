@@ -217,6 +217,41 @@ product-info {
   background: #f7f7f7;
 }
 
+
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.collapsible-container.active .collapsible-content {
+  max-height: 500px; /* Adjust based on your content height */
+  overflow: visible;
+}
+
+.collapsible-button {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+.collapsible-button:after {
+  content: '\002B'; /* Plus sign */
+  float: right;
+}
+
+.collapsible-container.active .collapsible-button:after {
+  content: '\2212'; /* Minus sign */
+}
+
+
+
 @media screen and (forced-colors: active) {
   .product-form__submit[aria-disabled='true'] {
     color: Window;
