@@ -229,11 +229,12 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   list-style: none;
   display: flex;
   flex-direction: row;
-}
+}  
+
 
 .list-unstyled li {
   min-width: 100%;
-  
+
 }
 
 
