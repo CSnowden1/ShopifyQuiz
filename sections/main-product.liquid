@@ -592,14 +592,6 @@
                           </div>
                         {%- endfor -%}
                       </div>
-                      <div class="summary__title">
-                        {%- if block.settings.make_collapsible_row -%}
-                          {% render 'icon-accordion', icon: block.settings.icon %}
-                          <h2 class="h4 accordion__title">{{ block.settings.block_heading }}</h2>
-                        {%- else -%}
-                          <h2 class="h3 accordion__title">{{ block.settings.block_heading }}</h2>
-                        {%- endif -%}
-                      </div>
                       {%- if number_of_slides > 1 -%}
                         <div class="slider-buttons">
                           <button
@@ -657,6 +649,14 @@
                 {{ 'quick-add.css' | asset_url | stylesheet_tag }}
                 <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
               {%- endif -%}
+              <div class="summary__title">
+                {%- if block.settings.make_collapsible_row -%}
+                  {% render 'icon-accordion', icon: block.settings.icon %}
+                  <h2 class="h4 accordion__title">{{ block.settings.block_heading }}</h2>
+                {%- else -%}
+                  <h2 class="h3 accordion__title">{{ block.settings.block_heading }}</h2>
+                {%- endif -%}
+              </div>
             </product-recommendations>
         </section>
       </div>
