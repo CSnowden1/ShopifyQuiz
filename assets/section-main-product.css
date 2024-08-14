@@ -211,7 +211,7 @@ product-info {
 
 
 .product-info__add-to-wishlist:hover {
-  background: #d3d3d3;
+  background: #f7f7f7;
 }
 
 @media screen and (forced-colors: active) {
