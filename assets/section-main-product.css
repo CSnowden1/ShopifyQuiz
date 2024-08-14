@@ -254,7 +254,9 @@ product-info {
 .collapsible-container.active .collapsible-button:after {
   transform: rotate(90deg); /* Rotate the chevron to point downwards */
 }
-
+.collapsible-container.active .collapsible-button {
+  border-bottom: none; /* Thicker bottom border when active */
+}
 
 
 @media screen and (forced-colors: active) {
