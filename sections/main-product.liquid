@@ -659,6 +659,10 @@
                 {%- else -%}
                   <h2 class="h3 accordion__title comp-text">{{ block.settings.block_heading }}</h2> 
                 {%- endif -%}
+
+                <div class="comp-collection-btn" href="{{ block.settings.collection_link }}">
+                  <h3>{{ block.settings.block_btn_text }}</h3>
+                </div>
               </div>
             </product-recommendations>
         </section>
@@ -1321,6 +1325,18 @@
           "id": "block_heading",
           "default": "t:sections.main-product.blocks.complementary_products.settings.heading.default",
           "label": "t:sections.main-product.blocks.complementary_products.settings.heading.label"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_text",
+          "default": "Shop Similar",
+          "label": "t:sections.main-product.blocks.complementary_products.settings.button.label"
+        },
+        {
+          "type": "collection_list",
+          "id": "collection_link",
+          "label": "t:sections.main-product.blocks.complementary_products.settings.button.link"
+          
         },
         {
           "type": "checkbox",
