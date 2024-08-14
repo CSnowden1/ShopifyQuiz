@@ -216,6 +216,9 @@
                         <h2 class="h4 accordion__title inline-richtext">
                           {{ block.settings.heading | default: block.settings.page.title | escape }}
                         </h2>
+                        <div class="comp-shopbutton" href='{{ block.settings.heading | default: block.settings.page.title | escape }}'>
+                          {{ block.settings.heading | default: block.settings.page.title | escape }}
+                        </div>
                       </div>
                       {% render 'icon-caret' %}
                     </summary>

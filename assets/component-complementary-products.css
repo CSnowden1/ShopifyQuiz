@@ -17,6 +17,11 @@ product-recommendations:not(.is-accordion) .complementary-products__container {
   gap: 0;
 }
 
+
+.summary__title {
+  display: flex;
+}
+
 .summary__title h2 {
   font: 900 19px/19px proxima-nova,Arial,sans-serif;
 }
