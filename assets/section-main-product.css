@@ -210,7 +210,7 @@ product-info {
 }
 
 
-.product-info__add-to-wishlist::hover {
+.product-info__add-to-wishlist:hover {
   background: #d3d3d3;
 }
 
