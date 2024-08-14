@@ -24,6 +24,10 @@ product-recommendations:not(.is-accordion) .complementary-products__container {
   );
 }
 
+.complementary-slide .card__content {
+  display: none;
+} 
+
 .complementary-slide > ul {
   display: flex;
   flex-direction: column;
