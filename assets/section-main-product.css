@@ -210,6 +210,7 @@ product-info {
   padding: 0;
   transition: background-color .2s ease;
   width: 56px;
+  margin-bottom: .5rem;
 }
 
 
