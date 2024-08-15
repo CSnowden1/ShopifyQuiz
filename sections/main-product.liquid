@@ -598,6 +598,9 @@
                           </div>
                         {%- endfor -%}
                       </div>
+                      <div class="comp-collection-btn" href="{{ block.settings.collection_link }}">
+                        <h3>{{ block.settings.block_btn_text }}</h3>
+                      </div>
                       {%- if number_of_slides > 1 -%}
                         <div class="slider-buttons">
                           <button
@@ -669,9 +672,7 @@
                   <h3>{{ block.settings.block_btn_text }}</h3>
                 </div>
               {%- endif -%}
-              <div>
-                <h3>Testing</h3>
-              </div>
+            
               </div>
             </product-recommendations>
         </section>
