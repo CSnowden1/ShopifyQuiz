@@ -76,8 +76,8 @@
 
 .price--on-sale .price__sale {
   display: initial;
-  flex-direction: row;
   flex-wrap: wrap;
+  flex-direction: row-reverse;
 }
 
 .price--center {
