@@ -443,7 +443,6 @@ a.product__text {
 .buy-flex {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
 
