@@ -55,9 +55,9 @@
     function displayRecommendedProduct(product) {
       document.querySelector('#submit-quiz').style.display = 'none';
       quizSlider.style.display = 'none';
+      resetContainer.style.display = 'block';
         
       resetContainer.innerHTML = '';
-      resetContainer.style.display = 'block';
       
       // Create product element
       const productElement = document.createElement('div');
