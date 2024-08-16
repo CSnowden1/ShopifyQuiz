@@ -407,7 +407,7 @@
               <script>
                 console.log("Product Key", "{{ products_key }}");
               </script>
-              {% assign recommended_products_list = block.settings[products_key + 1 ] | json %}
+              {% assign recommended_products_list = block.settings[products_key] | json %}
   
               {% if answer %}
                 <script>
