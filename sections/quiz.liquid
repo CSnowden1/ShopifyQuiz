@@ -400,7 +400,7 @@
             <script>
             console.log({{ answers }});
             </script> 
-            {% for i in (1..(answers.size)) %}
+            {% for i in (1..(answers_size)) %}
               {% assign answer_key = answers[i] %}
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i %}
