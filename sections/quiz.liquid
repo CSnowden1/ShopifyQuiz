@@ -400,7 +400,7 @@
             {% for i in (0..4) %}
               {% assign answer_key = answers[i] %}
               {% assign answer = block.settings[answer_key] %}
-              {% assign products_key = "recommended_products_" | append: i | plus: 1 %}
+              {% assign products_key = "recommended_products_" | append: i++ %}
               {% assign recommended_products_list = block.settings[products_key] | json %}
   
               {% if answer %}
