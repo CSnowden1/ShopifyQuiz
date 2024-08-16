@@ -393,34 +393,31 @@
   <div class="quiz-slider">
     {% for block in section.blocks %}
       {% if block.type == 'question' %}
-        <div class="quiz-question" data-question-id="{{ forloop.index}}">
+        <div class="quiz-question" data-question-id="{{ forloop.index }}">
           <h3>{{ block.settings.question_text }}</h3>  
           <div class="quiz-answers">
             {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %} 
-            <script>
-            console.log({{ answers }});
-            </script> 
-            {% for i in (1..(answers_size)) %}
-              {% assign answer_key = answers[i] %}
+            {% for answer_key in answers %}
               {% assign answer = block.settings[answer_key] %}
-              {% assign products_key = "recommended_products_" | append: i %}
-              {% assign recommended_products_list = block.settings[products_key] | json %}
-  
+              {% assign index = forloop.index0 | plus: 1 %} <!-- 1-based index -->
+              {% assign products_key = "recommended_products_" | append: index %}
+              {% assign recommended_products_list = block.settings[products_key] | split: ',' %} <!-- Assuming it’s a comma-separated list -->
+
               {% if answer %}
                 <script>
-                  var answerIndex = "{{ forloop.index }}_{{ i }}";
-                  var recommendedProducts = {{ recommended_products_list }};
+                  var answerIndex = "{{ forloop.parent.index }}_{{ index }}";
+                  var recommendedProducts = {{ recommended_products_list | json }};
                   console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
                 </script>
                 <div class="quiz-block">
                   <input 
                     class="question-input {{ block.settings[answer_key] }}" 
                     type="checkbox" 
-                    name="question_{{ forloop.index }}" 
-                    value="{{ forloop.index }}_{{ i }}" 
-                    id="answer_{{ forloop.index }}_{{ i }}" 
-                    data-products="{{ recommended_products_list | escape }}">
-                  <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
+                    name="question_{{ forloop.parent.index }}" 
+                    value="{{ forloop.parent.index }}_{{ index }}" 
+                    id="answer_{{ forloop.parent.index }}_{{ index }}" 
+                    data-products="{{ recommended_products_list | join: ',' | escape }}">
+                  <label class="quiz-answer" for="answer_{{ forloop.parent.index }}_{{ index }}">{{ answer }}</label>
                   <div class="recommended-products" style="display:none;">
                     {% if recommended_products_list.size > 0 %}
                       {% for product in recommended_products_list %}
@@ -438,6 +435,7 @@
       {% endif %}
     {% endfor %}
   </div>
+</div>
   <div class="quiz-navigation">
     <button id="prev-question" style="display:none;">Back</button>
     <button id="submit-quiz" style="display:none;">Submit Quiz</button>
