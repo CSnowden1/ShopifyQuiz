@@ -396,60 +396,43 @@
         <div class="quiz-question" data-question-id="{{ forloop.index }}">
           <h3>{{ block.settings.question_text }}</h3>
           <div class="quiz-answers">
-            {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-            <div class="quiz-container">
-              <h2 class="quiz-heading">{{ section.settings.quiz_title }}</h2>
-              <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
-              <div class="quiz-slider">
-                {% for block in section.blocks %}
-                  {% if block.type == 'question' %}
-                    <div class="quiz-question" data-question-id="{{ forloop.index }}">
-                      <h3>{{ block.settings.question_text }}</h3>
-                      <div class="quiz-answers">
-                        {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-                        {% for i in (0..4) %}
-                          {% assign answer_key = answers[i] %}
-                          {% assign answer = block.settings[answer_key] %}
-                          {% assign products_key = "recommended_products_" | append: i | plus: 1 %}
-                          <script>
-                            console.log("Index:", "{{ i }}");
-                            console.log("products_key:", "{{ products_key }}");
-                          </script>
-                          {% assign recommended_products_list = block.settings[products_key] | json %}
-            
-                          {% if answer %}
-                            <script>
-                              var answerIndex = "{{ forloop.index }}_{{ i }}";
-                              var recommendedProducts = {{ recommended_products_list }};
-                              console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
-                            </script>
-                            <div class="quiz-block">
-                              <input 
-                                class="question-input {{ block.settings[answer_key] }}" 
-                                type="checkbox" 
-                                name="question_{{ forloop.index }}" 
-                                value="{{ forloop.index }}_{{ i }}" 
-                                id="answer_{{ forloop.index }}_{{ i }}" 
-                                data-products="{{ recommended_products_list | escape }}">
-                              <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
-                              <div class="recommended-products" style="display:none;">
-                                {% if recommended_products_list.size > 0 %}
-                                  {% for product in recommended_products_list %}
-                                    <input type="hidden" class="recommended-product-ids" value="{{ product }}">
-                                  {% endfor %}
-                                {% else %}
-                                  <p>No products available for this answer.</p>
-                                {% endif %}
-                              </div>
-                            </div>
-                          {% endif %}
-                        {% endfor %}
-                      </div>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>            
+            {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5, dummy" | split: ',' %}
+            {% for i in (0..4) %}
+              {% assign answer_key = answers[i] %}
+              {% assign answer = block.settings[answer_key] %}
+              {% assign products_key = "recommended_products_" | append: i %}
+              <script>
+                console.log("products_key:", "{{ products_key }}");
+              </script>
+              {% assign recommended_products_list = block.settings[products_key] | json %}
+  
+              {% if answer %}
+                <script>
+                  var answerIndex = "{{ forloop.index }}_{{ i }}";
+                  var recommendedProducts = {{ recommended_products_list }};
+                  console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
+                </script>
+                <div class="quiz-block">
+                  <input 
+                    class="question-input {{ block.settings[answer_key] }}" 
+                    type="checkbox" 
+                    name="question_{{ forloop.index }}" 
+                    value="{{ forloop.index }}_{{ i }}" 
+                    id="answer_{{ forloop.index }}_{{ i }}" 
+                    data-products="{{ recommended_products_list | escape }}">
+                  <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
+                  <div class="recommended-products" style="display:none;">
+                    {% if recommended_products_list.size > 0 %}
+                      {% for product in recommended_products_list %}
+                        <input type="hidden" class="recommended-product-ids" value="{{ product }}">
+                      {% endfor %}
+                    {% else %}
+                      <p>No products available for this answer.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
       {% endif %}
