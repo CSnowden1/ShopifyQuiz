@@ -397,11 +397,12 @@
           <h3>{{ block.settings.question_text }}</h3>
           <div class="quiz-answers">
             {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-            {% for i in (0..4) %}
-              {% assign answer_key = answers[i] %}
-              <script>
+            <script>
               console.log("The Answers", {{ answers }})
               </script>
+            {% for i in (0..4) %}
+              {% assign answer_key = answers[i] %}
+             
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i | | minus: 1 %}
               <script>
