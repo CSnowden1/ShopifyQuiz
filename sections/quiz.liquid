@@ -406,6 +406,9 @@
                 console.log("The Answers", {{ answers }})
                 </script>
               {% assign answer_key = answers[i] %}
+              <script>
+                console.log("The Answers", {{ answer_key }})
+                </script>
              
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i | minus: 1 %}
