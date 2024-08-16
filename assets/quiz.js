@@ -74,26 +74,11 @@
         img.src = product.images[0]; // URL of the image
         img.alt = product.title;
         img.classList.add('carousel-image');
-        carouselTrack.appendChild(img);
-
-    });
+        carouselTrack.appendChild(img);;
     
       carouselContainer.appendChild(carouselTrack);
     
-      // Create navigation buttons
-      const prevButton = document.createElement('button');
-      prevButton.classList.add('carousel-button', 'carousel-button-prev');
-      prevButton.textContent = '‹';
-      prevButton.addEventListener('click', () => slideCarousel(-1));
-    
-      const nextButton = document.createElement('button');
-      nextButton.classList.add('carousel-button', 'carousel-button-next');
-      nextButton.textContent = '›';
-      nextButton.addEventListener('click', () => slideCarousel(1));
-    
-      carouselContainer.appendChild(prevButton);
-      carouselContainer.appendChild(nextButton);
-    
+     
       // Create "View Product" button
       const viewProductBtn = document.createElement('a');
       viewProductBtn.textContent = 'View Product';
