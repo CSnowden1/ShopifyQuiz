@@ -1,3 +1,138 @@
+<style>
+  .quiz-heading {
+    font-size: {{ section.settings.h2_font_size }};
+    color: {{ section.settings.h2_font_color }};
+    margin-top: {{ section.settings.h2_marg_top }};
+    margin-bottom: {{ section.settings.h2_marg_bot }};
+    font-family: {{ section.settings.h2_font_family }};
+  }
+  
+  .quiz-btn {
+    background-color: {{ section.settings.quiz_btn_background_color }};
+    color: {{ section.settings.start_btn_text_color }};
+    padding: {{ section.settings.start_btn_padding }};
+    border-radius: {{ section.settings.start_btn_border_radius }};
+    font-family: {{ section.settings.font_family }};
+    font-size: {{ section.settings.font_size }};
+  }
+  
+  .question-input {
+    border-radius: {{ section.settings.question_border_radius }};
+    background-color: {{ section.settings.radio_background_color }};
+    border: 1px solid {{ section.settings.radio_border_color }};
+    width: {{ section.settings.radio_size }};
+    height: {{ section.settings.radio_size }};
+  }
+  
+  .quiz-answer {
+    color: {{ section.settings.quiz_answer_text_color }};
+    font-szie: {{ section.settings.quiz_answer_font_size }};
+    border-radius: {{ section.settings.quiz_answer_border_radius }};
+  }
+
+  #prev-question {
+    background-color: {{ section.settings.prev_btn_background_color | default: "#cccccc" }};
+    color: {{ section.settings.prev_btn_text_color | default: "#000000" }};
+    padding: {{ section.settings.prev_btn_padding | default: "10px 20px" }};
+    border-radius: {{ section.settings.prev_btn_border_radius | default: "5px" }};
+    font-family: {{ section.settings.prev_btn_font_family | default: "Arial, sans-serif" }};
+    font-size: {{ section.settings.prev_btn_font_size | default: "16px" }};
+  }
+
+  #submit-quiz {
+    background-color: {{ section.settings.submit_btn_background_color | default: "#00ff00" }};
+    color: {{ section.settings.submit_btn_text_color | default: "#ffffff" }};
+    padding: {{ section.settings.submit_btn_padding | default: "10px 20px" }};
+    border-radius: {{ section.settings.submit_btn_border_radius | default: "5px" }};
+    font-family: {{ section.settings.submit_btn_font_family | default: "Arial, sans-serif" }};
+    font-size: {{ section.settings.submit_btn_font_size | default: "16px" }};
+  }
+
+  .reset-button {
+    background-color: {{ section.settings.reset_btn_background_color | default: "#ff0000" }};
+    color: {{ section.settings.reset_btn_text_color | default: "#ffffff" }};
+    padding: {{ section.settings.reset_btn_padding | default: "10px 20px" }};
+    border-radius: {{ section.settings.reset_btn_border_radius | default: "5px" }};
+    font-family: {{ section.settings.reset_btn_font_family | default: "Arial, sans-serif" }};
+    font-size: {{ section.settings.reset_btn_font_size | default: "16px" }};
+  }
+</style>
+
+
+
+
+<div class="quiz-container">
+  <h2 class="quiz-heading">{{ section.settings.quiz_title }}</h2>
+  <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
+  <div class="quiz-slider">
+    {% for block in section.blocks %}
+      {% if block.type == 'question' %}
+        <div class="quiz-question" data-question-id="{{ forloop.index }}">
+          <h3>{{ block.settings.question_text }}</h3>
+          <div class="quiz-answers">
+            {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
+            <script>
+              let listy = '{{ block.settings }}'; 
+            </script>
+            {% for i in (0..4) %}
+              {% assign answer_key = answers[i] %}
+              {% assign answer = block.settings[answer_key] %}
+              {% assign incremented_i = i | plus: 1 %}
+              
+              {% assign products_key = "recommended_products_" | append: incremented_i %}
+
+              <script>
+                console.log("Product Key", "{{ products_key }}");
+              </script>
+              {% assign recommended_products_list = block.settings[products_key] | json %}
+  
+              {% if answer %}
+                <script>
+                  console.log(listy);
+                  var answerIndex = "{{ forloop.index }}_{{ i }}";
+                  var recommendedProducts = {{ recommended_products_list }};
+                  console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
+                  console.log("____________________________________________________________________________");
+                </script>
+                <div class="quiz-block">
+                  <input 
+                    class="question-input {{ block.settings[answer_key] }}" 
+                    type="checkbox" 
+                    name="question_{{ forloop.index }}" 
+                    value="{{ forloop.index }}_{{ i }}" 
+                    id="answer_{{ forloop.index }}_{{ i }}" 
+                    data-products="{{ recommended_products_list | escape }}">
+                  <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
+                  <div class="recommended-products" style="display:none;">
+                    {% if recommended_products_list.size > 0 %}
+                      {% for product in recommended_products_list %}
+                        <input type="hidden" class="recommended-product-ids" value="{{ product }}">
+                      {% endfor %}
+                    {% else %}
+                      <p>No products available for this answer.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div id="quiz-results" style="display:none;">
+    <h3>Recommended Products</h3>
+    <div id="recommended-products-container"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
 {% schema %}
 {
   "name": "Custom Quiz",
@@ -320,139 +455,3 @@
   ]
 }
 {% endschema %}
-
-
-
-
-<style>
-  .quiz-heading {
-    font-size: {{ section.settings.h2_font_size }};
-    color: {{ section.settings.h2_font_color }};
-    margin-top: {{ section.settings.h2_marg_top }};
-    margin-bottom: {{ section.settings.h2_marg_bot }};
-    font-family: {{ section.settings.h2_font_family }};
-  }
-  
-  .quiz-btn {
-    background-color: {{ section.settings.quiz_btn_background_color }};
-    color: {{ section.settings.start_btn_text_color }};
-    padding: {{ section.settings.start_btn_padding }};
-    border-radius: {{ section.settings.start_btn_border_radius }};
-    font-family: {{ section.settings.font_family }};
-    font-size: {{ section.settings.font_size }};
-  }
-  
-  .question-input {
-    border-radius: {{ section.settings.question_border_radius }};
-    background-color: {{ section.settings.radio_background_color }};
-    border: 1px solid {{ section.settings.radio_border_color }};
-    width: {{ section.settings.radio_size }};
-    height: {{ section.settings.radio_size }};
-  }
-  
-  .quiz-answer {
-    color: {{ section.settings.quiz_answer_text_color }};
-    font-szie: {{ section.settings.quiz_answer_font_size }};
-    border-radius: {{ section.settings.quiz_answer_border_radius }};
-  }
-
-  #prev-question {
-    background-color: {{ section.settings.prev_btn_background_color | default: "#cccccc" }};
-    color: {{ section.settings.prev_btn_text_color | default: "#000000" }};
-    padding: {{ section.settings.prev_btn_padding | default: "10px 20px" }};
-    border-radius: {{ section.settings.prev_btn_border_radius | default: "5px" }};
-    font-family: {{ section.settings.prev_btn_font_family | default: "Arial, sans-serif" }};
-    font-size: {{ section.settings.prev_btn_font_size | default: "16px" }};
-  }
-
-  #submit-quiz {
-    background-color: {{ section.settings.submit_btn_background_color | default: "#00ff00" }};
-    color: {{ section.settings.submit_btn_text_color | default: "#ffffff" }};
-    padding: {{ section.settings.submit_btn_padding | default: "10px 20px" }};
-    border-radius: {{ section.settings.submit_btn_border_radius | default: "5px" }};
-    font-family: {{ section.settings.submit_btn_font_family | default: "Arial, sans-serif" }};
-    font-size: {{ section.settings.submit_btn_font_size | default: "16px" }};
-  }
-
-  .reset-button {
-    background-color: {{ section.settings.reset_btn_background_color | default: "#ff0000" }};
-    color: {{ section.settings.reset_btn_text_color | default: "#ffffff" }};
-    padding: {{ section.settings.reset_btn_padding | default: "10px 20px" }};
-    border-radius: {{ section.settings.reset_btn_border_radius | default: "5px" }};
-    font-family: {{ section.settings.reset_btn_font_family | default: "Arial, sans-serif" }};
-    font-size: {{ section.settings.reset_btn_font_size | default: "16px" }};
-  }
-</style>
-
-
-
-
-<div class="quiz-container">
-  <h2 class="quiz-heading">{{ section.settings.quiz_title }}</h2>
-  <button class="quiz-btn">{{ section.settings.quiz_btn }}</button>
-  <div class="quiz-slider">
-    {% for block in section.blocks %}
-      {% if block.type == 'question' %}
-        <div class="quiz-question" data-question-id="{{ forloop.index }}">
-          <h3>{{ block.settings.question_text }}</h3>
-          <div class="quiz-answers">
-            {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
-            <script>
-              let listy = '{{ block.settings }}'; 
-            </script>
-            {% for i in (0..4) %}
-              {% assign answer_key = answers[i] %}
-              {% assign answer = block.settings[answer_key] %}
-              {% assign incremented_i = i | plus: 1 %}
-              
-              {% assign products_key = "recommended_products_" | append: incremented_i %}
-
-              <script>
-                console.log("Product Key", "{{ products_key }}");
-              </script>
-              {% assign recommended_products_list = block.settings[products_key] | json %}
-  
-              {% if answer %}
-                <script>
-                  console.log(listy);
-                  var answerIndex = "{{ forloop.index }}_{{ i }}";
-                  var recommendedProducts = {{ recommended_products_list }};
-                  console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
-                  console.log("____________________________________________________________________________");
-                </script>
-                <div class="quiz-block">
-                  <input 
-                    class="question-input {{ block.settings[answer_key] }}" 
-                    type="checkbox" 
-                    name="question_{{ forloop.index }}" 
-                    value="{{ forloop.index }}_{{ i }}" 
-                    id="answer_{{ forloop.index }}_{{ i }}" 
-                    data-products="{{ recommended_products_list | escape }}">
-                  <label class="quiz-answer" for="answer_{{ forloop.index }}_{{ i }}">{{ answer }}</label>
-                  <div class="recommended-products" style="display:none;">
-                    {% if recommended_products_list.size > 0 %}
-                      {% for product in recommended_products_list %}
-                        <input type="hidden" class="recommended-product-ids" value="{{ product }}">
-                      {% endfor %}
-                    {% else %}
-                      <p>No products available for this answer.</p>
-                    {% endif %}
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-  <div class="quiz-navigation">
-    <button id="prev-question" style="display:none;">Back</button>
-    <button id="submit-quiz" style="display:none;">Submit Quiz</button>
-  </div>
-  <div id="quiz-results" style="display:none;">
-    <h3>Recommended Products</h3>
-    <div id="recommended-products-container"></div>
-  </div>
-</div>
-
