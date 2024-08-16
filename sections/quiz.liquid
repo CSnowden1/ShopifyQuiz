@@ -408,6 +408,8 @@
   
               {% if answer %}
                 <script>
+                  let listy = '{{ block.settings }}';
+                  console.log(listy);
                   var answerIndex = "{{ forloop.index }}_{{ i }}";
                   var recommendedProducts = {{ recommended_products_list }};
                   console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
