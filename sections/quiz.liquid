@@ -402,12 +402,12 @@
               {% assign answer_key = answers[i] %}
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i | plus: 1 %}
-              {% assign recommended_products_list = block.settings[products_key] | json %}
+              {% assign recommended_products_list = block.settings[products_key] %}
 
               {% if answer %}
                 <script>
                   var answerIndex = "{{ forloop.parent.index }}_{{ i | plus: 1 }}";
-                  var recommendedProducts = {{ recommended_products_list }};
+                  var recommendedProducts = {{ recommended_products_list | json }};
                   console.log("Answer Group:", answerIndex, "Recommended Products:", recommendedProducts);
                 </script>
                 <div class="quiz-block">
@@ -417,7 +417,7 @@
                     name="question_{{ forloop.parent.index }}" 
                     value="{{ forloop.parent.index }}_{{ i | plus: 1 }}" 
                     id="answer_{{ forloop.parent.index }}_{{ i | plus: 1 }}" 
-                    data-products="{{ recommended_products_list | escape }}">
+                    data-products="{{ recommended_products_list | json | escape }}">
                   <label class="quiz-answer" for="answer_{{ forloop.parent.index }}_{{ i | plus: 1 }}">{{ answer }}</label>
                   <div class="recommended-products" style="display:none;">
                     {% if recommended_products_list.size > 0 %}
