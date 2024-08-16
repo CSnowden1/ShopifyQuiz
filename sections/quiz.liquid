@@ -403,11 +403,11 @@
             {% for i in (0..4) %}
               {% assign answer_key = answers[i] %}
               {% assign answer = block.settings[answer_key] %}
-              {% assign products_key = "recommended_products_" | append: i %}
+              {% assign products_key = "recommended_products_" | append: i | append: "_increment" %}
               <script>
                 console.log("Product Key", "{{ products_key }}");
               </script>
-              {% assign recommended_products_list = block.settings[products_key] | json %}
+              {% assign recommended_products_list = block.settings[products_key + 1 ] | json %}
   
               {% if answer %}
                 <script>
