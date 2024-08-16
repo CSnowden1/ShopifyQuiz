@@ -411,7 +411,7 @@
                 </script>
                 <div class="quiz-block">
                   <input 
-                    class="question-input" 
+                    class="question-input {{ block.settings[answer_key] }}" 
                     type="checkbox" 
                     name="question_{{ forloop.index }}" 
                     value="{{ forloop.index }}_{{ i }}" 
