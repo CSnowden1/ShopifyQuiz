@@ -400,22 +400,18 @@
             {% for i in (0..4) %}
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i %}
-              
-              {% assign answer_key = answers[i] %}
-              {% assign recommended_products_list = block.settings[products_key] | json %}
-
-
-
               <script>
                 let answ = {{ answers | split: ',' }};
                 console.log("The Answers:", answ);
                 </script>
-                <script>
-                  console.log("The Answer Key", '{{ answer_key }}')
-                  </script>
-                <script>
-                  console.log("products_key:", "{{ products_key }}");
+              {% assign answer_key = answers[i] %}
+              <script>
+                console.log("The Answer Key", '{{ answer_key }}')
                 </script>
+              <script>
+                console.log("products_key:", "{{ products_key }}");
+              </script>
+              {% assign recommended_products_list = block.settings[products_key] | json %}
   
               {% if answer %}
                 <script>
