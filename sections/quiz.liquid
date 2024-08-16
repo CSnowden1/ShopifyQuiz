@@ -396,8 +396,8 @@
         <div class="quiz-question" data-question-id="{{ forloop.index }}">
           <h3>{{ block.settings.question_text }}</h3>
           <div class="quiz-answers">
-            {% assign answers = "dummy, answer_1,answer_2,answer_3,answer_4,answer_5. dummy" | split: ',' %}  
-            {% for i in (0..(answers.size)) %}
+            {% assign answers = "dummy, answer_1,answer_2,answer_3,answer_4,answer_5, dummy" | split: ',' %}  
+            {% for i in (1..(answers.size - 1)) %}
               {% assign answer_key = answers[i] %}
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i %}
