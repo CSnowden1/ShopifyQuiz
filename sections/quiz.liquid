@@ -393,7 +393,7 @@
   <div class="quiz-slider">
     {% for block in section.blocks %}
       {% if block.type == 'question' %}
-        <div class="quiz-question" data-question-id="{{ forloop.index + 1 }}">
+        <div class="quiz-question" data-question-id="{{ forloop.index}}">
           <h3>{{ block.settings.question_text }}</h3>
           <div class="quiz-answers">
             {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}  
