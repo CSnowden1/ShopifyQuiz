@@ -402,7 +402,7 @@
               {% assign answer = block.settings[answer_key] %}
               {% assign products_key = "recommended_products_" | append: i  %}
               <script>
-                console.log("products_key:", "{{ products_key }}");
+                console.log("{{ products_key }}");
               </script>
               {% assign recommended_products_list = block.settings[products_key] | json %}
   
