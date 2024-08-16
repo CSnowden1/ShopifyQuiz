@@ -400,11 +400,11 @@
             <script>
               let listy = '{{ block.settings }}';
             </script>
-            {% for i in (1..5) %}
+            {% for i in (0..4) %}
               {% assign answer_key = answers[i] %}
               {% assign answer = block.settings[answer_key] %}
-
-              {% assign incremented_key = "recommended_products_" | append: i %}
+              
+              {% assign products_key = "recommended_products_" | append: i %}
               <script>
                 console.log("Product Key", "{{ products_key }}");
               </script>
