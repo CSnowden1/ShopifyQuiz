@@ -105,7 +105,7 @@
       productElement.appendChild(addToCartBtn);
       productElement.appendChild(resetBtn);
       
-      container.appendChild(productElement);
+      resetContainer.appendChild(productElement);
     
       document.getElementById('quiz-results').style.display = 'block';
     }
