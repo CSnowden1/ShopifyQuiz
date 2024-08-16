@@ -69,14 +69,14 @@
       const carouselTrack = document.createElement('div');
       carouselTrack.classList.add('carousel-track');
     
-      // Add images to carousel track
-      product.images.forEach((image, index) => {
         const img = document.createElement('img');
-        img.src = image; // URL of the image
+
+        img.src = product.images[0]; // URL of the image
         img.alt = product.title;
         img.classList.add('carousel-image');
         carouselTrack.appendChild(img);
-      });
+
+    });
     
       carouselContainer.appendChild(carouselTrack);
     
@@ -121,19 +121,6 @@
       container.appendChild(productElement);
     
       document.getElementById('quiz-results').style.display = 'block';
-    }
-    
-
-
-    function slideCarousel(direction) {
-      const track = document.querySelector('.carousel-track');
-      const currentTransform = getComputedStyle(track).transform;
-      const matrix = new DOMMatrix(currentTransform);
-      const slideWidth = track.firstElementChild.clientWidth;
-      const newTransformX = matrix.m41 - direction * slideWidth;
-    
-      track.style.transform = `translateX(${newTransformX}px)`;
-      console.log(newTransformX);
     }
     
 
