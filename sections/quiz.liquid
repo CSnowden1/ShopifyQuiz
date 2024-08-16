@@ -398,10 +398,13 @@
           <div class="quiz-answers">
             {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
             <script>
-              console.log("Script run test")
               console.log("The Answers", {{ answers }})
               </script>
             {% for i in (0..4) %}
+              <script>
+                console.log("Script run test")
+                console.log("The Answers", {{ answers }})
+                </script>
               {% assign answer_key = answers[i] %}
              
               {% assign answer = block.settings[answer_key] %}
