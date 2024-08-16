@@ -7,6 +7,7 @@
     let quizResults = [];
     let selectedProducts = [];
     let quizBtn = document.querySelector(".quiz-btn");
+    const resetContainer = document.getElementById('recommended-products-container');
 
 
 
@@ -54,9 +55,9 @@
     function displayRecommendedProduct(product) {
       document.querySelector('#submit-quiz').style.display = 'none';
       quizSlider.style.display = 'none';
-    
-      const container = document.getElementById('recommended-products-container');
-      container.innerHTML = ''; // Clear previous results
+        
+      resetContainer.innerHTML = '';
+      resetContainer.style.display = 'block';
       
       // Create product element
       const productElement = document.createElement('div');
@@ -143,8 +144,7 @@
 
     function resetQuiz() {
       quizSlider.style.display = 'flex';
-      const container = document.getElementById('recommended-products-container');
-      container.style.display = 'none';
+      resetContainer.style.display = 'none';
       document.querySelectorAll('.question-input').forEach(input => {
         input.checked = false;
       });
