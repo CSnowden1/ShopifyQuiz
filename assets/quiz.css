@@ -44,6 +44,12 @@
   align-items: center;
  }
 
+ #quiz-results {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+
   .recommended-products {
     display: flex;
     flex-wrap: wrap;
