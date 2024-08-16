@@ -15,6 +15,7 @@
     document.querySelectorAll('.question-input').forEach(input => {
       input.addEventListener('change', function() {
         const products = JSON.parse(this.dataset.products || '[]');
+        console.log("This is the product", products)
         if (this.checked) {
           quizResults.push(...products);
         } else {
