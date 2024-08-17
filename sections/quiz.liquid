@@ -396,7 +396,7 @@
   font-size: {{ settings.button_font_size }};
   padding: {{ settings.start_btn_vert_pad }} {{ settings.start_btn_hor_pad }};
   font-family: {{ settings.font_family }};
-  border-radius: {{ settings.start_btn_border_radius }};
+  border-radius: {{ settings.start_btn_border_radius | default: 0 }};
 }
 
 /* Radio Button styling */
