@@ -79,7 +79,21 @@
     "font_preview_fJWB9j": {
       "type": "font-preview",
       "settings": {
-        "default_font": "Times New Roman",
+        "font_arial": true,
+        "font_courier_new": true,
+        "font_georgia": true,
+        "font_times_new_roman": true,
+        "font_verdana": true,
+        "font_roboto": true,
+        "font_open_sans": true,
+        "font_lato": true,
+        "font_montserrat": true,
+        "font_poppins": true,
+        "additional_font_1": "Roboto",
+        "additional_font_2": "Open Sans",
+        "additional_font_3": "Lato",
+        "additional_font_4": "Montserrat",
+        "additional_font_5": "Poppins",
         "default_text": "The quick brown fox jumps over the lazy dog."
       }
     }
