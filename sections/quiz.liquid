@@ -333,10 +333,10 @@
 
 <style>
   .quiz-heading {
-    font-size: {{ section.settings.h2_font_size }}rem;
+    font-size: {{ section.settings.h2_font_size | default: "rem" }};
     color: {{ section.settings.h2_font_color }};
-    margin-top: {{ section.settings.h2_marg_top }}rem;
-    margin-bottom: {{ section.settings.h2_marg_bot }}rem;
+    margin-top: {{ section.settings.h2_marg_top | default: "rem" }};
+    margin-bottom: {{ section.settings.h2_marg_bot | default: "rem" }};
   }
   
   .quiz-btn {
