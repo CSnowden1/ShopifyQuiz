@@ -44,7 +44,7 @@
     {
       "type": "text",
       "id": "quiz_btn",
-      "label": "Start Button",
+      "label": "Start Button Text",
       "default": "Start Quiz"
     },
     {
@@ -81,19 +81,25 @@
       "type": "font_picker",
       "id": "font_family",
       "label": "Heading Font",
-      "default": "Helvetica, Arial, sans-serif"
+      "default": "sans-serif"
     },
     {
-      "type": "text",
-      "id": "font_size",
-      "label": "Start Button Font Size",
-      "default": "16px"
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button Font Size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "question_border_radius",
       "label": "Radios Border Radius",
-      "default": "1rem"
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
     },
     {
       "type": "color",
@@ -108,16 +114,22 @@
       "default": "#000000"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "radio_size",
       "label": "Radio Size",
-      "default": "20px"
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 20
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "quiz_container_padding",
       "label": "Quiz Container Padding",
-      "default": "20px"
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 20
     },
     {
       "type": "color",
@@ -132,16 +144,22 @@
       "default": "#000000"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "quiz_answer_font_size",
       "label": "Quiz Answer Font Size",
-      "default": "1rem"
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "quiz_answer_border_radius",
       "label": "Quiz Answer Border Radius",
-      "default": "5px"
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
     },
     {
       "type": "color",
@@ -156,28 +174,37 @@
       "default": "#000000"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "prev_btn_padding",
       "label": "Previous Button Padding",
-      "default": "10px 20px"
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "prev_btn_border_radius",
       "label": "Previous Button Border Radius",
-      "default": "5px"
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
     },
     {
-      "type": "text",
+      "type": "font_picker",
       "id": "prev_btn_font_family",
       "label": "Previous Button Font Family",
       "default": "Arial, sans-serif"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "prev_btn_font_size",
       "label": "Previous Button Font Size",
-      "default": "16px"
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16
     },
     {
       "type": "color",
@@ -192,28 +219,37 @@
       "default": "#ffffff"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "submit_btn_padding",
       "label": "Submit Button Padding",
-      "default": "10px 20px"
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "submit_btn_border_radius",
       "label": "Submit Button Border Radius",
-      "default": "5px"
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
     },
     {
-      "type": "text",
+      "type": "font_picker",
       "id": "submit_btn_font_family",
       "label": "Submit Button Font Family",
       "default": "Arial, sans-serif"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "submit_btn_font_size",
       "label": "Submit Button Font Size",
-      "default": "16px"
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16
     },
     {
       "type": "color",
@@ -228,28 +264,37 @@
       "default": "#ffffff"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "reset_btn_padding",
       "label": "Reset Button Padding",
-      "default": "10px 20px"
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "reset_btn_border_radius",
       "label": "Reset Button Border Radius",
-      "default": "5px"
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
     },
     {
-      "type": "text",
+      "type": "font_picker",
       "id": "reset_btn_font_family",
       "label": "Reset Button Font Family",
       "default": "Arial, sans-serif"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "reset_btn_font_size",
       "label": "Reset Button Font Size",
-      "default": "16px"
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16
     }
   ],
   "blocks": [
@@ -269,8 +314,8 @@
         },
         {
           "type": "product_list",
-          "id": "recommended_products_1",
-          "label": "Recommended Products for Answer 1"
+          "id": "answer_1_product",
+          "label": "Answer 1 Product"
         },
         {
           "type": "text",
@@ -279,35 +324,16 @@
         },
         {
           "type": "product_list",
-          "id": "recommended_products_2",
-          "label": "Recommended Products for Answer 2"
-        },
-        {
-          "type": "text",
-          "id": "answer_3",
-          "label": "Answer 3"
-        },
-        {
-          "type": "product_list",
-          "id": "recommended_products_3",
-          "label": "Recommended Products for Answer 3"
-        },
-        {
-          "type": "text",
-          "id": "answer_4",
-          "label": "Answer 4"
-        },
-        {
-          "type": "product_list",
-          "id": "recommended_products_4",
-          "label": "Recommended Products for Answer 4"
+          "id": "answer_2_product",
+          "label": "Answer 2 Product"
         }
+        // Add more answers as needed
       ]
     }
   ],
   "presets": [
     {
-      "name": "Custom Quiz",
+      "name": "Default",
       "category": "Custom"
     }
   ]
@@ -321,65 +347,77 @@
 
 
 
-
 <style>
-  .quiz-heading {
-    font-size: {{ section.settings.h2_font_size }}rem;
-    color: {{ section.settings.h2_font_color }};
-    margin-top: {{ section.settings.h2_marg_top }}rem;
-    margin-bottom: {{ section.settings.h2_marg_bot }}rem;
-  }
-  
-  .quiz-btn {
-    background-color: {{ section.settings.quiz_btn_background_color }};
-    color: {{ section.settings.start_btn_text_color }};
-    padding: {{ section.settings.start_btn_padding }}rem;
-    border-radius: {{ section.settings.start_btn_border_radius }}rem;
-    font-family: {{ section.settings.font_family }};
-    font-size: {{ section.settings.font_size }};
-  }
-  
-  .question-input {
-    border-radius: {{ section.settings.question_border_radius }}rem;
-    background-color: {{ section.settings.radio_background_color }};
-    border: 1px solid {{ section.settings.radio_border_color }};
-    width: {{ section.settings.radio_size }}rem;
-    height: {{ section.settings.radio_size }}rem;
-  }
-  
-  .quiz-answer {
-    color: {{ section.settings.quiz_answer_text_color }};
-    font-size: {{ section.settings.quiz_answer_font_size }}rem;
-    border-radius: {{ section.settings.quiz_answer_border_radius }}rem;
-  }
-  
-  #prev-question {
-    background-color: {{ section.settings.prev_btn_background_color }};
-    color: {{ section.settings.prev_btn_text_color }};
-    padding: {{ section.settings.prev_btn_padding }}rem;
-    border-radius: {{ section.settings.prev_btn_border_radius }}rem;
-    font-family: {{ section.settings.prev_btn_font_family }};
-    font-size: {{ section.settings.prev_btn_font_size }};
-  }
-  
-  #submit-quiz {
-    background-color: {{ section.settings.submit_btn_background_color }};
-    color: {{ section.settings.submit_btn_text_color }};
-    padding: {{ section.settings.submit_btn_padding }}rem;
-    border-radius: {{ section.settings.submit_btn_border_radius }}rem;
-    font-family: {{ section.settings.submit_btn_font_family }};
-    font-size: {{ section.settings.submit_btn_font_size }};
-  }
-  
-  .reset-button {
-    background-color: {{ section.settings.reset_btn_background_color }};
-    color: {{ section.settings.reset_btn_text_color }};
-    padding: {{ section.settings.reset_btn_padding }}rem;
-    border-radius: {{ section.settings.reset_btn_border_radius }}rem;
-    font-family: {{ section.settings.reset_btn_font_family }};
-    font-size: {{ section.settings.reset_btn_font_size }};
-  }
-  
+/* Container styling */
+.custom-quiz-container {
+  padding: {{ settings.quiz_container_padding | px }};
+  border-radius: {{ settings.question_border_radius | px }};
+  background-color: {{ settings.quiz_answer_background_color }};
+}
+
+/* Heading styling */
+.custom-quiz-heading {
+  font-size: calc(1rem + {{ settings.h2_font_size | plus: 1 }}rem);
+  color: {{ settings.h2_font_color }};
+  margin-top: {{ settings.h2_marg_top | px }};
+  margin-bottom: {{ settings.h2_marg_bot | px }};
+  font-family: {{ settings.font_family }};
+}
+
+/* Button styling */
+.custom-quiz-btn {
+  background-color: {{ settings.quiz_btn_background_color }};
+  color: {{ settings.start_btn_text_color }};
+  padding: {{ settings.start_btn_padding | px }};
+  border-radius: {{ settings.start_btn_border_radius | px }};
+  font-size: {{ settings.button_font_size | px }};
+  font-family: {{ settings.font_family }};
+}
+
+/* Radio buttons styling */
+.custom-quiz-radio {
+  background-color: {{ settings.radio_background_color }};
+  border: 2px solid {{ settings.radio_border_color }};
+  width: {{ settings.radio_size | px }};
+  height: {{ settings.radio_size | px }};
+  border-radius: {{ settings.question_border_radius | px }};
+}
+
+/* Answer options styling */
+.custom-quiz-answer {
+  background-color: {{ settings.quiz_answer_background_color }};
+  color: {{ settings.quiz_answer_text_color }};
+  font-size: {{ settings.quiz_answer_font_size | px }};
+  border-radius: {{ settings.quiz_answer_border_radius | px }};
+}
+
+/* Button styling variations */
+.custom-quiz-prev-btn {
+  background-color: {{ settings.prev_btn_background_color }};
+  color: {{ settings.prev_btn_text_color }};
+  padding: {{ settings.prev_btn_padding | px }};
+  border-radius: {{ settings.prev_btn_border_radius | px }};
+  font-size: {{ settings.prev_btn_font_size | px }};
+  font-family: {{ settings.prev_btn_font_family }};
+}
+
+.custom-quiz-submit-btn {
+  background-color: {{ settings.submit_btn_background_color }};
+  color: {{ settings.submit_btn_text_color }};
+  padding: {{ settings.submit_btn_padding | px }};
+  border-radius: {{ settings.submit_btn_border_radius | px }};
+  font-size: {{ settings.submit_btn_font_size | px }};
+  font-family: {{ settings.submit_btn_font_family }};
+}
+
+.custom-quiz-reset-btn {
+  background-color: {{ settings.reset_btn_background_color }};
+  color: {{ settings.reset_btn_text_color }};
+  padding: {{ settings.reset_btn_padding | px }};
+  border-radius: {{ settings.reset_btn_border_radius | px }};
+  font-size: {{ settings.reset_btn_font_size | px }};
+  font-family: {{ settings.reset_btn_font_family }};
+}
 </style>
 
 
