@@ -1,6 +1,6 @@
 <style>
   .quiz-heading {
-    font-size: {{ section.settings.h2_font_size }};
+    font-size: {{ section.settings.h2_font_size }}rem;
     color: {{ section.settings.h2_font_color }};
     margin-top: {{ section.settings.h2_marg_top }};
     margin-bottom: {{ section.settings.h2_marg_bot }};
@@ -135,7 +135,6 @@
 
 
 
-
 {% schema %}
 {
   "name": "Custom Quiz",
@@ -147,16 +146,19 @@
       "default": "Find Your Perfect Product"
     },
     {
-      "type": "text",
+      "type": "color",
       "id": "h2_font_family",
       "label": "Heading Font",
       "default": "black"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "h2_font_size",
       "label": "Heading Font Size",
-      "default": "2rem"
+      "min": 1,
+      "max": 7,
+      "step": 1,
+      "default": 2
     },
     {
       "type": "text",
