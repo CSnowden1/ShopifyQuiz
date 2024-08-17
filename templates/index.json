@@ -86,7 +86,7 @@
         "font_verdana": true,
         "font_roboto": false,
         "font_open_sans": false,
-        "font_lato": true,
+        "font_lato": false,
         "font_montserrat": true,
         "font_poppins": true,
         "additional_font_1": "Roboto",
