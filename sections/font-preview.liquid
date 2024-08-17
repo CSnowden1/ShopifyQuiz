@@ -16,10 +16,47 @@
       "default": "Arial"
     },
     {
-      "type": "textarea",
+      "type": "select",
       "id": "additional_fonts",
-      "label": "Additional Fonts (comma-separated)",
-      "default": "Roboto, Open Sans, Lato, Montserrat, Poppins, Raleway, Nunito, Oswald, PT Sans, Merriweather, Playfair Display, Droid Sans, Cabin, Source Sans Pro, Ubuntu, Quicksand, Fira Sans, Lora, Rubik, Arimo, Comfortaa, Inconsolata, Dancing Script, Anton, Bebas Neue, Cairo, Muli, Varela Round, Pangolin, Karla, Bitter, Julius Sans One, Archivo, Yesteryear"
+      "label": "Additional Fonts",
+      "options": [
+        { "value": "Roboto", "label": "Roboto" },
+        { "value": "Open Sans", "label": "Open Sans" },
+        { "value": "Lato", "label": "Lato" },
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Poppins", "label": "Poppins" },
+        { "value": "Raleway", "label": "Raleway" },
+        { "value": "Nunito", "label": "Nunito" },
+        { "value": "Oswald", "label": "Oswald" },
+        { "value": "PT Sans", "label": "PT Sans" },
+        { "value": "Merriweather", "label": "Merriweather" },
+        { "value": "Playfair Display", "label": "Playfair Display" },
+        { "value": "Droid Sans", "label": "Droid Sans" },
+        { "value": "Cabin", "label": "Cabin" },
+        { "value": "Source Sans Pro", "label": "Source Sans Pro" },
+        { "value": "Ubuntu", "label": "Ubuntu" },
+        { "value": "Quicksand", "label": "Quicksand" },
+        { "value": "Fira Sans", "label": "Fira Sans" },
+        { "value": "Lora", "label": "Lora" },
+        { "value": "Rubik", "label": "Rubik" },
+        { "value": "Arimo", "label": "Arimo" },
+        { "value": "Comfortaa", "label": "Comfortaa" },
+        { "value": "Inconsolata", "label": "Inconsolata" },
+        { "value": "Dancing Script", "label": "Dancing Script" },
+        { "value": "Anton", "label": "Anton" },
+        { "value": "Bebas Neue", "label": "Bebas Neue" },
+        { "value": "Cairo", "label": "Cairo" },
+        { "value": "Muli", "label": "Muli" },
+        { "value": "Varela Round", "label": "Varela Round" },
+        { "value": "Pangolin", "label": "Pangolin" },
+        { "value": "Karla", "label": "Karla" },
+        { "value": "Bitter", "label": "Bitter" },
+        { "value": "Julius Sans One", "label": "Julius Sans One" },
+        { "value": "Archivo", "label": "Archivo" },
+        { "value": "Yesteryear", "label": "Yesteryear" }
+      ],
+      "default": ["Roboto", "Open Sans", "Lato"],
+      "multiple": true
     },
     {
       "type": "text",
@@ -61,10 +98,16 @@
     var fontSearch = document.getElementById('fontSearch');
     var previewText = document.getElementById('previewText');
 
-    // Parse additional fonts from schema setting
-    var additionalFonts = "{{ settings.additional_fonts }}".split(',').map(font => font.trim());
+    // Populate select with additional fonts
+    var additionalFonts = [
+      "Roboto", "Open Sans", "Lato", "Montserrat", "Poppins", "Raleway", "Nunito", 
+      "Oswald", "PT Sans", "Merriweather", "Playfair Display", "Droid Sans", "Cabin", 
+      "Source Sans Pro", "Ubuntu", "Quicksand", "Fira Sans", "Lora", "Rubik", 
+      "Arimo", "Comfortaa", "Inconsolata", "Dancing Script", "Anton", "Bebas Neue", 
+      "Cairo", "Muli", "Varela Round", "Pangolin", "Karla", "Bitter", "Julius Sans One", 
+      "Archivo", "Yesteryear"
+    ];
 
-    // Add additional fonts to select dropdown
     additionalFonts.forEach(function(font) {
       var option = document.createElement('option');
       option.value = font;
@@ -74,7 +117,6 @@
 
     // Function to load Google Fonts dynamically based on selected fonts
     function loadFonts(fontNames) {
-      // Remove previously loaded fonts
       var existingLinks = document.querySelectorAll('link[data-font]');
       existingLinks.forEach(function(link) {
         document.head.removeChild(link);
@@ -89,7 +131,7 @@
       });
     }
 
-    // Load default font and fonts from the select dropdown
+    // Update font preview
     function updatePreview() {
       var selectedFonts = Array.from(fontSelect.selectedOptions).map(option => option.value);
       loadFonts(selectedFonts);
