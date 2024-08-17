@@ -84,16 +84,6 @@
     },
     {
       "type": "range",
-      "id": "start_btn_border_radius",
-      "label": "Start Button Border Radius",
-      "min": 0,
-      "max": 4,
-      "step": 1,
-      "unit": "rem",
-      "default": 1
-    },
-    {
-      "type": "range",
       "id": "button_font_size",
       "label": "Button Font Size",
       "min": 1,
@@ -389,7 +379,6 @@
   color: {{ settings.start_btn_text_color }};
   font-size: {{ settings.button_font_size }};
   padding: {{ settings.start_btn_vert_pad }} {{ settings.start_btn_hor_pad }};
-  border-radius: {{ settings.start_btn_border_radius | default: '0rem' }};
   font-family: {{ settings.font_family }};
 }
 
