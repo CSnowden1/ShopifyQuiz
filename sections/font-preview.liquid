@@ -108,32 +108,28 @@
 }
 {% endschema %}
 <div class="font-preview">
+  <!-- Input for Custom Text -->
   <input type="text" id="fontInput" placeholder="Type your text here..." value="{{ settings.default_text }}" />
 
+  <!-- Dropdown for Font Selection -->
   <select id="fontSelect">
-    {% assign fonts = "" | split: ", " %}
-    {% if settings.font_arial %} {% assign fonts = fonts | push: "Arial" %} {% endif %}
-    {% if settings.font_courier_new %} {% assign fonts = fonts | push: "Courier New" %} {% endif %}
-    {% if settings.font_georgia %} {% assign fonts = fonts | push: "Georgia" %} {% endif %}
-    {% if settings.font_times_new_roman %} {% assign fonts = fonts | push: "Times New Roman" %} {% endif %}
-    {% if settings.font_verdana %} {% assign fonts = fonts | push: "Verdana" %} {% endif %}
-    {% if settings.font_roboto %} {% assign fonts = fonts | push: "Roboto" %} {% endif %}
-    {% if settings.font_open_sans %} {% assign fonts = fonts | push: "Open Sans" %} {% endif %}
-    {% if settings.font_lato %} {% assign fonts = fonts | push: "Lato" %} {% endif %}
-    {% if settings.font_montserrat %} {% assign fonts = fonts | push: "Montserrat" %} {% endif %}
-    {% if settings.font_poppins %} {% assign fonts = fonts | push: "Poppins" %} {% endif %}
+    {% assign default_fonts = "Arial, Courier New, Georgia, Times New Roman, Verdana, Roboto, Open Sans, Lato, Montserrat, Poppins" | split: ", " %}
+    {% assign additional_fonts = "" | split: ", " %}
+    
+    {% if settings.additional_font_1 != blank %} {% assign additional_fonts = additional_fonts | push: settings.additional_font_1 %} {% endif %}
+    {% if settings.additional_font_2 != blank %} {% assign additional_fonts = additional_fonts | push: settings.additional_font_2 %} {% endif %}
+    {% if settings.additional_font_3 != blank %} {% assign additional_fonts = additional_fonts | push: settings.additional_font_3 %} {% endif %}
+    {% if settings.additional_font_4 != blank %} {% assign additional_fonts = additional_fonts | push: settings.additional_font_4 %} {% endif %}
+    {% if settings.additional_font_5 != blank %} {% assign additional_fonts = additional_fonts | push: settings.additional_font_5 %} {% endif %}
 
-    {% if settings.additional_font_1 != blank %} {% assign fonts = fonts | push: settings.additional_font_1 %} {% endif %}
-    {% if settings.additional_font_2 != blank %} {% assign fonts = fonts | push: settings.additional_font_2 %} {% endif %}
-    {% if settings.additional_font_3 != blank %} {% assign fonts = fonts | push: settings.additional_font_3 %} {% endif %}
-    {% if settings.additional_font_4 != blank %} {% assign fonts = fonts | push: settings.additional_font_4 %} {% endif %}
-    {% if settings.additional_font_5 != blank %} {% assign fonts = fonts | push: settings.additional_font_5 %} {% endif %}
-
-    {% for font in fonts %}
+    {% assign all_fonts = default_fonts | concat: additional_fonts %}
+    
+    {% for font in all_fonts %}
       <option value="{{ font }}" {% if font == settings.default_font %}selected{% endif %}>{{ font }}</option>
     {% endfor %}
   </select>
 
+  <!-- Font Preview -->
   <div class="font-preview-box">
     <p id="previewText" style="font-family: {{ settings.default_font }};">
       {{ settings.default_text }}
