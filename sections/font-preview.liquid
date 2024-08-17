@@ -11,44 +11,57 @@
         { "value": "Courier New", "label": "Courier New" },
         { "value": "Georgia", "label": "Georgia" },
         { "value": "Times New Roman", "label": "Times New Roman" },
-        { "value": "Verdana", "label": "Verdana" },
-        { "value": "Trebuchet MS", "label": "Trebuchet MS" },
-        { "value": "Helvetica", "label": "Helvetica" },
-        { "value": "Lucida Sans", "label": "Lucida Sans" },
-        { "value": "Tahoma", "label": "Tahoma" },
-        { "value": "Palatino", "label": "Palatino" },
-        { "value": "Garamond", "label": "Garamond" },
-        { "value": "Comic Sans MS", "label": "Comic Sans MS" },
-        { "value": "Impact", "label": "Impact" }
+        { "value": "Verdana", "label": "Verdana" }
       ],
       "default": "Arial"
+    },
+    {
+      "type": "select",
+      "id": "additional_fonts",
+      "label": "Additional Fonts",
+      "options": [
+        { "value": "Roboto", "label": "Roboto" },
+        { "value": "Open Sans", "label": "Open Sans" },
+        { "value": "Lato", "label": "Lato" },
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Poppins", "label": "Poppins" },
+        { "value": "Raleway", "label": "Raleway" },
+        { "value": "Nunito", "label": "Nunito" },
+        { "value": "Oswald", "label": "Oswald" },
+        { "value": "PT Sans", "label": "PT Sans" },
+        { "value": "Merriweather", "label": "Merriweather" },
+        { "value": "Playfair Display", "label": "Playfair Display" },
+        { "value": "Droid Sans", "label": "Droid Sans" },
+        { "value": "Cabin", "label": "Cabin" },
+        { "value": "Source Sans Pro", "label": "Source Sans Pro" },
+        { "value": "Ubuntu", "label": "Ubuntu" },
+        { "value": "Quicksand", "label": "Quicksand" },
+        { "value": "Fira Sans", "label": "Fira Sans" },
+        { "value": "Lora", "label": "Lora" },
+        { "value": "Rubik", "label": "Rubik" },
+        { "value": "Arimo", "label": "Arimo" },
+        { "value": "Comfortaa", "label": "Comfortaa" },
+        { "value": "Inconsolata", "label": "Inconsolata" },
+        { "value": "Dancing Script", "label": "Dancing Script" },
+        { "value": "Anton", "label": "Anton" },
+        { "value": "Bebas Neue", "label": "Bebas Neue" },
+        { "value": "Cairo", "label": "Cairo" },
+        { "value": "Muli", "label": "Muli" },
+        { "value": "Varela Round", "label": "Varela Round" },
+        { "value": "Pangolin", "label": "Pangolin" },
+        { "value": "Karla", "label": "Karla" },
+        { "value": "Bitter", "label": "Bitter" },
+        { "value": "Julius Sans One", "label": "Julius Sans One" },
+        { "value": "Archivo", "label": "Archivo" },
+        { "value": "Yesteryear", "label": "Yesteryear" }
+      ],
+      "default": []
     },
     {
       "type": "text",
       "id": "default_text",
       "label": "Default Text",
       "default": "The quick brown fox jumps over the lazy dog."
-    },
-    {
-      "type": "multiselect",
-      "id": "font_options",
-      "label": "Available Fonts",
-      "options": [
-        { "value": "Arial", "label": "Arial" },
-        { "value": "Courier New", "label": "Courier New" },
-        { "value": "Georgia", "label": "Georgia" },
-        { "value": "Times New Roman", "label": "Times New Roman" },
-        { "value": "Verdana", "label": "Verdana" },
-        { "value": "Trebuchet MS", "label": "Trebuchet MS" },
-        { "value": "Helvetica", "label": "Helvetica" },
-        { "value": "Lucida Sans", "label": "Lucida Sans" },
-        { "value": "Tahoma", "label": "Tahoma" },
-        { "value": "Palatino", "label": "Palatino" },
-        { "value": "Garamond", "label": "Garamond" },
-        { "value": "Comic Sans MS", "label": "Comic Sans MS" },
-        { "value": "Impact", "label": "Impact" }
-      ],
-      "default": ["Arial", "Verdana", "Helvetica"]
     }
   ],
   "presets": [
@@ -59,21 +72,26 @@
   ]
 }
 {% endschema %}
+
+
 <div class="font-preview">
   <input type="text" id="fontInput" placeholder="Type your text here..." value="{{ settings.default_text }}" />
   <input type="text" id="fontSearch" placeholder="Search fonts..." />
-  <select id="fontSelect">
-    {% for font in settings.font_options %}
+
+  <select id="fontSelect" multiple>
+    <!-- Default fonts -->
+    {% for font in settings.additional_fonts %}
       <option value="{{ font }}">{{ font }}</option>
     {% endfor %}
   </select>
+
   <div class="font-preview-box">
     <p id="previewText" style="font-family: {{ settings.default_font }};">
       {{ settings.default_text }}
     </p>
   </div>
 </div>
- 
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var fontInput = document.getElementById('fontInput');
@@ -81,15 +99,40 @@
     var fontSearch = document.getElementById('fontSearch');
     var previewText = document.getElementById('previewText');
 
+    // Function to load Google Fonts dynamically based on selected fonts
+    function loadFonts(fontNames) {
+      // Remove previously loaded fonts
+      var existingLinks = document.querySelectorAll('link[data-font]');
+      existingLinks.forEach(function(link) {
+        document.head.removeChild(link);
+      });
+
+      fontNames.forEach(function(fontName) {
+        var link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fontName) + '&display=swap';
+        link.rel = 'stylesheet';
+        link.dataset.font = fontName;
+        document.head.appendChild(link);
+      });
+    }
+
+    // Load default font and fonts from the select dropdown
+    function updatePreview() {
+      var selectedFonts = Array.from(fontSelect.selectedOptions).map(option => option.value);
+      loadFonts(selectedFonts);
+      previewText.style.fontFamily = selectedFonts.join(', ');
+    }
+
+    // Apply default font
+    updatePreview();
+
     // Update preview text on input
     fontInput.addEventListener('input', function() {
       previewText.textContent = fontInput.value || '{{ settings.default_text }}';
     });
 
-    // Update font on dropdown change
-    fontSelect.addEventListener('change', function() {
-      previewText.style.fontFamily = fontSelect.value;
-    });
+    // Update fonts on dropdown change
+    fontSelect.addEventListener('change', updatePreview);
 
     // Filter fonts based on search input
     fontSearch.addEventListener('input', function() {
