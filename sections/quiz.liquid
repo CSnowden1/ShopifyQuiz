@@ -90,7 +90,7 @@
       "max": 7,
       "step": 1,
       "unit": "rem",
-      "default": 2
+      "default": 1
     },
     {
       "type": "font_picker",
@@ -326,6 +326,46 @@
       "unit": "rem",
       "default": 1
     }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question_text",
+          "label": "Question Text"
+        },
+        {
+          "type": "text",
+          "id": "answer_1",
+          "label": "Answer 1"
+        },
+        {
+          "type": "product_list",
+          "id": "answer_1_product",
+          "label": "Answer 1 Product"
+        },
+        {
+          "type": "text",
+          "id": "answer_2",
+          "label": "Answer 2"
+        },
+        {
+          "type": "product_list",
+          "id": "answer_2_product",
+          "label": "Answer 2 Product"
+        }
+        // Add more answers as needed
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Custom"
+    }
   ]
 }
 {% endschema %}
@@ -356,7 +396,7 @@
   font-size: {{ settings.button_font_size }};
   padding: {{ settings.start_btn_vert_pad }} {{ settings.start_btn_hor_pad }};
   font-family: {{ settings.font_family }};
-  border-radius: 2rem;
+  border-radius: {{ settings.start_btn_border_radius }};
 }
 
 /* Radio Button styling */
