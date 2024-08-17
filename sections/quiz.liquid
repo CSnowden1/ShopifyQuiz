@@ -93,16 +93,6 @@
       "default": 1
     },
     {
-      "type": "range",
-      "id": "question_border_radius",
-      "label": "Radios Border Radius",
-      "min": 0,
-      "max": 7,
-      "step": 1,
-      "unit": "rem",
-      "default": 1
-    },
-    {
       "type": "color",
       "id": "radio_background_color",
       "label": "Radio Background Color",
@@ -113,58 +103,6 @@
       "id": "radio_border_color",
       "label": "Radio Border Color",
       "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "radio_size",
-      "label": "Radio Size",
-      "min": 1,
-      "max": 7,
-      "step": 1,
-      "unit": "rem",
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "quiz_container_padding",
-      "label": "Quiz Container Padding",
-      "min": 0,
-      "max": 7,
-      "step": 1,
-      "unit": "rem",
-      "default": 1
-    },
-    {
-      "type": "color",
-      "id": "quiz_answer_background_color",
-      "label": "Quiz Answer Background Color",
-      "default": "#f5f5f5"
-    },
-    {
-      "type": "color",
-      "id": "quiz_answer_text_color",
-      "label": "Quiz Answer Text Color",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "quiz_answer_font_size",
-      "label": "Quiz Answer Font Size",
-      "min": 1,
-      "max": 7,
-      "step": 1,
-      "unit": "rem",
-      "default": 1
-    },
-    {
-      "type": "range",
-      "id": "quiz_answer_border_radius",
-      "label": "Quiz Answer Border Radius",
-      "min": 0,
-      "max": 7,
-      "step": 1,
-      "unit": "rem",
-      "default": 1
     },
     {
       "type": "color",
@@ -391,14 +329,6 @@
   border-radius: {{ settings.question_border_radius }};
 }
 
-/* Quiz Answer styling */
-.custom-quiz-answer {
-  background-color: {{ settings.quiz_answer_background_color }};
-  color: {{ settings.quiz_answer_text_color }};
-  font-size: {{ settings.quiz_answer_font_size }};
-  border-radius: {{ settings.quiz_answer_border_radius }};
-  padding: {{ settings.quiz_container_padding }}; /* Adjust if specific padding for answers is needed */
-}
 
 /* Previous Button styling */
 .custom-quiz-prev-btn {
