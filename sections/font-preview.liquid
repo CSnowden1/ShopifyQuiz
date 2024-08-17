@@ -20,6 +20,22 @@
       "id": "default_text",
       "label": "Default Text",
       "default": "The quick brown fox jumps over the lazy dog."
+    },
+    {
+      "type": "multiselect",
+      "id": "font_options",
+      "label": "Available Fonts",
+      "options": [
+        { "value": "Arial", "label": "Arial" },
+        { "value": "Courier New", "label": "Courier New" },
+        { "value": "Georgia", "label": "Georgia" },
+        { "value": "Times New Roman", "label": "Times New Roman" },
+        { "value": "Verdana", "label": "Verdana" },
+        { "value": "Roboto", "label": "Roboto" },
+        { "value": "Open Sans", "label": "Open Sans" },
+        { "value": "Lato", "label": "Lato" }
+      ],
+      "default": ["Arial", "Verdana"]
     }
   ],
   "presets": [
@@ -35,18 +51,15 @@
   <input type="text" id="fontInput" placeholder="Type your text here..." value="{{ settings.default_text }}" />
   <input type="text" id="fontSearch" placeholder="Search fonts..." />
   <select id="fontSelect">
-    <option value="Arial">Arial</option>
-    <option value="Courier New">Courier New</option>
-    <option value="Georgia">Georgia</option>
-    <option value="Times New Roman">Times New Roman</option>
-    <option value="Verdana">Verdana</option>
+    {% for font in settings.font_options %}
+      <option value="{{ font }}">{{ font }}</option>
+    {% endfor %}
   </select>
   <div class="font-preview-box">
     <p id="previewText" style="font-family: {{ settings.default_font }};">
       {{ settings.default_text }}
     </p>
   </div>
-
 </div>
  
 <script>
@@ -76,18 +89,6 @@
       document.head.appendChild(link);
     }
 
-    // Implement font search/filter
-    var searchInput = document.getElementById('fontSearch');
-
-    searchInput.addEventListener('input', function() {
-      var filter = searchInput.value.toLowerCase();
-      var options = fontSelect.getElementsByTagName('option');
-      for (var i = 0; i < options.length; i++) {
-        var option = options[i];
-        var text = option.textContent || option.innerText;
-        option.style.display = text.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
-      }
-    });
   });
 </script>
 
@@ -138,6 +139,3 @@
     line-height: 1.6;
   }
 </style>
-
-
-
