@@ -147,10 +147,9 @@
       ],
       "settings": {
         "quiz_title": "Find Your Perfect Product",
-        "h2_font_family": "black",
-        "h2_font_size": "3rem",
-        "h2_font_color": "black",
-        "h2_marg_top": "2rem",
+        "h2_font_size": 5,
+        "h2_font_color": "#151515",
+        "h2_marg_top": 2,
         "h2_marg_bot": "2rem",
         "quiz_btn": "Start Quiz",
         "quiz_btn_background_color": "#0000ff",
