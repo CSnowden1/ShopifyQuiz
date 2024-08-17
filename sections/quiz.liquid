@@ -299,8 +299,8 @@
   ],
   "presets": [
     {
-      "name": "Default",
-      "category": "Custom"
+      "name": "Custom Quiz",
+      "category": "Custom" 
     }
   ]
 }
@@ -330,29 +330,29 @@
 
 /* Button styling */
 .custom-quiz-btn {
-  background-color: {{ settings.quiz_btn_background_color | default: '#0000ff' }};
-  color: {{ settings.start_btn_text_color | default: '#ffffff' }};
-  padding: {{ settings.start_btn_padding | default: 10 | px }};
-  border-radius: {{ settings.start_btn_border_radius | default: 5 | px }};
-  font-size: {{ settings.button_font_size | default: 16 | px }};
-  font-family: {{ settings.font_family | default: 'sans-serif' }};
+  background-color: {{ settings.quiz_btn_background_color }};
+  color: {{ settings.start_btn_text_color }};
+  padding: {{ settings.start_btn_padding }};
+  border-radius: {{ settings.start_btn_border_radius  }};
+  font-size: {{ settings.button_font_size }};
+  font-family: {{ settings.font_family }};
 }
 
 /* Radio buttons styling */
 .custom-quiz-radio {
-  background-color: {{ settings.radio_background_color | default: '#ffffff' }};
-  border: 2px solid {{ settings.radio_border_color | default: '#000000' }};
-  width: {{ settings.radio_size | default: 20 | px }};
-  height: {{ settings.radio_size | default: 20 | px }};
-  border-radius: {{ settings.question_border_radius | default: 5 | px }};
+  background-color: {{ settings.radio_background_color  }};
+  border: 2px solid {{ settings.radio_border_color  }};
+  width: {{ settings.radio_size }};
+  height: {{ settings.radio_size }};
+  border-radius: {{ settings.question_border_radius  }};
 }
 
 /* Answer options styling */
 .custom-quiz-answer {
-  background-color: {{ settings.quiz_answer_background_color | default: '#f5f5f5' }};
-  color: {{ settings.quiz_answer_text_color | default: '#000000' }};
-  font-size: {{ settings.quiz_answer_font_size | default: 16 | px }};
-  border-radius: {{ settings.quiz_answer_border_radius | default: 5 | px }};
+  background-color: {{ settings.quiz_answer_background_color  }};
+  color: {{ settings.quiz_answer_text_color  }};
+  font-size: {{ settings.quiz_answer_font_size  }};
+  border-radius: {{ settings.quiz_answer_border_radius  }};
 }
 
 /* Button styling variations */
@@ -394,7 +394,7 @@
     {% for block in section.blocks %}
       {% if block.type == 'question' %}
         <div class="quiz-question" data-question-id="{{ forloop.index }}">
-          <h3>{{ block.settings.question_text }}</h3>
+          <p>{{ block.settings.question_text }}</p>
           <div class="quiz-answers">
             {% assign answers = "answer_1,answer_2,answer_3,answer_4,answer_5" | split: ',' %}
             <script>
