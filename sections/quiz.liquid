@@ -344,8 +344,8 @@
   .quiz-heading {
     font-size: {{ section.settings.h2_font_size }}rem;
     color: {{ section.settings.h2_font_color }};
-    margin-top: {{ section.settings.h2_marg_top }};
-    margin-bottom: {{ section.settings.h2_marg_bot | default: "2rem" }};
+    margin-top: {{ section.settings.h2_marg_top }}rem;
+    margin-bottom: {{ section.settings.h2_marg_bot }}rem;
   }
   
   .quiz-btn {
@@ -354,49 +354,50 @@
     padding: {{ section.settings.start_btn_padding }}rem;
     border-radius: {{ section.settings.start_btn_border_radius }}rem;
     font-family: {{ section.settings.font_family }};
-    font-size: {{ section.settings.font_size }}rem;
+    font-size: {{ section.settings.font_size }};
   }
   
   .question-input {
     border-radius: {{ section.settings.question_border_radius }}rem;
     background-color: {{ section.settings.radio_background_color }};
-    border: 1px solid {{ section.settings.radio_border_color }}rem;
+    border: 1px solid {{ section.settings.radio_border_color }};
     width: {{ section.settings.radio_size }}rem;
     height: {{ section.settings.radio_size }}rem;
   }
   
   .quiz-answer {
     color: {{ section.settings.quiz_answer_text_color }};
-    font-szie: {{ section.settings.quiz_answer_font_size }}rem;
+    font-size: {{ section.settings.quiz_answer_font_size }}rem;
     border-radius: {{ section.settings.quiz_answer_border_radius }}rem;
   }
-
+  
   #prev-question {
-    background-color: {{ section.settings.prev_btn_background_color | default: "#cccccc" }};
-    color: {{ section.settings.prev_btn_text_color | default: "#000000" }};
-    padding: {{ section.settings.prev_btn_padding | default: "10px 20px" }}rem;
-    border-radius: {{ section.settings.prev_btn_border_radius | default: "5px" }}re;
-    font-family: {{ section.settings.prev_btn_font_family | default: "Arial, sans-serif" }};
-    font-size: {{ section.settings.prev_btn_font_size | default: "16px" }};
+    background-color: {{ section.settings.prev_btn_background_color }};
+    color: {{ section.settings.prev_btn_text_color }};
+    padding: {{ section.settings.prev_btn_padding }}rem;
+    border-radius: {{ section.settings.prev_btn_border_radius }}rem;
+    font-family: {{ section.settings.prev_btn_font_family }};
+    font-size: {{ section.settings.prev_btn_font_size }};
   }
-
+  
   #submit-quiz {
-    background-color: {{ section.settings.submit_btn_background_color | default: "#00ff00" }};
-    color: {{ section.settings.submit_btn_text_color | default: "#ffffff" }};
-    padding: {{ section.settings.submit_btn_padding | default: "10px 20px" }};
-    border-radius: {{ section.settings.submit_btn_border_radius | default: "5px" }};
-    font-family: {{ section.settings.submit_btn_font_family | default: "Arial, sans-serif" }};
-    font-size: {{ section.settings.submit_btn_font_size | default: "16px" }};
+    background-color: {{ section.settings.submit_btn_background_color }};
+    color: {{ section.settings.submit_btn_text_color }};
+    padding: {{ section.settings.submit_btn_padding }}rem;
+    border-radius: {{ section.settings.submit_btn_border_radius }}rem;
+    font-family: {{ section.settings.submit_btn_font_family }};
+    font-size: {{ section.settings.submit_btn_font_size }};
   }
-
+  
   .reset-button {
-    background-color: {{ section.settings.reset_btn_background_color | default: "#ff0000" }};
-    color: {{ section.settings.reset_btn_text_color | default: "#ffffff" }};
-    padding: {{ section.settings.reset_btn_padding | default: "10px 20px" }};
-    border-radius: {{ section.settings.reset_btn_border_radius | default: "5px" }};
-    font-family: {{ section.settings.reset_btn_font_family | default: "Arial, sans-serif" }};
-    font-size: {{ section.settings.reset_btn_font_size | default: "16px" }};
+    background-color: {{ section.settings.reset_btn_background_color }};
+    color: {{ section.settings.reset_btn_text_color }};
+    padding: {{ section.settings.reset_btn_padding }}rem;
+    border-radius: {{ section.settings.reset_btn_border_radius }}rem;
+    font-family: {{ section.settings.reset_btn_font_family }};
+    font-size: {{ section.settings.reset_btn_font_size }};
   }
+  
 </style>
 
 
