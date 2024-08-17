@@ -314,18 +314,18 @@
 /* Container styling */
 /* Container styling */
 .custom-quiz-container {
-  padding: {{ settings.quiz_container_padding | default: 20 | px }};
-  border-radius: {{ settings.question_border_radius | default: 5 | px }};
-  background-color: {{ settings.quiz_answer_background_color | default: '#f5f5f5' }};
+  padding: {{ settings.quiz_container_padding }}rem;
+  border-radius: {{ settings.question_border_radius }}rem;
+  background-color: {{ settings.quiz_answer_background_color }};
 }
 
 /* Heading styling */
 .custom-quiz-heading {
-  font-size: calc(1rem + {{ settings.h2_font_size | default: 24 }}px);
-  color: {{ settings.h2_font_color | default: '#0000ff' }};
-  margin-top: {{ settings.h2_marg_top | default: 20 | px }};
-  margin-bottom: {{ settings.h2_marg_bot | default: 20 | px }};
-  font-family: {{ settings.font_family | default: 'sans-serif' }};
+  font-size: {{ settings.h2_font_size }}px;
+  color: {{ settings.h2_font_color }};
+  margin-top: {{ settings.h2_marg_top }}rem;
+  margin-bottom: {{ settings.h2_marg_bot }}rem;
+  font-family: {{ settings.font_family }};
 }
 
 /* Button styling */
