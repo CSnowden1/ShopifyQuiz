@@ -3,34 +3,64 @@
   "name": "Font Preview",
   "settings": [
     {
-      "type": "select",
-      "id": "default_font",
-      "label": "Default Font",
-      "options": [
-        { "value": "Arial", "label": "Arial" },
-        { "value": "Courier New", "label": "Courier New" },
-        { "value": "Georgia", "label": "Georgia" },
-        { "value": "Times New Roman", "label": "Times New Roman" },
-        { "value": "Verdana", "label": "Verdana" },
-        { "value": "Roboto", "label": "Roboto" },
-        { "value": "Open Sans", "label": "Open Sans" },
-        { "value": "Lato", "label": "Lato" },
-        { "value": "Montserrat", "label": "Montserrat" },
-        { "value": "Poppins", "label": "Poppins" },
-        { "value": "Raleway", "label": "Raleway" },
-        { "value": "Nunito", "label": "Nunito" },
-        { "value": "Oswald", "label": "Oswald" },
-        { "value": "PT Sans", "label": "PT Sans" },
-        { "value": "Merriweather", "label": "Merriweather" },
-        { "value": "Playfair Display", "label": "Playfair Display" },
-        { "value": "Droid Sans", "label": "Droid Sans" },
-        { "value": "Cabin", "label": "Cabin" },
-        { "value": "Source Sans Pro", "label": "Source Sans Pro" },
-        { "value": "Ubuntu", "label": "Ubuntu" },
-        { "value": "Quicksand", "label": "Quicksand" },
-        { "value": "Fira Sans", "label": "Fira Sans" }
-      ],
-      "default": "Arial"
+      "type": "checkbox",
+      "id": "font_arial",
+      "label": "Arial",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "font_courier_new",
+      "label": "Courier New",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "font_georgia",
+      "label": "Georgia",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "font_times_new_roman",
+      "label": "Times New Roman",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "font_verdana",
+      "label": "Verdana",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "font_roboto",
+      "label": "Roboto",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "font_open_sans",
+      "label": "Open Sans",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "font_lato",
+      "label": "Lato",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "font_montserrat",
+      "label": "Montserrat",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "font_poppins",
+      "label": "Poppins",
+      "default": true
     },
     {
       "type": "text",
@@ -77,17 +107,33 @@
   ]
 }
 {% endschema %}
-
 <div class="font-preview">
   <input type="text" id="fontInput" placeholder="Type your text here..." value="{{ settings.default_text }}" />
-  <input type="text" id="fontSearch" placeholder="Search fonts..." />
 
   <select id="fontSelect">
-    {% assign fonts = "Arial, Courier New, Georgia, Times New Roman, Verdana, Roboto, Open Sans, Lato, Montserrat, Poppins, Raleway, Nunito, Oswald, PT Sans, Merriweather, Playfair Display, Droid Sans, Cabin, Source Sans Pro, Ubuntu, Quicksand, Fira Sans" | split: ", " %}
+    {% assign fonts = "" | split: ", " %}
+    {% if settings.font_arial %} {% assign fonts = fonts | push: "Arial" %} {% endif %}
+    {% if settings.font_courier_new %} {% assign fonts = fonts | push: "Courier New" %} {% endif %}
+    {% if settings.font_georgia %} {% assign fonts = fonts | push: "Georgia" %} {% endif %}
+    {% if settings.font_times_new_roman %} {% assign fonts = fonts | push: "Times New Roman" %} {% endif %}
+    {% if settings.font_verdana %} {% assign fonts = fonts | push: "Verdana" %} {% endif %}
+    {% if settings.font_roboto %} {% assign fonts = fonts | push: "Roboto" %} {% endif %}
+    {% if settings.font_open_sans %} {% assign fonts = fonts | push: "Open Sans" %} {% endif %}
+    {% if settings.font_lato %} {% assign fonts = fonts | push: "Lato" %} {% endif %}
+    {% if settings.font_montserrat %} {% assign fonts = fonts | push: "Montserrat" %} {% endif %}
+    {% if settings.font_poppins %} {% assign fonts = fonts | push: "Poppins" %} {% endif %}
+
+    {% if settings.additional_font_1 != blank %} {% assign fonts = fonts | push: settings.additional_font_1 %} {% endif %}
+    {% if settings.additional_font_2 != blank %} {% assign fonts = fonts | push: settings.additional_font_2 %} {% endif %}
+    {% if settings.additional_font_3 != blank %} {% assign fonts = fonts | push: settings.additional_font_3 %} {% endif %}
+    {% if settings.additional_font_4 != blank %} {% assign fonts = fonts | push: settings.additional_font_4 %} {% endif %}
+    {% if settings.additional_font_5 != blank %} {% assign fonts = fonts | push: settings.additional_font_5 %} {% endif %}
+
     {% for font in fonts %}
       <option value="{{ font }}" {% if font == settings.default_font %}selected{% endif %}>{{ font }}</option>
     {% endfor %}
   </select>
+
   <div class="font-preview-box">
     <p id="previewText" style="font-family: {{ settings.default_font }};">
       {{ settings.default_text }}
@@ -132,42 +178,21 @@
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
   }
-
-  .font-preview input[type="text"],
-  .font-preview select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.2s ease-in-out;
-  }
-
-  .font-preview input[type="text"]:focus,
-  .font-preview select:focus {
-    border-color: #0073e6;
-    outline: none;
-  }
-
   .font-preview-box {
-    margin-top: 12px;
-    background-color: #fff;
+    margin-top: 20px;
+  }
+  #fontInput {
+    width: 100%;
     padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    min-height: 100px;
+    font-size: 16px;
   }
-
-  #fontSearch {
-    margin-bottom: 10px;
+  #fontSelect {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
   }
-
   #previewText {
     font-size: 20px;
-    line-height: 1.6;
   }
 </style>
