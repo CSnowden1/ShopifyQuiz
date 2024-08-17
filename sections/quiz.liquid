@@ -1,336 +1,318 @@
 {% schema %}
-  {
-    "name": "Custom Quiz",
-    "settings": [
-      {
-        "type": "text",
-        "id": "quiz_title",
-        "label": "Quiz Title",
-        "default": "Find Your Perfect Product"
-      },
-      {
-        "type": "range",
-        "id": "h2_font_size",
-        "label": "Heading Font Size",
-        "min": 1,
-        "max": 7,
-        "step": 1,
-        "default": 2
-      },
-      {
-        "type": "color",
-        "id": "h2_font_color",
-        "label": "Heading Font Color",
-        "default": "#0000ff"
-      },
-      {
-        "type": "range",
-        "id": "h2_marg_top",
-        "label": "Heading Margin Top",
-        "min": 1,
-        "max": 7,
-        "step": 1,
-        "default": 1
-      },
-      {
-        "type": "range",
-        "id": "h2_marg_bot",
-        "label": "Heading Margin Bottom",
-        "min": 1,
-        "max": 7,
-        "step": 1,
-        "default": 1
-      },
-      {
-        "type": "text",
-        "id": "quiz_btn",
-        "label": "Start Button",
-        "default": "Start Quiz"
-      },
-      {
-        "type": "color",
-        "id": "quiz_btn_background_color",
-        "label": "Start Button Background Color",
-        "default": "#0000ff"
-      },
-      {
-        "type": "color",
-        "id": "start_btn_text_color",
-        "label": "Start Button Text Color",
-        "default": "#ffffff"
-      },
-      {
-        "type": "range",
-        "id": "start_btn_padding",
-        "label": "Start Button Padding",
-        "min": 1,
-        "max": 7,
-        "step": 1,
-        "default": 1
-      },
-      {
-        "type": "range",
-        "id": "start_btn_border_radius",
-        "label": "Start Button Border Radius",
-        "min": 1,
-        "max": 7,
-        "step": 1,
-        "default": 1
-      },
-      {
-        "type": "font_picker",
-        "id": "font_family",
-        "label": "Heading font",
-        "default": "sans-serif"
-      },
-      {
-        "type": "color",
-        "id": "font_color",
-        "label": "Start Button Font Color",
-        "default": "#000000"
-      },
-      {
-        "type": "text",
-        "id": "font_size",
-        "label": "Start Button Font Size",
-        "default": "16px"
-      },
-      {
-        "type": "text",
-        "id": "question_border_radius",
-        "label": "Radios Border Radius",
-        "default": "1rem"
-      },
-      {
-        "type": "color",
-        "id": "radio_background_color",
-        "label": "Radio Background Color",
-        "default": "#ffffff"
-      },
-      {
-        "type": "color",
-        "id": "radio_border_color",
-        "label": "Radio Border Color",
-        "default": "#000000"
-      },
-      {
-        "type": "text",
-        "id": "radio_size",
-        "label": "Radio Size",
-        "default": "20px"
-      },
-      {
-        "type": "text",
-        "id": "quiz_container_padding",
-        "label": "Quiz Container Padding",
-        "default": "20px"
-      },
-      {
-        "type": "color",
-        "id": "quiz_answer_background_color",
-        "label": "Quiz Answer Background Color",
-        "default": "#f5f5f5"
-      },
-      {
-        "type": "color",
-        "id": "quiz_answer_text_color",
-        "label": "Quiz Answer Text Color",
-        "default": "#000000"
-      },
-      {
-        "type": "text",
-        "id": "quiz_answer_font_size",
-        "label": "Quiz Answer Padding",
-        "default": "10px 15px"
-      },
-      {
-        "type": "text",
-        "id": "quiz_answer_border_radius",
-        "label": "Quiz Answer Border Radius",
-        "default": "5px"
-      },
-      {
-        "type": "color",
-        "id": "prev_btn_background_color",
-        "label": "Previous Button Background Color",
-        "default": "#cccccc"
-      },
-      {
-        "type": "color",
-        "id": "prev_btn_text_color",
-        "label": "Previous Button Text Color",
-        "default": "#000000"
-      },
-      {
-        "type": "text",
-        "id": "prev_btn_padding",
-        "label": "Previous Button Padding",
-        "default": "10px 20px"
-      },
-      {
-        "type": "text",
-        "id": "prev_btn_border_radius",
-        "label": "Previous Button Border Radius",
-        "default": "5px"
-      },
-      {
-        "type": "text",
-        "id": "prev_btn_font_family",
-        "label": "Previous Button Font Family",
-        "default": "Arial, sans-serif"
-      },
-      {
-        "type": "text",
-        "id": "prev_btn_font_size",
-        "label": "Previous Button Font Size",
-        "default": "16px"
-      },
-      {
-        "type": "color",
-        "id": "submit_btn_background_color",
-        "label": "Submit Button Background Color",
-        "default": "#00ff00"
-      },
-      {
-        "type": "color",
-        "id": "submit_btn_text_color",
-        "label": "Submit Button Text Color",
-        "default": "#ffffff"
-      },
-      {
-        "type": "text",
-        "id": "submit_btn_padding",
-        "label": "Submit Button Padding",
-        "default": "10px 20px"
-      },
-      {
-        "type": "text",
-        "id": "submit_btn_border_radius",
-        "label": "Submit Button Border Radius",
-        "default": "5px"
-      },
-      {
-        "type": "text",
-        "id": "submit_btn_font_family",
-        "label": "Submit Button Font Family",
-        "default": "Arial, sans-serif"
-      },
-      {
-        "type": "text",
-        "id": "submit_btn_font_size",
-        "label": "Submit Button Font Size",
-        "default": "16px"
-      },
-      {
-        "type": "color",
-        "id": "reset_btn_background_color",
-        "label": "Reset Button Background Color",
-        "default": "#ff0000"
-      },
-      {
-        "type": "color",
-        "id": "reset_btn_text_color",
-        "label": "Reset Button Text Color",
-        "default": "#ffffff"
-      },
-      {
-        "type": "text",
-        "id": "reset_btn_padding",
-        "label": "Reset Button Padding",
-        "default": "10px 20px"
-      },
-      {
-        "type": "text",
-        "id": "reset_btn_border_radius",
-        "label": "Reset Button Border Radius",
-        "default": "5px"
-      },
-      {
-        "type": "text",
-        "id": "reset_btn_font_family",
-        "label": "Reset Button Font Family",
-        "default": "Arial, sans-serif"
-      },
-      {
-        "type": "text",
-        "id": "reset_btn_font_size",
-        "label": "Reset Button Font Size",
-        "default": "16px"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "question",
-        "name": "Question",
-        "settings": [
-          {
-            "type": "text",
-            "id": "question_text",
-            "label": "Question Text"
-          },
-          {
-            "type": "text",
-            "id": "answer_1",
-            "label": "Answer 1"
-          },
-          {
-            "type": "product_list",
-            "id": "recommended_products_1",
-            "label": "Recommended Products for Answer 1"
-          },
-          {
-            "type": "text",
-            "id": "answer_2",
-            "label": "Answer 2"
-          },
-          {
-            "type": "product_list",
-            "id": "recommended_products_2",
-            "label": "Recommended Products for Answer 2"
-          },
-          {
-            "type": "text",
-            "id": "answer_3",
-            "label": "Answer 3"
-          },
-          {
-            "type": "product_list",
-            "id": "recommended_products_3",
-            "label": "Recommended Products for Answer 3"
-          },
-          {
-            "type": "text",
-            "id": "answer_4",
-            "label": "Answer 4"
-          },
-          {
-            "type": "product_list",
-            "id": "recommended_products_4",
-            "label": "Recommended Products for Answer 4"
-          },
-          {
-            "type": "text",
-            "id": "answer_5",
-            "label": "Answer 5"
-          },
-          {
-            "type": "product_list",
-            "id": "recommended_products_5",
-            "label": "Recommended Products for Answer 5"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Custom Quiz",
-        "category": "Custom"
-      }
-    ]
-  }
+{
+  "name": "Custom Quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "quiz_title",
+      "label": "Quiz Title",
+      "default": "Find Your Perfect Product"
+    },
+    {
+      "type": "range",
+      "id": "h2_font_size",
+      "label": "Heading Font Size",
+      "min": 1,
+      "max": 7,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "h2_font_color",
+      "label": "Heading Font Color",
+      "default": "#0000ff"
+    },
+    {
+      "type": "range",
+      "id": "h2_marg_top",
+      "label": "Heading Margin Top",
+      "min": 1,
+      "max": 7,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "h2_marg_bot",
+      "label": "Heading Margin Bottom",
+      "min": 1,
+      "max": 7,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "quiz_btn",
+      "label": "Start Button",
+      "default": "Start Quiz"
+    },
+    {
+      "type": "color",
+      "id": "quiz_btn_background_color",
+      "label": "Start Button Background Color",
+      "default": "#0000ff"
+    },
+    {
+      "type": "color",
+      "id": "start_btn_text_color",
+      "label": "Start Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "start_btn_padding",
+      "label": "Start Button Padding",
+      "min": 1,
+      "max": 7,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "start_btn_border_radius",
+      "label": "Start Button Border Radius",
+      "min": 1,
+      "max": 7,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Heading Font",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "font_size",
+      "label": "Start Button Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "text",
+      "id": "question_border_radius",
+      "label": "Radios Border Radius",
+      "default": "1rem"
+    },
+    {
+      "type": "color",
+      "id": "radio_background_color",
+      "label": "Radio Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "radio_border_color",
+      "label": "Radio Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "radio_size",
+      "label": "Radio Size",
+      "default": "20px"
+    },
+    {
+      "type": "text",
+      "id": "quiz_container_padding",
+      "label": "Quiz Container Padding",
+      "default": "20px"
+    },
+    {
+      "type": "color",
+      "id": "quiz_answer_background_color",
+      "label": "Quiz Answer Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "quiz_answer_text_color",
+      "label": "Quiz Answer Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "quiz_answer_font_size",
+      "label": "Quiz Answer Font Size",
+      "default": "1rem"
+    },
+    {
+      "type": "text",
+      "id": "quiz_answer_border_radius",
+      "label": "Quiz Answer Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "color",
+      "id": "prev_btn_background_color",
+      "label": "Previous Button Background Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "prev_btn_text_color",
+      "label": "Previous Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_padding",
+      "label": "Previous Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_border_radius",
+      "label": "Previous Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_font_family",
+      "label": "Previous Button Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "text",
+      "id": "prev_btn_font_size",
+      "label": "Previous Button Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "color",
+      "id": "submit_btn_background_color",
+      "label": "Submit Button Background Color",
+      "default": "#00ff00"
+    },
+    {
+      "type": "color",
+      "id": "submit_btn_text_color",
+      "label": "Submit Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_padding",
+      "label": "Submit Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_border_radius",
+      "label": "Submit Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_font_family",
+      "label": "Submit Button Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_font_size",
+      "label": "Submit Button Font Size",
+      "default": "16px"
+    },
+    {
+      "type": "color",
+      "id": "reset_btn_background_color",
+      "label": "Reset Button Background Color",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "reset_btn_text_color",
+      "label": "Reset Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_padding",
+      "label": "Reset Button Padding",
+      "default": "10px 20px"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_border_radius",
+      "label": "Reset Button Border Radius",
+      "default": "5px"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_font_family",
+      "label": "Reset Button Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "text",
+      "id": "reset_btn_font_size",
+      "label": "Reset Button Font Size",
+      "default": "16px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question_text",
+          "label": "Question Text"
+        },
+        {
+          "type": "text",
+          "id": "answer_1",
+          "label": "Answer 1"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_1",
+          "label": "Recommended Products for Answer 1"
+        },
+        {
+          "type": "text",
+          "id": "answer_2",
+          "label": "Answer 2"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_2",
+          "label": "Recommended Products for Answer 2"
+        },
+        {
+          "type": "text",
+          "id": "answer_3",
+          "label": "Answer 3"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_3",
+          "label": "Recommended Products for Answer 3"
+        },
+        {
+          "type": "text",
+          "id": "answer_4",
+          "label": "Answer 4"
+        },
+        {
+          "type": "product_list",
+          "id": "recommended_products_4",
+          "label": "Recommended Products for Answer 4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Quiz",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
-
-
 
 
 
