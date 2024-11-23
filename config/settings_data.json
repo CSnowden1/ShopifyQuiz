@@ -1,15 +1,15 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "logo": "shopify:\/\/shop_images\/FryerNova.png",
+    "logo": "shopify://shop_images/FryerNova.png",
     "logo_width": 90,
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
@@ -107,7 +107,7 @@
     "sale_badge_color_scheme": "scheme-4",
     "sold_out_badge_color_scheme": "scheme-3",
     "brand_headline": "",
-    "brand_description": "<p><\/p>",
+    "brand_description": "<p></p>",
     "brand_image_width": 100,
     "social_facebook_link": "",
     "social_instagram_link": "",
@@ -141,9 +141,19 @@
         }
       }
     },
-    "content_for_index": [
-
-    ],
+    "content_for_index": [],
+    "blocks": {
+      "12107416968155278870": {
+        "type": "shopify://apps/paywhirl-subscriptions/blocks/paywhirl-customer-portal/41e95d60-82cf-46e8-84de-618d7e4c37b7",
+        "disabled": false,
+        "settings": {
+          "show_subscriptions_link": false,
+          "show_customer_login_note": false,
+          "show_address_change_note": false,
+          "container_selector": "main"
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
@@ -358,7 +368,7 @@
       "sale_badge_color_scheme": "scheme-4",
       "sold_out_badge_color_scheme": "scheme-3",
       "brand_headline": "",
-      "brand_description": "<p><\/p>",
+      "brand_description": "<p></p>",
       "brand_image_width": 100,
       "social_twitter_link": "",
       "social_facebook_link": "",
